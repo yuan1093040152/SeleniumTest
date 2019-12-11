@@ -20,7 +20,7 @@ def tianqi():
 
     delete()
 
-    with open('D:\\test\\weather.txt', 'a') as f:
+    with open('E:\\test\\weather.txt', 'a') as f:
         f.write(u'亲，以下是未来一周的天气，查收哦 ~' + '\n\n')
 
         soup = city_url(url)
@@ -67,7 +67,7 @@ def tianqi():
 
 # 清空文件内容
 def delete():
-    with open('D:\\test\\weather.txt', 'r+') as f:
+    with open('E:\\test\\weather.txt', 'r+') as f:
         read = f.read()
         f.seek(0)
         f.truncate()
@@ -76,7 +76,7 @@ def delete():
 
 #读取文件信息
 def txt_info():
-     with open('D:\\test\\weather.txt','r') as f:
+     with open('E:\\test\\weather.txt','r') as f:
          txt_info1 = f.read()
          # print (txt_info1)
          return txt_info1
