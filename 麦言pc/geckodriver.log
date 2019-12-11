@@ -1,0 +1,53 @@
+1511332257599	geckodriver	INFO	geckodriver 0.18.0
+1511332257617	geckodriver	INFO	Listening on 127.0.0.1:21193
+1511332258186	geckodriver::marionette	INFO	Starting browser C:\Program Files\Firefox\firefox.exe with args ["-marionette"]
+1511332258787	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///C:/Program%20Files/Firefox/omni.ja!/components/addonManager.js:65
+1511332259400	Marionette	INFO	Enabled via --marionette
+[Child 10020] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10020] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1511332262334	Marionette	INFO	Listening on port 21197
+1511332262392	Marionette	WARN	TLS certificate errors will be ignored for this session
+1511332262458	Marionette	DEBUG	Register listener.js for window 4294967297
+1511332262553	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1511332262805	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1511332262806	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+JavaScript error: http://alexa.chinaz.com/js/alexa_chinaz.aspx?F=20&D=http://alexa.chinaz.com&I=alexa_input&S=alexa_submit&W=%E6%8E%92%E5%90%8D%E6%9F%A5%E8%AF%A2, line 3: SyntaxError: expected expression, got '<'
+1511332264937	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.maiyanx.com/"
+1511332265735	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "4294967297"
+1511332265755	addons.productaddons	WARN	Failed downloading via XHR, status: 0, reason: error
+[Child 13236] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13236] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+[Child 12332] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+[GPU 12112] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1513048698625	geckodriver	INFO	geckodriver 0.18.0
+1513048698642	geckodriver	INFO	Listening on 127.0.0.1:11276
+1513048699198	geckodriver::marionette	INFO	Starting browser C:\Program Files\Firefox\firefox.exe with args ["-marionette"]
+1513048699935	Marionette	INFO	Enabled via --marionette
+[Child 10004, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10004, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1513048702777	Marionette	INFO	Listening on port 11280
+1513048702846	Marionette	WARN	TLS certificate errors will be ignored for this session
+1513048702940	Marionette	DEBUG	Register listener.js for window 4294967297
+1513048703004	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1513048703289	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1513048703289	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+JavaScript error: http://alexa.chinaz.com/js/alexa_chinaz.aspx?F=20&D=http://alexa.chinaz.com&I=alexa_input&S=alexa_submit&W=%E6%8E%92%E5%90%8D%E6%9F%A5%E8%AF%A2, line 3: SyntaxError: expected expression, got '<'
+1513048703919	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.maiyanx.com/"
+1513048705169	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.maiyanx.com/"
+[Child 9332, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 9332, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+console.warn: LoginRecipes: getRecipes: falling back to a synchronous message for: http://www.maiyanx.com
+[Parent 9132, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10204, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10204, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 5168, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 5168, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 8556, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+

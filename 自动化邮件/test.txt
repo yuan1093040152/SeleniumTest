@@ -1,0 +1,55 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<body>
+<div id="container">
+<p>测试程序邮件发送:</p>
+<div id="content">
+<table  border="2">
+<tr>
+  <td width="100" align="center">执行开始时间</td>
+  <td width="100" align="center">strattime</td>
+  <td width="100" align="center">执行结束时间</td>
+  <td width="100" align="center">endtime</td>
+</tr>
+<tr>
+  <td width="100" align="center">耗时（秒）</td>
+  <td width="100" align="center">executionTime</td>
+  <td width="100" align="center"></td>
+  <td width="100" align="center"></td>
+</tr>
+<tr>
+  <td width="100" align="center">用例总数</td>
+  <td width="100" align="center">listSum</td>
+  <td width="100" align="center"></td>
+  <td width="100" align="center"></td>
+</tr>
+<tr>
+  <td width="100" align="center">用例初始成功数</td>
+  <td width="100" align="center">passSum</td>
+  <td width="100" align="center">用例初始成功率</td>
+  <td width="100" align="center">Pass</td>
+</tr>
+<tr>
+  <td width="100" align="center">用例初始失败数</td>
+  <td width="100" align="center">fillSum</td>
+  <td width="100" align="center">用例初始失败率</td>
+  <td width="100" align="center">Fill</td>
+</tr>
+<tr>
+  <td width="100" align="center">用例重跑成功数</td>
+  <td width="100" align="center">passAllSum</td>
+  <td width="100" align="center">用例重跑成功率</td>
+  <td width="100" align="center">startPass</td>
+</tr>
+<tr>
+  <td width="100" align="center">用例重跑失败数</td>
+  <td width="100" align="center">startFillSum</td>
+  <td width="100" align="center">用例重跑失败率</td>
+  <td width="100" align="center">startFill</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>

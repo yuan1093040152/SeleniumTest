@@ -1,0 +1,16 @@
+#coding=utf-8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+a= u'\xe7\xac\xac\xe4\xb8\x80\xe7\xab\xa0 \xe8\xbf\x99\xe4\xb8\xaa\xe4\xbb\x99\xe4\xba\xba\xe4\xb8\xba\xe4\xbd\x95\xe8\xbf\x99\xe4\xb9\x88\xe9\xab\x98\xe5\x85\xb4'  #把编码放在‘’里面，可以输出中文
+b = a.encode('raw_unicode_escape')
+
+
+print (b)
+
+# casfasf = b.decode()
+# print (casfasf)
+
+d = u'\u4fee\u7684'
+# d = u'b'
+print (d)

@@ -1,0 +1,36 @@
+1521704319391	geckodriver	INFO	geckodriver 0.18.0
+1521704319399	geckodriver	INFO	Listening on 127.0.0.1:62950
+1521704322498	geckodriver::marionette	INFO	Starting browser E:\Program Files\Mozilla Firefox\firefox.exe with args ["-marionette"]
+1521704325038	Marionette	INFO	Enabled via --marionette
+1521704328576	Marionette	INFO	Listening on port 62960
+1521704328832	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/plugins/every_cookie_4644b13.js, line 4: ReferenceError: c is not defined
+JavaScript error: https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=sele&json=1&p=3&sid=1457_19034_21104_26028&req=2&csor=4&pwd=sel&cb=jQuery1102032789366053336955_1521704329506&_=1521704329511, line 1: TypeError: jQuery1102032789366053336955_1521704329506 is not a function
+JavaScript error: https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=sel&json=1&p=3&sid=1457_19034_21104_26028&req=2&csor=3&pwd=se&cb=jQuery1102032789366053336955_1521704329506&_=1521704329510, line 1: TypeError: jQuery1102032789366053336955_1521704329506 is not a function
+JavaScript error: https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=selen&json=1&p=3&sid=1457_19034_21104_26028&req=2&csor=5&pwd=sele&cb=jQuery1102032789366053336955_1521704329506&_=1521704329512, line 1: TypeError: jQuery1102032789366053336955_1521704329506 is not a function
+JavaScript error: https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=seleni&json=1&p=3&sid=1457_19034_21104_26028&req=2&csor=6&pwd=selen&cb=jQuery1102032789366053336955_1521704329506&_=1521704329513, line 1: TypeError: jQuery1102032789366053336955_1521704329506 is not a function
+JavaScript error: https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=selenium&json=1&p=3&sid=1457_19034_21104_26028&req=2&csor=8&pwd=seleniu&cb=jQuery1102032789366053336955_1521704329506&_=1521704329515, line 1: TypeError: jQuery1102032789366053336955_1521704329506 is not a function
+JavaScript error: https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=seleniu&json=1&p=3&sid=1457_19034_21104_26028&req=2&csor=7&pwd=seleni&cb=jQuery1102032789366053336955_1521704329506&_=1521704329514, line 1: TypeError: jQuery1102032789366053336955_1521704329506 is not a function
+[Parent 13568, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13840, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13840, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13964, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 13964, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 12732, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+able to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+55682	Marionette	INFO	Enabled via --marionette
+[7696, Chrome_ChildThread] WARNING: failed to create pipe: 5: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 221
+[7696, Chrome_ChildThread] WARNING: Unable to create pipe named "8724.0.334179871\244117748" in client mode.: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 59
+[8728, Chrome_ChildThread] WARNING: failed to create pipe: 5: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 221
+[8728, Chrome_ChildThread] WARNING: Unable to create pipe named "8724.6.1982317441\519960195" in client mode.: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 59
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFFF8,name=<unknown IPC msg name>) Closed channel: cannot send/recv
+
+[4640, Chrome_ChildThread] WARNING: failed to create pipe: 5: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 221
+[4640, Chrome_ChildThread] WARNING: Unable to create pipe named "8724.12.545414278\1662519575" in client mode.: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 59
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFFF8,name=<unknown IPC msg name>) Closed channel: cannot send/recv
+
+1521170828148	Marionette	INFO	Listening on port 10246
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
