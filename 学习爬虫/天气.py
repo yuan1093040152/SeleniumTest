@@ -104,7 +104,7 @@ def Email():
         print ("邮件发送成功")
     except smtplib.SMTPException as e:
         print (e)
-        print ("Error: 无法发送邮件")
+        print ("Error: 无法发送邮件1")
 
 
 
