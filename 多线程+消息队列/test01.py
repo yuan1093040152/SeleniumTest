@@ -19,27 +19,43 @@ from queue import Queue
 
 
 
-
-
-def target(q):
-    while True:
-        msg = q.get()
-        for i in range(5):
-            print ('running thread-{}:{}'.format(threading.get_ident(), i))
-            time.sleep(1)
-
 def pool(workers,queue):
     for n in range(workers):
         t = threading.Thread(target=target, args=(queue,))
-        t.daemon = True
+        t.daemon = True    # 设置线程是否随主线程退出而退出，默认为False
         t.start()
 
-queue = Queue()
-# 创建一个线程池：并设置线程数为5
-pool(5, queue)
 
-for i in range(2):
-    queue.put("start")
+def target(a):
+    # while True:
+    msg = a.get()      #循环消费
+    for i in range(3):
+        print (str(msg)+'\n')
+        time.sleep(1)
+    # for i in range(5):
+    #     print ('running thread-{}:{}'.format(msg,i))
+    #     time.sleep(1)
+
+
+
+#创建队列-先进先出
+queue = queue.Queue()
+
+
+for i in range(10):
+    queue.put(i)    #循环存入队列
+
+
+# 创建一个线程池：并设置线程数为5
+pool(5,queue)
+
+
 
 # 消息都被消费才能结束
 queue.join()
+
+
+#创建5个线程来读取queue存入的10个数，并消费3遍
+
+
+
