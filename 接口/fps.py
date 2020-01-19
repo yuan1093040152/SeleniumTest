@@ -4,7 +4,7 @@ import os
 import time
 counter =10
 #通过包名与activity名，获取帧数（查看之前记得滑动APP界面，以便获取数据）
-content = os.popen("adb -s f4cec8c5 shell dumpsys gfxinfo  com.jjshome.oa")
+content = os.popen("adb -s 5f95c93a shell dumpsys gfxinfo  com.jjshome.optionalexam")
 #读取行数
 data = content.readlines()
 print data

@@ -16,8 +16,8 @@ sql = "SELECT emp_number,emp_name FROM hr.sys_emp WHERE emp_number = '01000098';
 
 value = mysql(sql)
 print (value)
-new=json.dumps(value,ensure_ascii=False)    #Unicode编码转换成中文
-print (new)
+# new=json.dumps(value,ensure_ascii=False)    #Unicode编码转换成中文
+# print (new)
 emp_number = (value[0][0])
 print (emp_number)
 
