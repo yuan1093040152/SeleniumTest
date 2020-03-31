@@ -1,34 +1,44 @@
 
 #coding=utf-8
+
 from bs4 import BeautifulSoup
-import requests,urllib,time,random,bs4,re
-from xlutils.copy import copy 
+import requests,urllib,time,random,bs4,re,sys
+from xlutils.copy import copy
 import xlrd,xlwt
+
+
 
 def Reptilian(test,page):
 	a = 0
 	for x in range(1,page):
-		
+
 		url = 'https://www.zhipin.com/c101280600/?query='+test+'&page=%s&ka=page-2'%x
+
 		print (u'正在爬取第'+str(x)+u'页：')+url
 
-		headers = { 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'}  
-		start_html = requests.get(url,headers=headers) 
+		headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'}
+		start_html = requests.get(url,headers=headers)
+		start_html.encoding = 'UTF-8'
 		demo = start_html.text
-		# print (demo)
+		print ('11111111111111111111111111111111')
+		print (type(demo))
+		print (demo)
 		soup = BeautifulSoup(demo,'lxml')
+		print ('33333333333333333333333333333')
+		print (soup)
 		test1 = soup.find_all('a',href=re.compile(r'/job_detail(.*).html'))
-		# print (test1)
+		print ('22222222222222222222222222')
+		print (test1)
 		d =a + 1
-		for link in test1:	
+		for link in test1:
 			time.sleep(5)
 			links = link['href']
 			links1 = 'https://www.zhipin.com'
 			link_all = links1+links
 			print (link_all)
 
-			headers = { 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'}  
-			start_html = requests.get(link_all,headers=headers) 
+			headers = { 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'}
+			start_html = requests.get(link_all,headers=headers)
 			demo = start_html.text
 			# print (demo)
 
@@ -89,7 +99,7 @@ def Reptilian(test,page):
 			ws = old_excel.get_sheet(0)
 			# 写入数据
 			# 第二行第十一列（注：0为第一行/列）
-			
+
 			ws.write(d, 0, test02)
 			ws.write(d, 1, test04)
 			ws.write(d, 2, test06)
@@ -103,12 +113,12 @@ def Reptilian(test,page):
 			old_excel.save(file)
 			d = d+1
 		a  = a+30
-			
+
 def main():
 	try:
 		a = 0
 		test = u'自动化测试' #输入要爬取的岗位
-		page = 10                #输入爬取的页数
+		page = 2               #输入爬取的页数
 		Reptilian(test,page)
 	except :
 		pass
