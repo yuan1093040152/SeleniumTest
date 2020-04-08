@@ -48,6 +48,7 @@ def Epidemic_situation_abroad():
     # print(len(index3))
     # print(index3)
     print('疫情最新数据时间：  ', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))+ '\n')
+    #倒序遍历
     for i in range(len(index3)-1,-1,-1):
         region = (index3[i])
         #疫情地区
