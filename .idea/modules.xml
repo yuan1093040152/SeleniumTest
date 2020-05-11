@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://E:/Work/.idea/Work.iml" filepath="E:/Work/.idea/Work.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/selenium笔记.iml" filepath="$PROJECT_DIR$/.idea/selenium笔记.iml" />
-      <module fileurl="file://E:/untitled1/.idea/untitled1.iml" filepath="E:/untitled1/.idea/untitled1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SeleniumTest.iml" filepath="$PROJECT_DIR$/.idea/SeleniumTest.iml" />
     </modules>
   </component>
 </project>
