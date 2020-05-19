@@ -48,11 +48,11 @@ def Domestic_epidemic(db,cursor):
         # print('疫情地区:%s      今日新增:%s 人      现有病例:%s 人      累计病例:%s 人      治愈病例:%s 人      死亡病例:%s 人'%(city,new_add,Existing,Cumulative,Cure,death))
 
         try:
-            create_sql = "INSERT INTO xgfy_xgfy_sql(country,nationality,new_add,Existing,Cumulative,Cure,death,creat_time) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');" % (city, '1', new_add, Existing, Cumulative, Cure, death, create_time)
+            create_sql = "INSERT INTO XGFY_xgfy_sql(country,nationality,new_add,Existing,Cumulative,Cure,death,creat_time) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');" % (city, '1', new_add, Existing, Cumulative, Cure, death, create_time)
             cursor.execute(create_sql)
         except:
             #pass
-            create_sql = "INSERT INTO xgfy_xgfy_sql(country,nationality,new_add,Existing,Cumulative,Cure,death,creat_time) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');" % (city, '1', '0', Existing, Cumulative, Cure, death, create_time)
+            create_sql = "INSERT INTO XGFY_xgfy_sql(country,nationality,new_add,Existing,Cumulative,Cure,death,creat_time) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');" % (city, '1', '0', Existing, Cumulative, Cure, death, create_time)
             cursor.execute(create_sql)
         print ('已插入数据')
         db.commit()
@@ -89,10 +89,10 @@ def Epidemic_situation_abroad(db,cursor):
         print('疫情地区:%s      今日新增:%s 人      现有病例:%s 人      累计病例:%s 人      治愈病例:%s 人      死亡病例:%s 人'%(city,new_add,Existing,Cumulative,Cure,death))
 
         try:
-            create_sql = "INSERT INTO xgfy_xgfy_sql(country,nationality,new_add,Existing,Cumulative,Cure,death,creat_time) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');" % (city, '2', new_add, Existing, Cumulative, Cure, death, create_time)
+            create_sql = "INSERT INTO XGFY_xgfy_sql(country,nationality,new_add,Existing,Cumulative,Cure,death,creat_time) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');" % (city, '2', new_add, Existing, Cumulative, Cure, death, create_time)
             cursor.execute(create_sql)
         except:
-            create_sql = "INSERT INTO xgfy_xgfy_sql(country,nationality,new_add,Existing,Cumulative,Cure,death,creat_time) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');" % (city, '2', '0', Existing, Cumulative, Cure, death, create_time)
+            create_sql = "INSERT INTO XGFY_xgfy_sql(country,nationality,new_add,Existing,Cumulative,Cure,death,creat_time) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');" % (city, '2', '0', Existing, Cumulative, Cure, death, create_time)
             cursor.execute(create_sql)
 
 
@@ -105,15 +105,15 @@ if __name__ == '__main__':
     url = 'https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_3#tab4'
 
     # 打开数据库连接
-    db = pymysql.connect("localhost", "root", "admintest", "djangotest")
+    db = pymysql.connect("106.53.207.212", "root", "admintest", "djangotest")
 
     # 使用cursor()方法获取操作游标
     cursor = db.cursor()
 
     # 国内
-    #Domestic_epidemic(db,cursor)
+    Domestic_epidemic(db,cursor)
     #国外
-    Epidemic_situation_abroad(db,cursor)
+    #Epidemic_situation_abroad(db,cursor)
 
 
 
