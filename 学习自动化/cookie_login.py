@@ -1,15 +1,21 @@
 #coding=utf-8
 from selenium import webdriver
 import time,requests,json,datetime
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+import sys,importlib
+
+importlib.reload(sys)
+# reload(sys)
+# sys.setdefaultencoding('utf8')
 
 url = "https://coa.leyoujia.com/aicp/mainremote"
 #测试营销副总裁
-username = 'h4p493780rKv'
-password = '03d25b3dc4f4a37fc9ceb5baa455d594'
-emp_no = '087394'
+# username = 'h4p493780rKv'
+# password = '03d25b3dc4f4a37fc9ceb5baa455d594'
+# emp_no = '087394'
+username = '袁猛'
+username = username.encode('utf-8')
+password = 'mm711232'
+emp_no = '252613'
 
 data = "msgBody=%7B%22imei%22%3A%22pcMac-6C0B84A472DD%22%2C%22mac%22%3A%226C0B84A472DD%2C005056C00001%2C005056C00008%2C3035323042363737313642304135434620202020%2C204153594EFF%2C%22%2C%22" \
        "lat%22%3A0%2C%22lng%22%3A0%2C%22ipStr%22%3A%22172.16.5.15%22%2C%22loginAddr%22%3A%22%22%2C%22username%22%3A%22"+str(username)+"%22%2C%22password%22%3A%22"\
