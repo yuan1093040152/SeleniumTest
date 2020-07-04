@@ -3,6 +3,9 @@ import requests,sys,smtplib,urllib3,json,time,pymysql
 from bs4 import BeautifulSoup
 from email.mime.text import MIMEText
 urllib3.disable_warnings()
+# import sys
+# reload(sys)
+# sys.setdefaultencoding( "utf-8" )
 
 
 def city_url(url):
@@ -73,7 +76,7 @@ if __name__ == '__main__':
     # 国内
     Domestic_epidemic()
     #国外
-    #Epidemic_situation_abroad()
+    Epidemic_situation_abroad()
 
 
 

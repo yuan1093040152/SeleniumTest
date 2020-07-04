@@ -11,10 +11,10 @@ def cdubbo(Host,Port,interface,method,params):
         conn.set_encoding('gbk')
         # 显示服务列表
         # print "打印服务列表名："
-        # print conn.do("ls")
-        # 显示指定服务的方法列表
-        # print "打印方法名："
-        # print conn.do("ls %s"%(interface))
+        # print (conn.do("ls"))
+        # # 显示指定服务的方法列表
+        # # print "打印方法名："
+        # print (conn.do("ls %s"%(interface)))
         conn.invoke(interface,method,params)
         # print (param)
         result = 'invoke %s.%s(%s)'%(interface,method,params)
@@ -23,21 +23,21 @@ def cdubbo(Host,Port,interface,method,params):
     except:
         return Exception
 if __name__ == '__main__':
-    Host = '192.168.3.47' # Doubble服务器IP
-    Port = '34889'  # Doubble服务端口
-    interface = 'com.erp.remote.main.dubbo.service.ISskService'#'com.erp.remote.service.IHappyFundService'
+    Host = '172.16.7.47' # Doubble服务器提供者IP
+    Port = '28364'  # Doubble服务提供者端口
+    interface = 'com.erp.remote.cs.ICustomerRemoteService'#'com.erp.remote.service.IHappyFundService'
    
-    method = 'findRzqdByWorkerId'
+    method = 'lockCustomer'
     param = {}
-    param['workerId'] = '01010619'
-    # param['money'] = '20'
-    # param['desc'] = '123456'
-    # param['zrWorkerId'] = '01010528'
-    param['roleId'] = '80'
+    param['csTel'] = '1818181'
+    param['customerId'] = '26b7dded-1dd0-43d2-b9f9-1744947d8b58'
+    param['remark'] = '123456'
+    param['channel'] = '4'
+    # param['roleId'] = '80'
     print  (param)
     params = json.dumps(param)
     print (params)
     data = cdubbo(Host, Port, interface, method, params)
     print (data)
-    print (u'\u53c2\u6570\u4e0d\u5b8c\u6574')
+    
 

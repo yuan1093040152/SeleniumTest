@@ -1,11 +1,15 @@
 #coding=utf-8
 from bs4 import BeautifulSoup
 import requests,time,bs4,re
-#解决编码格式无法识别
-import sys
+#python2  解决编码格式无法识别
+# import sys
+# reload(sys)
+# sys.setdefaultencoding( "utf-8" )
 
 
-url = 'http://www.biquku.la/16/16889/'
+
+
+url = 'http://www.biquku.la/26/26028/'
 # url = 'http://www.biquku.la/16/16532/'
 headers = { 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'}  
 start_html = requests.get(url,headers=headers) 
@@ -55,7 +59,9 @@ for link in list1:
 	# print (text)
 
 	# 下面这样写可以防止被覆盖
-	with open('E:\\test\\3.txt','a') as f:
+	# with open('E:\\test\\3.txt', 'a') as f:
+	#python3 指定编码格式
+	with open('E:\\test\\3.txt','a',encoding='utf-8') as f:
 		#换行符
 		f.write('\n'+title1+'\n')
 		f.write(text)

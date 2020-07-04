@@ -1,9 +1,8 @@
 #coding=utf-8
-import requests,json,time,sys,smtplib
+import requests,json,time,sys,smtplib,urllib3
 from email.mime.text import MIMEText
 from selenium import webdriver
-reload(sys)
-sys.setdefaultencoding( "utf-8" )
+urllib3.disable_warnings()
 
 #获取登录cookie
 url = "https://coa.leyoujia.com/aicp/mainremote"
@@ -25,6 +24,7 @@ headers = {
     'postman-token': "76b0a19f-9a6c-2816-1854-79a496017d54"
     }
 headers['token']=token
+aa = payload.encode('utf-8')
 response = requests.request("POST", url, data=payload, headers=headers)
 a = json.loads(response.text)
 print (a)

@@ -5,7 +5,8 @@ import threading
 from tqdm import tqdm,trange
 
 def function11(all_url):
-	headers = { 'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}  
+	headers = { 'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'}  
+	                         
 	start_html = requests.get(all_url,headers=headers) 
 	demo = start_html.text
 	soup = BeautifulSoup(demo,'lxml')
