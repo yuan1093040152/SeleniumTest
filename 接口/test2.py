@@ -26,30 +26,6 @@ print (token)
 
 
 
-appName:pc-im
-Content-Type:application/x-www-form-urlencoded; charset=UTF-8
-deptName:%25E6%25B5%258B%25E8%25AF%2595%25E9%2583%25A8
-deptNumber:5501462
-empName:%25E8%25A2%2581%25E7%258C%259B
-empNo:252613
-empNumber:06045224
-imei:pcMac-6C0B84A472DD
-methodCode:50001
-Origin:app://im.leyoujia.com
-serviceCode:40002
-token:e86e8f39b18701ffa98eff89c7ae0595
-
-
-
-msgBody:{"groupName":"袁猛 (测试部)等人","workerNos":"252613,203228,330813","owner":"252613","workerId":"06045224","imei":"pcMac-6C0B84A472DD"}
-
-https://coa.leyoujia.com/aicp/mainremote
-
-
-
-
-import requests
-
 url = "https://coa.leyoujia.com/aicp/mainremote"
 
 payload = "serviceCode=40002&methodCode=50001&msgBody=%7B%22groupName%22%3A%22%E8%A2%81%E7%8C%9B%20(%E6%B5%8B%E8%AF%95%E9%83%A8)%E7%AD%89666%22%2C%22workerNos%22%3A%22252613%2C203228%22%2C%22owner%22%3A%22252613%22%2C%22workerId%22%3A%2206045224%22%2C%22imei%22%3A%22pcMac-6C0B84A472DD%22%7D"
