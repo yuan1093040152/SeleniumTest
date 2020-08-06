@@ -156,14 +156,15 @@ def CJ_list(empno,url,empnumber,name,url2):
 
 #发送邮件函数
 def Email(rs_time):
-
-    content = u'成交列表响应时间为%s秒，请通知开发及时处理'%rs_time
+    response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    print(response_time)
+    content = response_time+u'    成交列表响应时间为%s秒，请通知开发及时处理'%rs_time
 # 第三方 SMTP 服务
     mail_host="smtp.qq.com" #设置服务器
     mail_user="1093040152@qq.com" #用户名
     mail_pass="wcmynglgfomygecd" # QQ邮箱登录的授权码
     # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>','齐红宁<qhn@leyoujia.com>','石进<shij@leyoujia.com>']
-    receivers =['袁猛<1093040152@qq.com>']
+    receivers =['袁猛<1093040152@qq.com>','周进玲<1827973168@qq.com>','李良<1551023261@qq.com>','左超<97275389@qq.com>','谢银艳<173580375@qq.com>']
     # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
     message = MIMEText(content, 'plain', 'utf-8') #文本内容
     message['From'] ='袁猛<1093040152@qq.com>' #mail_user # 发送者   （发送人同QQ备注，可不写）
@@ -186,7 +187,8 @@ if __name__ == '__main__':
     """
     测试营销副总裁   77806702    087394   888888   
     """
-
+    response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    print(response_time)
     name = '测试营销副总裁'
     empnumber = '77806702'
     empno = '087394'
@@ -194,7 +196,7 @@ if __name__ == '__main__':
     url = 'https://coa.leyoujia.com/aicp/mainremote'
     url2 = 'https://i.leyoujia.com/jjscj/index/cjIndexList'
     rs_time = CJ_list(empno,url,empnumber,name,url2)
-    code = '成交列表页面响应时间:' + str(rs_time) + 's'
+    code = response_time+'     成交列表页面响应时间:' + str(rs_time) + 's'
 
     #超过2秒发送邮件
     if rs_time < 2 :

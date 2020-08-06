@@ -50,11 +50,12 @@ def get_OnlinetestPassword(url1):
 	OnlinetestPassword = load['msg']
 
 	# print ('今日预发布环境登陆密码为：',OnlinetestPassword)
-	data = '今日预发布环境登陆密码为：%s'%OnlinetestPassword
+	data = '今日预发布环境登陆密码为：\r\n%s'%OnlinetestPassword
 	data = data.encode()
 	print(data)
 	with open('.\\OnlinetestPassword.txt', 'wb') as f:
 		f.write(data)
+
 
 
 if __name__ == '__main__':
