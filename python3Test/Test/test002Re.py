@@ -18,11 +18,11 @@ pattern4 = re.compile(r'[^djkasdhkjas]')    #匹配除了djkasdhkjas字母以外
 
 find_number = pattern4.findall(a)
 
-print(find_number)
+print(pattern2)
 
 
-
-
-
-
+text ='site sea sue sweet see case sse loses'
+a = re.findall(r'\bs\S*?e\b',text)    #匹配所有以s开头以e结尾的单词   ['site', 'sue', 'see', 'sse']
+b = re.findall(r'\bs.*?e\b',text)    #匹配字符串中所有以s开头到e结尾  ['site', 'sea sue', 'sweet see', 'sse']
+print(a)
 
