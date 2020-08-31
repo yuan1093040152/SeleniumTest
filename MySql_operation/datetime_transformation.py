@@ -6,9 +6,9 @@ import datetime,MySQLdb,json,re,smtplib,time
 
 def get_time():
     #获取当前时间
-    time = datetime.datetime.now()
-    print(time)
-    print(time.year,time.month,time.day)
+    time1 = datetime.datetime.now()
+    print(time1)
+    print(time1.year,time1.month,time1.day)
 
 
     #获取当前日期的农历
@@ -17,11 +17,13 @@ def get_time():
 
 
     #获取当前日期的公历
-    time = datetime.datetime.now()
-    get_time= LunarDate(time.year,time.month,time.day, 0)
-    get_GregorianCalendar = get_time.to_solar_date()
-    print(get_GregorianCalendar)
-    print(get_GregorianCalendar.year,get_GregorianCalendar.month,get_GregorianCalendar.day)
+    # time2 = datetime.datetime.now()
+    # print('-----',time2)
+    # get_time= LunarDate(time2.year,time2.month,time2.day, 0)
+    #
+    # get_GregorianCalendar = get_time.to_solar_date()
+    # print(get_GregorianCalendar)
+    # print(get_GregorianCalendar.year,get_GregorianCalendar.month,get_GregorianCalendar.day)
 
 
     return get_lunarCalendar
