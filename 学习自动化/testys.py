@@ -20,10 +20,10 @@ for handle in all_handles:
         driver.switch_to_window(handle)
         break
 path = driver.find_element_by_xpath("//a[contains(text(),'软件测试门户')]").text
-if path ==u'软件测试门户':
-    print '成功'
-else:
-    print '失败'
+# if path ==u'软件测试门户':
+#     print '成功'
+# else:
+#     print '失败'
 driver.quit()
 
 

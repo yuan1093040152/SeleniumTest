@@ -12,8 +12,10 @@ def get_time():
 
 
     #获取当前日期的农历
+    #create_time = "%4d-%02d-%02d%%" % (year, month, day)  # %02d 意思是填充至两位有效数字,不够以0补充,注意不能把0改为其他的以其他数字补充
     get_lunarCalendar = LunarDate.today()
-    print(get_lunarCalendar.year,get_lunarCalendar.month,get_lunarCalendar.day)
+    get_lunarCalendar = '%4d-%02d-%02d'%(get_lunarCalendar.year,get_lunarCalendar.month,get_lunarCalendar.day)
+    print(get_lunarCalendar)
 
 
     #获取当前日期的公历

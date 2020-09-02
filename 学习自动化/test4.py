@@ -19,10 +19,10 @@ data = {'garageVo.companyId': '1','garageVo.type': '2'}
 params = {'rtype':'json'}
 ret = requests.post(url,data = data,params=params)
 dict = json.loads(ret.text)
-print dict
-print dict['list']
-print dict['list'][0]
-print dict['list'][0]['garageId']
+# print dict
+# print dict['list']
+# print dict['list'][0]
+# print dict['list'][0]['garageId']
 garageId = dict['list'][0]['garageId']
 
 
