@@ -5,7 +5,7 @@ import requests,json,urllib3,time,smtplib
 import urllib.parse
 
 def login_im(empno,url):
-    body = 'msgBody={"imei":"pcMac-6C0B84A472DD","mac":"6C0B84A472DD,3035323042363737313642304135434620202020,204153594EFF,","lat":0,"lng":0,"ipStr":"172.16.9.54","loginAddr":"","username":"c4jG93780l8r","password":"21218cca77804d2ba1922c33e0151105","empNo":"087394","appVer":"2.2.1.0","sysVer":"6.1.7601","env":"online"}'
+    body = 'msgBody={"imei":"pcMac-6C0B84A472DD","mac":"6C0B84A472DD,3035323042363737313642304135434620202020,204153594EFF,","lat":0,"lng":0,"ipStr":"172.16.9.54","loginAddr":"","username":"c4jG93780l8r","password":"21218cca77804d2ba1922c33e0151105","empNo":"087394","appVer":"2.3.3.1","sysVer":"6.1.7601","env":"online"}'
     headers = {
         'Host': 'coa.leyoujia.com',
         'Connection': 'keep-alive',

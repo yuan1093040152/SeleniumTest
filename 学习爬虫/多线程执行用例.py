@@ -31,7 +31,7 @@ def bbb(url,name1):   #用例
 
 
 if __name__ == "__main__":
-	for x in xrange(1):
+	for x in range(2):
     	# pass:
     	#设置参数
 		url = 'http://172.16.3.100/jjslogin/index'

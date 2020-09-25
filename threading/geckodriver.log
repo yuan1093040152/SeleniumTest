@@ -1,0 +1,3 @@
+1601020838250	geckodriver	INFO	geckodriver 0.18.0
+1601020838257	geckodriver	INFO	Listening on 127.0.0.1:50550
+1601020841318	geckodriver::marionette	INFO	Starting browser E:\Program Files\Mozilla Firefox\firefox.exe with args ["-marionette"]
