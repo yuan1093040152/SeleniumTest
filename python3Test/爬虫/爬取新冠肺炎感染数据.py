@@ -74,7 +74,7 @@ if __name__ == '__main__':
     url = 'https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_3#tab4'
 
     # 国内
-    Domestic_epidemic()
+    #Domestic_epidemic()
     #国外
     Epidemic_situation_abroad()
 
