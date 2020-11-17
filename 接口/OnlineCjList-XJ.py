@@ -96,8 +96,8 @@ def CJ_list(empno,url,empnumber,name,url2):
     jjshome_uuid = cookie[3]['name']
     jjshome_uuid_value = cookie[3]['value']
 
-    JSESSIONID = cookie[4]['name']
-    JSESSIONID_value = cookie[4]['value']
+    JSESSIONID = cookie[6]['name']
+    JSESSIONID_value = cookie[6]['value']
 
     print('JSESSIONID:', JSESSIONID)
     print('JSESSIONID_value:', JSESSIONID_value)

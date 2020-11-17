@@ -8,7 +8,7 @@ import requests, time, bs4, re
 # sys.setdefaultencoding( "utf-8" )
 
 
-url = 'http://www.biquku.la/5/5779/'
+url = 'http://www.biquku.la/16/16889/'
 # url = 'http://www.biquku.la/16/16532/'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'}
