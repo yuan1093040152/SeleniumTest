@@ -24,10 +24,10 @@ def get_response(msg):
 def print_content(msg):
     # print "name=",msg
     # 打印好友给你发了什么消息
-    print "好友消息：",  msg['Text']
+    print ("好友消息：",  msg['Text'])
     # 打印机器人回复的消息
     type = get_response(msg['Text'])
-    print "机器人回复：", type
+    print ("机器人回复：", type)
     return type
 
 
@@ -36,13 +36,13 @@ def print_content(msg):
 def print_content(msg):
     # print "group=",msg
     # 打印哪个群的好友给你发了什么消息
-    print "群内消息", msg["ActualNickName"] + ":" + msg['Text']
+    print ("群内消息", msg["ActualNickName"] + ":" + msg['Text'])
     # try:
     # 这里可以在后面加更多的or msg["ActualNickName"]=='你希望自动回复群中谁的消息   （填备注）
     if msg["ActualNickName"]==u'丽丽' or msg["ActualNickName"]==u'维维' or msg["ActualNickName"]=='Test-wechat1':
         type = get_response(msg['Text'])
         # 打印机器人回复的消息
-        print "机器人回复：",type
+        print ("机器人回复：",type)
         return type
     else:
         # 其他群聊直接忽略

@@ -2,7 +2,7 @@ from selenium import webdriver
 
 import time
 
-def.login(driver):
+def login(driver):
 
 	try:
 		driver = webdriver.Firefox()
