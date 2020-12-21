@@ -22,8 +22,8 @@ class testname:
     def info(self):
         return 'woca'
 
-    def testinfo(self):
-        return '我叫%s，今年%d，性别%s'%(self.name,self.arg,self.sex)
+    def testinfo(self,info):
+        return info+'我叫%s，今年%d，性别%s'%(self.name,self.arg,self.sex)
 
 #打印公共的属性
 print(testname.aa)
@@ -37,4 +37,4 @@ p = testname('小明',18,'男')
 print(p.name)
 #打印对象的方法
 print(p.info())
-print(p.testinfo())
+print(p.testinfo('333333'))

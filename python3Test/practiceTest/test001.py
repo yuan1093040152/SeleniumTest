@@ -22,4 +22,3 @@ for i in range(3):
         # time.sleep(5)int('error')
         #     print('over')
         r = requests.get("https://me.csdn.net/dcrmg", verify=False)
-        pr
