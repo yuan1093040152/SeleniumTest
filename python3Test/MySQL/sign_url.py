@@ -4,8 +4,10 @@ import MySQLdb,time,argparse
 
 def get_htbh(HTBH):
 
-    sql = "SELECT * FROM HT_MAIN a RIGHT JOIN HT_FDD_SIGNER b  ON a.ID = b.HT_ID WHERE b.SIGN_STATUS = '7' AND a.HTBH = '%s';"%HTBH
+    sql = "SELECT b.ID,b.HT_ID FROM HT_MAIN a RIGHT JOIN HT_FDD_SIGNER b  ON a.ID = b.HT_ID WHERE b.SIGN_STATUS = '7' AND a.HTBH = '%s';"%HTBH
     #sql = "SELECT b.ID,b.HT_ID FROM HT_MAIN a RIGHT JOIN HT_FDD_SIGNER b  ON a.ID = b.HT_ID WHERE a.HTBH = '%s';"%HTBH
+
+    print(sql)
 
     db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='jjsht',charset='utf8')  # 打开数据库连接
     cur = db.cursor()  # 使用cursor()方法获取操作游标
@@ -16,6 +18,7 @@ def get_htbh(HTBH):
     # return values
 
     print(values)
+
     try:
 
         HT_ID = values[0][1]
