@@ -37,10 +37,10 @@ if __name__ == '__main__':
 
     # 获取jenkins传递过来的参数
     parser = argparse.ArgumentParser()
-    parser.add_argument("emp_number")
+    parser.add_argument("HTBH")
     args = parser.parse_args()
     param = vars(args)
-    HTBH = param['emp_number']
+    HTBH = param['HTBH']
 
     get_htbh(HTBH)
 
