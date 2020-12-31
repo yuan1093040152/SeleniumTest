@@ -1,10 +1,22 @@
 #coding=utf-8
+"""
+@Author  : Yuan Meng
+@Time    : 2020/12/31 15:31
+@Software: PyCharm
+Ctrl+shift+v 历史粘贴版
+ctrl+alt+空格 自动补全
+ctrl+alt+D   分屏
+Ctrl+/       快速注释
+
+"""
+
+
 import MySQLdb,time,argparse
 
 
 def get_htbh(HTBH):
 
-    sql = "SELECT b.ID,b.HT_ID FROM HT_MAIN a RIGHT JOIN HT_FDD_SIGNER b  ON a.ID = b.HT_ID WHERE b.SIGN_STATUS = '7' AND a.HTBH = '%s';"%HTBH
+    sql = "UPDATE APPLY_COMMON SET SP_STATUS = '2' WHERE GL_ID IN (SELECT bid FROM (SELECT b.GL_ID as bid FROM HT_MAIN a RIGHT JOIN APPLY_COMMON b ON a.ID = b.GL_ID WHERE HTBH = '%s') as tt);"%HTBH
     #sql = "SELECT b.ID,b.HT_ID FROM HT_MAIN a RIGHT JOIN HT_FDD_SIGNER b  ON a.ID = b.HT_ID WHERE a.HTBH = '%s';"%HTBH
 
     print(sql)
@@ -13,29 +25,10 @@ def get_htbh(HTBH):
     cur = db.cursor()  # 使用cursor()方法获取操作游标
     cur.execute(sql)  # 使用execute方法执行SQL语句
     db.commit()  # 提交请求
-    values = cur.fetchall()  # 使用 fetchone() 方法获取一条数据
+    #values = cur.fetchall()  # 使用 fetchone() 方法获取一条数据
     cur.close()  # 关闭数据库连接
-    # return values
 
-    print(values)
-    cc = []
-    try:
-
-        HT_ID = values[0][1]
-        print(HT_ID)
-        for i in values:
-            QS_ID = i[0]
-            print(QS_ID)
-
-            a = 'http://172.16.22.100/jjsht/fddThird/gotoSignPage/%s/%s'%(HT_ID,QS_ID)
-
-            print(a)
-            cc.append(a)
-    except:
-        print('未找到需要签署的信息，请确认签署人是否已实名认证')
-        pass
-    print(cc)
-    return cc
+    return
 
 if __name__ == '__main__':
     time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -48,5 +41,3 @@ if __name__ == '__main__':
     HTBH = param['HTBH']
 
     get_htbh(HTBH)
-
-

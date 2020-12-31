@@ -1,4 +1,5 @@
 #coding=utf-8
+from selenium import webdriver
 import MySQLdb,time,argparse
 
 
@@ -34,11 +35,38 @@ def get_htbh(HTBH):
     except:
         print('未找到需要签署的信息，请确认签署人是否已实名认证')
         pass
-    print(cc)
+    # print(cc)
     return cc
 
+def sign():
+    cc = get_htbh(HTBH)
+    print(cc)
+
+    for i in cc:
+        # print(i)
+
+        driver = webdriver.Chrome()
+
+        driver.get(i)
+        driver.maximize_window()
+        time.sleep(2)
+        driver.switch_to.frame('myiframe')
+        driver.find_element_by_id('confirmSubmit').click()
+        time.sleep(2)
+        driver.find_element_by_xpath('//*[@id="smsval"]').send_keys('999999')
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="smspanel"]/div/div/div/a[1]').click()
+
+        time.sleep(5)
+        print('合同签署完成')
+        driver.close()
+        driver.quit()
+
+
+
 if __name__ == '__main__':
-    time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+
+    #time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
     # 获取jenkins传递过来的参数
     parser = argparse.ArgumentParser()
@@ -47,6 +75,6 @@ if __name__ == '__main__':
     param = vars(args)
     HTBH = param['HTBH']
 
-    get_htbh(HTBH)
+    sign()
 
 
