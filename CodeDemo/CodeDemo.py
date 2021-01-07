@@ -21,7 +21,7 @@ def get_image_code(imgPath):
     client = demo()
     image1 = client.basicAccurate(image)
     # print image1
-    print image1['words_result'][0]['words']
+    print (image1['words_result'][0]['words'])
 
 if __name__ == '__main__':
     imgPath = 'E:\\test\\111.jpg'
