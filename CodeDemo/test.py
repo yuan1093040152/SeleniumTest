@@ -2,5 +2,5 @@
 
 import CodeDemo
 
-imgPath = 'E:\\1.jpeg'
+imgPath = 'E:\\test\\111.jpg'
 CodeDemo.get_image_code(imgPath)

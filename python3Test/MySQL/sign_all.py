@@ -68,12 +68,14 @@ if __name__ == '__main__':
 
     #time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
+    # HTBH = '58305000086'
     # 获取jenkins传递过来的参数
     parser = argparse.ArgumentParser()
     parser.add_argument("HTBH")
     args = parser.parse_args()
     param = vars(args)
     HTBH = param['HTBH']
+    print ('合同编号为：',HTBH)
 
     sign()
 
