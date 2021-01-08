@@ -1,5 +1,5 @@
 #coding=utf-8
-import requests,sys,smtplib,urllib3,json,time,pymysql
+import requests,sys,smtplib,urllib3,json,time,pymysql,argparse
 from bs4 import BeautifulSoup
 from email.mime.text import MIMEText
 urllib3.disable_warnings()
@@ -73,10 +73,24 @@ def Epidemic_situation_abroad():
 if __name__ == '__main__':
     url = 'https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_3#tab4'
 
-    # 国内
-    #Domestic_epidemic()
-    #国外
-    Epidemic_situation_abroad()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("SelectArea")
+    args = parser.parse_args()
+    param = vars(args)
+    SelectArea = param['SelectArea']
+    print ('地区为：',SelectArea)
+
+    if SelectArea == 'China':
+        #国内
+        Domestic_epidemic()
+
+    elif SelectArea == 'No_China':
+        #国外
+        Epidemic_situation_abroad()
+
+    else:
+        print('查询失败')
 
 
 
