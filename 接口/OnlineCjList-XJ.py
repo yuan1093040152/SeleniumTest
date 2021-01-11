@@ -189,7 +189,7 @@ if __name__ == '__main__':
     """
     response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(response_time)
-    name = '测试营销副总裁'
+    name = '087394' #测试营销副总裁
     empnumber = '77806702'
     empno = '087394'
     password = '888888'
