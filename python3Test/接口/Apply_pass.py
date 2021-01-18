@@ -12,7 +12,7 @@ Ctrl+/       快速注释
 
 import MySQLdb,time,argparse,requests,json
 
-def apply_id(HTBH,apply,url1):
+def apply_id(HTBH,apply,url1,url2):
 
     ht_sql = "SELECT b.APPLY_ID FROM HT_MAIN a RIGHT JOIN APPLY_COMMON b ON a.ID = b.GL_ID WHERE HTBH = '%s'"%HTBH
     #sql = "SELECT b.ID,b.HT_ID FROM HT_MAIN a RIGHT JOIN HT_FDD_SIGNER b  ON a.ID = b.HT_ID WHERE a.HTBH = '%s';"%HTBH
@@ -56,7 +56,7 @@ def apply_id(HTBH,apply,url1):
         print(worker_no)
 
         #body = 'msgBody={"workerNo":"000012","macAddress":"6C-0B-84-A4-72-DD","wpassword":"123456","ckNum":"654321","codeVal":"0000","needCkNum":"true","hddid":"","handInfo":""}'
-        body = 'workerNo=000012&wpassword=123456&ckNum=654321&codeVal=0000&needCkNum=true&hddid=&handInfo=&macAddress=6C-0B-84-A4-72-DD'
+        body = 'workerNo='+str(worker_no)+'&wpassword=123456&ckNum=654321&codeVal=0000&needCkNum=true&hddid=&handInfo=&macAddress=6C-0B-84-A4-72-DD'
         headers = {
             'Host': '172.16.22.100',
             'Connection': 'keep-alive',
@@ -81,19 +81,43 @@ def apply_id(HTBH,apply,url1):
         requests.packages.urllib3.disable_warnings()  # 移除SSL警告
         response = requests.request("POST", url1, data=body, headers=headers, verify=False)  # ssl验证:verify = False
         # print(response.text)
+        cookie = response.cookies.get_dict()
+        print(cookie)
+        JSESSIONID = cookie['JSESSIONID']
+        print(JSESSIONID)
         text = response.text
         load = json.loads(text)
         print('load=',load)
         # token = load['data']['data']['token']
         # print(token)
 
+        #body = 'expandJson=%7B%7D&applyId=1004458&apId=279757413&annexJson=%5B%5D&type=1&approvalContent=testpass'
+        body = 'expandJson=%7B%7D&applyId='+str(APPLY_ID)+'&apId='+str(id)+'&annexJson=%5B%5D&type=1&approvalContent=testpass'
 
+        headers = {
+            'Host': '172.16.22.100',
+            'Connection': 'keep-alive',
+            'Content-Length': '97',
+            'X-Requested-With': 'XMLHttpRequest',
+            'Referer': 'http://172.16.22.100/workflowplatform/applyInfo/detail?applyId=%s'%APPLY_ID,
+            'Origin': 'http://172.16.22.100',
+            # 'serviceCode': 'login',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            # 'v': '3',
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            # 'empNo': worker_no,
+            # 'appName': 'pc-im',
+            # 'iemi': 'pcMac-6C0B84A472DD',
+            # 'Sec-Fetch-Site': 'same-site',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,zh;q=0.9',
+            'Cookie':'JSESSIONID=%s;login-workerid=%s'%(JSESSIONID,WORKER_ID)
+        }
 
-
-
-
-
-
+        requests.packages.urllib3.disable_warnings()  # 移除SSL警告
+        response = requests.request("POST", url2, data=body, headers=headers, verify=False)  # ssl验证:verify = False
+        print(response.text)
 
 
     return applyId
@@ -103,6 +127,7 @@ def apply_id(HTBH,apply,url1):
 
 if __name__ == '__main__':
     HTBH = '58000000062'
-    apply = '1004470'
+    apply = '1004602'
     url1 = 'http://172.16.22.100/jjslogin/doLoginNew'
-    apply_id(HTBH,apply,url1)
+    url2 = 'http://172.16.22.100/workflowplatform/applyInfo/approval'
+    apply_id(HTBH,apply,url1,url2)
