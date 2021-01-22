@@ -10,6 +10,7 @@ Ctrl+/       快速注释
 
 """
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 import time
 
 
@@ -30,21 +31,23 @@ class testname():
         self.browser.maximize_window()
         self.browser.implicitly_wait(30)
 
-        self.id = 'id'
-        self.xpath = 'xpath'
-        self.link_text = "link text"
-        self.partial_link_text = "partial link text"
-        self.name = "name"
-        self.tag_name = "tag name"
-        self.class_name = "class name"
-        self.css_selector = "css selector"
+        # self.id = 'id'
+        # self.xpath = 'xpath'
+        # self.link_text = "link text"
+        # self.partial_link_text = "partial link text"
+        # self.name = "name"
+        # self.tag_name = "tag name"
+        # self.class_name = "class name"
+        # self.css_selector = "css selector"
 
 
-    def send_id(self,element,value):
-        self.browser.find_element(self.id,element).send_keys(value)
+    def send_id(self,type,element,value):
+        # self.browser.find_element(self.id,element).send_keys(value)
+        self.browser.find_element(by=type, value=element).send_keys(value)
 
-    def send_name(self,element,value):
-        self.browser.find_element(self.name,element).send_keys(value)
+
+    # def send_name(self,element,value):
+    #     self.browser.find_element(self.name,element).send_keys(value)
 
 
     def close(self):
@@ -64,11 +67,12 @@ print('11')
 time.sleep(1)
 
 # p.send_id('kw','123')
+p.send_id(By.ID,'kw','123456')
 # print('22')
-# time.sleep(1)
+time.sleep(5)
 
-p.send_name('wd','1234')
-time.sleep(1)
+# p.send_name('wd','1234')
+# time.sleep(1)
 
 p.close()
 print('33')
