@@ -44,6 +44,7 @@ class ht_testcase(unittest.TestCase):
         p.get_znht(self.empno,self.password)
         info = p.browser.find_element_by_xpath('//*[@id="main-content"]/div/div/div[1]/a[1]').text
         print(info)
+        #校验
         self.assertEqual(info,'智能合同管理列表',msg='执行失败')
         p.Time(2)
         p.Close()
@@ -59,7 +60,6 @@ class ht_testcase(unittest.TestCase):
         info = p.browser.find_element_by_xpath('//*[@id="data_list_content"]/tr/td[3]').text
         print(info)
         self.assertEqual(info,'二手房买卖及居间服务合同',msg='执行失败')
-
         p.Time(2)
         p.Close()
         p.Quit()
