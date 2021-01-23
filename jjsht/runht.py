@@ -28,4 +28,4 @@ tests = unittest.defaultTestLoader.discover(case_path,'test_*.py') #找指定路
 runner = BeautifulReport.BeautifulReport(tests)#运行找到的所有用例
 now = time.strftime("%Y-%m-%d-%H_%M_%S",time.localtime(time.time()))
 file_name = '%s-report.html'%now #报告文件名
-runner.report('自动化测试报告-%s'%now,filename=file_name,report_dir='./htmllog/')#产生报告
+runner.report('自动化测试报告',filename=file_name,report_dir='./htmllog/')#产生报告
