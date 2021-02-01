@@ -68,6 +68,12 @@ class testname():
     def Wait(self,s):
         self.browser.implicitly_wait(s)
 
+    #当前时间
+    def Nowtime(self):
+        time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time()))
+
+
+
     #进入智能合同列表
     def get_znht(self,empno,password):
         self.browser.find_element(By.ID,'workerNo').clear()

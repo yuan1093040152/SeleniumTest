@@ -28,7 +28,7 @@ def get_htbh(HTBH):
             QS_ID = i[0]
             print(QS_ID)
 
-            a = 'http://172.16.22.100/jjsht/fddThird/gotoSignPage/%s/%s'%(HT_ID,QS_ID)
+            a = 'http://itest.leyoujia.com/jjsht/fddThird/gotoSignPage/%s/%s'%(HT_ID,QS_ID)
 
             print(a)
             cc.append(a)

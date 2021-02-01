@@ -56,12 +56,12 @@ def apply_id(HTBH,url1,url2):
 
         body = 'workerNo='+str(worker_no)+'&wpassword=123456&ckNum=654321&codeVal=0000&needCkNum=true&hddid=&handInfo=&macAddress=6C-0B-84-A4-72-DD'
         headers = {
-            'Host': '172.16.22.100',
+            'Host': 'itest.leyoujia.com',
             'Connection': 'keep-alive',
             'Content-Length': '119',
             'X-Requested-With': 'XMLHttpRequest',
-            'Referer': 'http://172.16.22.100/jjslogin/tologin',
-            'Origin':'http://172.16.22.100',
+            'Referer': 'http://itest.leyoujia.com/jjslogin/tologin',
+            'Origin':'http://itest.leyoujia.com',
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36',
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'Accept': 'application/json, text/javascript, */*; q=0.01',
@@ -74,7 +74,7 @@ def apply_id(HTBH,url1,url2):
         # print(response.text)
         cookie = response.cookies.get_dict()
         print(cookie)
-        JSESSIONID = cookie['JSESSIONID']
+        JSESSIONID = cookie['iJSESSIONID']
         print(JSESSIONID)
         text = response.text
         load = json.loads(text)
@@ -85,12 +85,12 @@ def apply_id(HTBH,url1,url2):
         body = 'expandJson=%7B%7D&applyId='+str(APPLY_ID)+'&apId='+str(id)+'&annexJson=%5B%5D&type=1&approvalContent=testpass'
 
         headers = {
-            'Host': '172.16.22.100',
+            'Host': 'itest.leyoujia.com',
             'Connection': 'keep-alive',
             'Content-Length': '97',
             'X-Requested-With': 'XMLHttpRequest',
-            'Referer': 'http://172.16.22.100/workflowplatform/applyInfo/detail?applyId=%s'%APPLY_ID,
-            'Origin': 'http://172.16.22.100',
+            'Referer': 'http://itest.leyoujia.com/workflowplatform/applyInfo/detail?applyId=%s'%APPLY_ID,
+            'Origin': 'http://itest.leyoujia.com',
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36',
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'Accept': 'application/json, text/javascript, */*; q=0.01',
@@ -111,8 +111,8 @@ def apply_id(HTBH,url1,url2):
 if __name__ == '__main__':
     # HTBH = 'ht2021011900001'
     # apply = '1004602'
-    url1 = 'http://172.16.22.100/jjslogin/doLoginNew'
-    url2 = 'http://172.16.22.100/workflowplatform/applyInfo/approval'
+    url1 = 'http://itest.leyoujia.com/jjslogin/doLoginNew'
+    url2 = 'http://itest.leyoujia.com/workflowplatform/applyInfo/approval'
     time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
     # 获取jenkins传递过来的参数
