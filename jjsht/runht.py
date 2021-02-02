@@ -11,7 +11,7 @@ Ctrl+/       快速注释
 """
 import unittest,HTMLTestRunner,time,BeautifulReport
 
-# case_path = "../jjsht"
+
 case_path = "E:/SeleniumTest/jjsht"
 
 # suite = unittest.TestSuite()#创建测试套件

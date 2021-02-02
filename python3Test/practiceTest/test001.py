@@ -15,21 +15,19 @@ import eventlet
 import time
 from selenium import webdriver
 
-a = ['123','234']
-for i in a:
-    print(i)
+# a = ['123','234']
+# for i in a:
+#     print(i)
+#
+# #当前时间
+# def Nowtime():
+#     time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time()))
+#
+# now = Nowtime()
+# print('%s-image.png'%now)
 
-#当前时间
-def Nowtime():
-    time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time()))
+dst_filename =time.strftime('%Y-%m-%d-%H-%M-%S')
 
-now = Nowtime()
-print('%s-image.png'%now)
-
-
-
-
-
-
+print('/%simage.png'%dst_filename)
 
 

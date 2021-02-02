@@ -13,7 +13,7 @@ Ctrl+/       快速注释
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-import time
+import time,unittest
 
  #判断运行浏览器
 def open_browser(browser,url):
@@ -68,9 +68,23 @@ class testname():
     def Wait(self,s):
         self.browser.implicitly_wait(s)
 
-    #当前时间
-    def Nowtime(self):
-        time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time()))
+    #校验
+    def Expect(self,first,second):
+        nowtime = time.strftime('%Y-%m-%d-%H-%M-%S')
+        if first == second:
+            pass
+        else:
+            imagepath = './errorimage/%s-image.png' %nowtime
+            self.browser.get_screenshot_as_file(imagepath)
+            print('执行失败，截图文件名为：%s'%imagepath)
+
+    #截图
+    def Cutimage(self):
+        nowtime = time.strftime('%Y-%m-%d-%H-%M-%S')
+        imagepath = './errorimage/%s-image.png' % nowtime
+        self.browser.get_screenshot_as_file(imagepath)
+        print('执行失败，截图文件名为：%s' % imagepath)
+
 
 
 
