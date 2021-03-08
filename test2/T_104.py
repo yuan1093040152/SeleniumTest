@@ -1,14 +1,30 @@
-#coding=utf-8
-
-class haha:
-	x = 1
-
-	def foo(self):
-		return 'wo ca'
+import requests
 
 
-print (haha.x)
 
-print (haha.foo)
+def get_proxy():
+    print(requests.get("http://127.0.0.1:5010/get/"))
+    return requests.get("http://127.0.0.1:5010/get/")
 
-print (haha.foo(1))
+def delete_proxy(proxy):
+    requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
+
+# your spider code
+
+def getHtml():
+    # ....
+    retry_count = 5
+    proxy = get_proxy().get("proxy")
+    while retry_count > 0:
+        try:
+            html = requests.get('http://www.example.com', proxies={"http": "http://{}".format(proxy)})
+            # 使用代理访问
+            return html
+        except Exception:
+            retry_count -= 1
+    # 删除代理池中代理
+    delete_proxy(proxy)
+    return None
+
+
+get_proxy()

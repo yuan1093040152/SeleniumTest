@@ -6,10 +6,11 @@ import requests, time, bs4, re
 # import sys
 # reload(sys)
 # sys.setdefaultencoding( "utf-8" )
+# http://www.paoshuzw.com/51/51033/21796672.html
+# http://www.paoshuzw.com/51/51033//51/51033/21796672.html
 
-
-url = 'http://www.biquku.la/16/16889/'
-# url = 'http://www.biquku.la/16/16532/'
+url = 'http://www.paoshuzw.com/51/51033/'
+url1 = 'http://www.paoshuzw.com'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'}
 start_html = requests.get(url, headers=headers)
@@ -33,11 +34,15 @@ for link in list1:
 
     links = link['href']
     # print (links)
-    links_all = url + links
+    links_all = url1 + links
     print(links_all)
+    time.sleep(2)
 
+    # session = requests.session()
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'}
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+
+    }
     start_html1 = requests.get(links_all, headers=headers)
 
     # 解决乱码 （类似éç»äººè¡¨ç®çé¿å å­åè格式的编码）
@@ -45,11 +50,12 @@ for link in list1:
 
     # print (start_html1)
     demo1 = start_html1.text
-    # print (demo1)
+
+    print (demo1)
 
     soup = BeautifulSoup(demo1, 'lxml')
-    # print (soup)
-    #
+    # print ('soup=',soup)
+    #//*[@id="content"]/text()[1]
     try:
         # # 获取标题
         # title = soup.find('div', class_="con_top").get_text()  # .strip()
@@ -71,25 +77,25 @@ for link in list1:
     try:
 
         # 获取内容
-        text = soup.find('div', id="content").get_text()  # .strip()
-        # print (text)
+        text = soup.find('div', id="content").string#.get_text()#.strip()
+        print (text)
     except:
         text = '\n该内容没找到\n'
         print('该内容没找到')
         pass
-
-    # 下面这样写可以防止被覆盖
-    # with open('E:\\test\\3.txt', 'a') as f:
-    # python3 指定编码格式
-    with open('E:\\test\\3.txt', 'a', encoding='utf-8') as f:
-        # 换行符
-        f.write('\n' + title1 + '\n')
-        f.write(text)
-        time.sleep(3)
-        print('正在下载第' + str(c) + '章')
-        # print('下载中......')
-    f.close()
-# except:
-#     print('---------错误--------')
-#     pass
-print('已爬完')
+#
+#     # 下面这样写可以防止被覆盖
+#     # with open('E:\\test\\3.txt', 'a') as f:
+#     # python3 指定编码格式
+#     with open('E:\\test\\3.txt', 'a', encoding='utf-8') as f:
+#         # 换行符
+#         f.write('\n' + title1 + '\n')
+#         f.write(text)
+#         time.sleep(3)
+#         print('正在下载第' + str(c) + '章')
+#         # print('下载中......')
+#     f.close()
+# # except:
+# #     print('---------错误--------')
+# #     pass
+# print('已爬完')

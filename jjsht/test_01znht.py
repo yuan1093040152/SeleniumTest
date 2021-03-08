@@ -35,6 +35,7 @@ class ht_testcase(unittest.TestCase):
     def setUp(self):  # 每条用例执行之前都会先执行它
         print('开始执行用例')
 
+
     def tearDown(self):  # 每条用例执行之后都会执行它
         print('结束执行用例')
 
