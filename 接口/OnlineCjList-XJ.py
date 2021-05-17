@@ -199,8 +199,9 @@ if __name__ == '__main__':
     code = response_time+'     成交列表页面响应时间:' + str(rs_time) + 's'
 
     #超过2秒发送邮件
-    if rs_time < 2 :
-        print(code)
-    else:
-        Email(rs_time)
+    # if rs_time < 2 :
+    #     print(code)
+    # else:
+    #     Email(rs_time)
+    login_im(empno, url)
 

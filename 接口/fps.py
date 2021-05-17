@@ -7,7 +7,7 @@ counter =10
 content = os.popen("adb -s 5f95c93a shell dumpsys gfxinfo  com.jjshome.optionalexam")
 #读取行数
 data = content.readlines()
-print data
+print (data)
 start = 0
 end = 0
 i = 0
@@ -28,7 +28,7 @@ print (result)
 print ('--------------------------------------------------------------')
 #未操作所测试的APP时，没有数据
 if len(result) == 0:
-    print "没有数据，请操作app哈哈哈"
+    print ("没有数据，请操作app哈哈哈")
 
 else:
     Exceed = 0      #超过16ms的帧数
@@ -40,16 +40,16 @@ else:
         a = a.replace("\r\n","")
         print (a)
         datalist = a.split("\t")     #以"\t"对数据进行切片
-        print "list=",datalist
+        print ("list=",datalist)
         # addsum = addsum + float(datalist[4])   #计算FPS总和
         # print addsum
         #对每行帧数据进行加和操作
         sum = float(datalist[1]) + float(datalist[2]) + float(datalist[3]) + float(datalist[4])
         
-        print 'sum    :',sum
+        print ('sum    :',sum)
 
         addsum = addsum + float(sum)   #计算FPS总和
-        print 'addsum    :',addsum
+        print ('addsum    :',addsum)
 
         if (sum - 16) > 0:
             Exceed = Exceed + 1
@@ -61,18 +61,18 @@ else:
 
         # sum2 = sum1 + float(datalist[4])
 
-    print 'fps总和为:%fms'%addsum
+    print ('fps总和为:%fms'%addsum)
     # print 'Number(>16ms)  :',Exceed
-    print 'fps大于16ms的有:%d个'%Exceed
+    print ('fps大于16ms的有:%d个'%Exceed)
     # print 'Number(<=16ms)  :',Lower
-    print 'fps小于等于16ms的有:%d个'%Lower
+    print ('fps小于等于16ms的有:%d个'%Lower)
     fps = float(float(Exceed)/(float(Exceed) + float(Lower)))*100   #FPS大于>16ms 百分比
     avg = float(float(addsum)/(float(Exceed) + float(Lower)))    #FPS平均值
     # fps1 = str(fps) + '%'
     # print 'fps    :',fps,'%'
-    print 'fps占比为：%f'%fps,'%'
+    print ('fps占比为：%f'%fps,'%')
     # print 'avg    :',avg,'ms'
-    print 'fps平均值为：%fms'%avg
+    print ('fps平均值为：%fms'%avg)
 
 
 
