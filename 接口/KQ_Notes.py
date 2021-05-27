@@ -266,7 +266,7 @@ global wechat_lock
 wechat_lock = Lock()
 
 # 这里可以设置UIDS, 多个人可同时接收
-UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_7zDNlQLoP6BwAJFJ6dRCuy9EQ1fp']
+UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_7zDNlQLoP6BwAJFJ6dRCuy9EQ1fp','UID_dxNzj6aupA6Q4QZrDkwmCcDLMX2e','UID_nSMBON6ECkBvdpOC3QeUfIUb7tJX']
 APP_TOKEN = 'AT_wW7eEobXR61htcs4zw6HIchK1yUaSx8L'
 # AT_zueTbAm3qrDJy2BvWtYwJwqVgRjGZIhF
 
