@@ -142,8 +142,9 @@ def CJ_list(empno,url,empnumber,name,url2):
         # 'Referer: https':'//i.leyoujia.com/jjscj/index',
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'zh-CN,zh;q=0.9',
-        'Cookie': 'jjshome_uuid=%s; _smt_uid=5eea41d2.29c10598; SESSION=%s; jjshome_sid=%s; JSESSIONID=%s' % (
-        jjshome_uuid_value, SESSION_value, jjshome_sid_value, JSESSIONID_value)
+        'Cookie': 'jjshome_uuid=%s; _smt_uid=5eea41d2.29c10598; SESSION=%s; jjshome_sid=%s; JSESSIONID=%s' % (jjshome_uuid_value, SESSION_value, jjshome_sid_value, JSESSIONID_value)
+
+        # 'Cookie':'jjshome_uuid=76632242-2704-05c1-f4a7-0f3f8ce485e2; _smt_uid=5eea41d2.29c10598; /hsl/index/house-list_guidance=1; /hsl/house/house-detail_guidance=1; /community/communityDic/communityDic-list_guidance=1; /community/communityDic/communityDic-detail_guidance=1; /community/communityDg/communityDg-list_guidance=1; /community/communityDg/communityDg-dic_guidance=1; /community/communityDic/communityDic-add-view-batch_guidance=1; /community/communityDg/communityDg-add-batch-cache_guidance=1; /hsl/entrust/entrust-add_guidance=1; /hsl/index/own-house-list_guidance=1; cookiesId=bce302d180064c60bd921167c696573c; _ga=GA1.2.317993357.1611364094; agentCardhd_time=1; fhListCookies=; gr_user_id=75926756-dfea-419b-a884-306d3cc99060; iJSESSIONID=57F9684687F6B8DDAEEAC86F8098123E; testLEYOUJIA=ZWNmZGIzOWYtYzhhNi00MTEzLTk2NzgtNGE0ODJmMjA1MjZl; SESSION=OWE3MTAzMjAtYjk2Ny00ZDEwLWFmZjAtMWM2NjFjOTExYTU0; login-mac=6C-0B-84-A4-72-DD; JSESSIONID=6037755D3B823E488751D7A9CFF3FE05; SESSION=M2Q4OGExMGItZjMwNC00YzBiLTlhNzEtOTVjZWJmY2UzYmE4; _gid=GA1.2.1006926862.1622013004; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1621326471,1622013004,1622013731; Hm_lvt_728857c2e6b321292b2eb422213d1609=1622013004,1622013731; Hm_lpvt_728857c2e6b321292b2eb422213d1609=1622014000; Hm_lpvt_1851e6f08c8180e1e7b5e33fb40c4b08=1622014000; login-workerid=06045224; jjshome_sid=7b1aeecf-b31d-7aeb-4a05-2343bdba9145; default_city_code=000002; JSESSIONID-FANG=FD6178335901E442DE30A3662D4D90EE'
     }
 
     response2 = requests.request('post', url2, data=body2, headers=headers2, verify=False)
