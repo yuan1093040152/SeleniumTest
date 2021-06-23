@@ -13,7 +13,7 @@ def verfiy_Identification():
 #������֤��
   for num in range(10): 
     url = 'http://i.jjshome.com/jjslogin/code'
-    file("./Initial/"+str(num)+".bmp","wb").write(urllib.urlopen(url).read())
+    file = ("./Initial/"+str(num)+".bmp","wb").write(urllib.urlopen(url).read())
 
 # ��ֵ��
 threshold = 50

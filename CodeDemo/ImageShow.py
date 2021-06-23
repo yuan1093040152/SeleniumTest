@@ -56,7 +56,7 @@ class ImageShow:
         self.get_Image()
         image = self.get_file_content()
         res = self.client.basicAccurate(image)
-        print res['words_result'][0]['words']
+        print (res['words_result'][0]['words'])
 
 if __name__ == '__main__':
     url = "http://172.16.3.100/aicp/mainremote"

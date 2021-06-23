@@ -12,4 +12,4 @@ def demo(imgpath):
 if __name__ == '__main__':
     imgpath ='D:\\Program Files\\SeleniumTest\\CodeDemo\\1.jpg'
     Img = demo(imgpath)
-    print Img
+    print (Img)
