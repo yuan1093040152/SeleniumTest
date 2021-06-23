@@ -108,6 +108,7 @@ class Login():
         # with open(path1,'wb') as f:
         #     f.write(r.content)
 
+        #百度高精度识别https://ai.baidu.com/ai-doc/OCR/1k3h7y3db
         APP_ID = '24416627'
         API_KEY = '3i88Xum6GtMrtYIYP1H8uwZ5'
         SECRET_KEY = 'D9Di9Lcon0NbOnEKTtylIGMYUshfLnyj'
@@ -127,9 +128,6 @@ class Login():
         self.browser.find_element(By.ID, 'workerNo').clear()
         self.browser.find_element(By.ID, 'workerNo').send_keys(username)
         self.browser.find_element(By.ID, 'password').send_keys(password)
-        # self.browser.find_element(By.ID, 'ckNum').clear()
-        # self.browser.find_element(By.ID, 'ckNum').send_keys(self.getcode())
-        # self.browser.find_element(By.ID, 'login_button').click()
 
 
         for i in range(10):
@@ -138,8 +136,6 @@ class Login():
             self.browser.find_element(By.ID, 'ckNum').send_keys(self.getcode())
             self.browser.find_element(By.ID, 'login_button').click()
             time.sleep(1)
-            # info = self.browser.find_element(By.ID, 'errorArea').text
-            # print('info===',info)
 
             try:
                 info = self.browser.find_element(By.ID, 'errorArea').text
@@ -148,9 +144,8 @@ class Login():
                     print('验证码识别错误，第%d次重试'%a)
                 else:
                     break
-                print("未进入")
+
             except Exception as e:
-                print("进入")
                 print(e)
                 print('登录成功！')
                 break
@@ -270,7 +265,7 @@ class Login():
                     pass
             print('请通知同事打下班卡')
 
-        print('WDK_name====', WDK_name)
+        print('未打卡人员名单：', WDK_name)
 
         self.browser.close()
         self.browser.quit()
@@ -305,7 +300,7 @@ class Login():
             c.connect(mail_host, 25)  # 25 为 SMTP 端口号
             c.login(mail_user, mail_pass)  # 登录
             c.sendmail(mail_user, receivers, message.as_string())  # 发送
-            print("邮件发送成功")
+            print("邮件发送成功！")
         except smtplib.SMTPException as e:
             print(e)
             print("Error: 无法发送邮件")
@@ -361,7 +356,7 @@ class wechat_thread(Thread):
                   file=sys.stderr)
             return
 
-        print("wechat_thread sent successful!")
+        print("未打卡人员微信通知成功!")
 
 
 def send_wx_msg(*args, **kwargs):
@@ -381,7 +376,7 @@ def send_wx_msg(*args, **kwargs):
 
     if not isinstance(content, str):
         if isinstance(content, dict):
-            content = '{}'.format(print_dict(content))
+            content = '{}'.format(print(content))
         else:
             content = str(content)
 
@@ -395,9 +390,6 @@ def send_wx_msg(*args, **kwargs):
     t = wechat_thread(uids=UIDS, content=content, app_token=APP_TOKEN)
     t.daemon = False
     t.start()
-
-
-
 
 
 
