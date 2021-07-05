@@ -36,11 +36,13 @@ def birthday_time():
     print(get_GregorianCalendar)
     get_GregorianCalendar = str(get_GregorianCalendar)[4:]
     print(get_GregorianCalendar)
-    sql = "SELECT a.emp_name FROM sys_emp a ,sys_dept b ,sys_emp_detail c WHERE a.dept_number = b. number AND b.comp_id = '330016' AND a.emp_number = c.worker_id  AND a.login_status in (1,2,3) AND a.emp_status in (0,1,2,3) AND a.account_status in (0,1,2) AND c.birth_date LIKE'%%%s%%';"%(get_GregorianCalendar)
+    sql = "SELECT a.emp_name FROM sys_emp a ,sys_dept b ,sys_emp_detail c WHERE a.dept_number = b. number AND b.comp_id = '330016' AND a.emp_number = c.worker_id  AND a.login_status in (1,2,3) AND a.emp_status in (0,1,2,3,4) AND a.account_status in (0,1,2) AND c.birth_date LIKE'%%%s%%';"%(get_GregorianCalendar)
     #sql = "SELECT a.emp_name FROM sys_emp a ,sys_dept b ,sys_emp_detail c WHERE a.dept_number = b. number AND b.comp_id = '330016' AND a.emp_number = c.worker_id  AND a.login_status in (1,2,3) AND a.emp_status in (0,1,2,3) AND a.account_status in (0,1,2) AND c.birth_date LIKE'%-06-13%';"
     print(sql)
 
-    db = MySQLdb.connect(host='172.16.4.223',user='coa_group_qhn_sj',passwd='jjszrExXC1Bu4uH6jktL+_&^',port=35113,db='hr',charset='utf8')  #打开数据库连接
+    # db = MySQLdb.connect(host='172.16.4.223',user='coa_group_qhn_sj',passwd='jjszrExXC1Bu4uH6jktL+_&^',port=35113,db='hr',charset='utf8')  #打开数据库连接
+    db = MySQLdb.connect(host='172.16.22.101',user='root',passwd='admintest',port=33096,db='hr',charset='utf8')  #打开数据库连接
+
     cur = db.cursor()           #使用cursor()方法获取操作游标
     cur.execute(sql)            #使用execute方法执行SQL语句
     db.commit()                 #提交请求
@@ -57,7 +59,7 @@ def Email(str1):
 # 第三方 SMTP 服务
     mail_host="smtp.qq.com" #设置服务器
     mail_user="1093040152@qq.com" #用户名
-    mail_pass="wcmynglgfomygecd" # QQ邮箱登录的授权码
+    mail_pass="ffkzjccrdtmsjhhe" # QQ邮箱登录的授权码
     # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>','齐红宁<qhn@leyoujia.com>','石进<shij@leyoujia.com>']
     receivers =['袁猛<1093040152@qq.com>']
     # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码

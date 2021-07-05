@@ -9,7 +9,7 @@ ctrl+alt+D   分屏
 Ctrl+/       快速注释
 
 """
-
+import re
 import urllib.request
 
 from PIL import Image
@@ -243,6 +243,7 @@ class Login():
         print(lists)
 
         WDK_name = []
+        WDK_id = []
         hh = time.strftime('%H', time.localtime(time.time()))
         print(hh)
         if int(hh) < 12:
@@ -250,6 +251,7 @@ class Login():
             for i in lists:
                 if i['upAttendStatusStr'] == '旷工':
                     WDK_name.append(i['workerName'])
+                    WDK_id.append(i['workerId'])
 
                 else:
                     pass
@@ -260,12 +262,14 @@ class Login():
             for i in lists:
                 if i['nextAttendStatusStr'] == '旷工':
                     WDK_name.append(i['workerName'])
+                    WDK_id.append(i['workerId'])
 
                 else:
                     pass
             print('请通知同事打下班卡')
 
         print('未打卡人员名单：', WDK_name)
+        print('未打卡人员名单ID：', WDK_id)
 
         self.browser.close()
         self.browser.quit()
@@ -304,6 +308,44 @@ class Login():
         except smtplib.SMTPException as e:
             print(e)
             print("Error: 无法发送邮件")
+
+
+     #发送乐聊通知提醒
+    def IMsendinfo(self,ids, text, info,group='im-serve-attend',url=''):
+
+        idsstr = ''
+        # 如果是字符串则转为list
+        if type(ids) != type([]):
+            ids = ids.replace(';', ',')
+            ids = ids.replace(u'，', ',')
+            ids = re.split(',', ids)
+        if ids:
+            for i in ids:
+                idsstr = u'%s"%s",' % (idsstr, i)
+            idsstr = idsstr[:-1]
+            print('idsstr:',idsstr)
+        else:
+            return
+
+        msg = text.replace('\r\n', '')
+        msg = msg.replace('\n', '')
+        interface = 'com.jjshome.im.service.dubbo.NimAccidService'
+        method = 'sendCustomMsg'
+        host = '192.168.196.6'
+        port = '26889'
+
+        param = u'{"fromAccid":"servenumber000011","group":"%s","toAccids":[%s],"body":"{\\"type\\":8,\\"data\\":{\\"title\\":\\"%s\\",\\"content\\":\\"%s\\",\\"source\\":\\"im-serve-attend\\",\\"sourceName\\":\\"%s的温馨提示\\",\\"sourceType\\":\\"im-serve-fwsq\\",\\"url\\":\\"%s\\",\\"isOuterOpen\\":true}}"}' % (
+            group, idsstr, info, msg, info, url)
+
+        try:
+            url = u'http://172.16.100.12:29998/netdubbo'
+            data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'gbk',
+                    'outputbz': False}
+            req = requests.post(url=url, data=data, timeout=5)
+            print(req.text)
+            print(u'调用远程服务成功。')
+        except:
+            print(u'乐聊通知处理出错！')
 
 
 global wechat_lock
@@ -402,12 +444,15 @@ if __name__ == '__main__':
     name = '测试部'
     xm = '袁猛'
     empnumber = '06045224'
+    #乐聊通知名单
+    ids = ["252613", "249279","412999","419544"]
+    # ids = ["252613"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:
-        info = '请告知以下同事打上班卡'
+        info = '请以下同事记得打上班卡'
     else:
-        info = '请告知以下同事打下班卡'
+        info = '请以下同事记得打下班卡'
     response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(response_time)
 
@@ -416,14 +461,18 @@ if __name__ == '__main__':
     p.login(username,password)
     WDK_name = p.getcookie(empnumber,name,url2,xm)
 
+    # (",".join(str(i) for i in WDK_name  去列表数据并用逗号分割)
+    text = '通知：' + response_time + '\n\n    ' + info + ':\n    ' + "\n    ".join(str(i) for i in WDK_name)
+
 
     if len(WDK_name) == 0:
         print('同事都已打卡，不进行通知')
     else:
         p.Email(info,WDK_name)
+        send_wx_msg(text)
+        p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
-    # (",".join(str(i) for i in WDK_name  去列表数据并用逗号分割)
-    text = '通知：' + response_time + '\n\n    ' + info + ':\n    ' + "\n    ".join(str(i) for i in WDK_name)
 
-    send_wx_msg(text)
+
+
 
