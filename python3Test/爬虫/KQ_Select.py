@@ -311,56 +311,58 @@ class Login():
 
         # ##############################################
         # 从dubbo后台获取直连ip
-        def dubboGetip(self, interface, huanjing, tanchuangbz):
-            '''
-            # 从dobbo中心获取服务的直连ip。
-            :param interface: 服务名称
-            :param huanjing: 调用环境
-            :param tanchuangbz: 当获取不到ip时是否弹窗确认打开dubbo后台管理中心
-            :return:
-            '''
-            # 弹窗确认结果，默认为False
-            ry = False
-            if u'正式' in huanjing or u'生产' in huanjing:
-                huanjing = '172.16.4.223:8084'
-            elif u'3.100' in huanjing or u'线下测试' in huanjing:
-                huanjing = '172.16.4.114:9080'
-            elif u'22.100' in huanjing or u'容器' in huanjing:
-                huanjing = '172.16.22.100:9080'
-            elif u'2.54' in huanjing or u'线上测试' in huanjing:
-                huanjing = '192.168.3.70:9080'
-            else:
-                print(u'环境指定错误，默认使用3.100')
-                huanjing = '172.16.4.114:9080'
-            try:
-                headers = {"Accept-Language": "zh-CN,zh;q=0.9", "Accept-Encoding": "gzip, deflate",
-                           "Connection": "keep-alive",
-                           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-                           "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",
-                           "Host": "172.16.4.223:8084",
-                           "Cookie": "_ga=GA1.1.1890888338.1580476038; HISTORY=\"com.jjshome.im.service.dubbo.NimAccidService..../governance/services/com.jjshome.im.service.dubbo.NimAccidService/providers\\.\\.\\.\\.\\.\\.com.jjshome.im.service.dubbo.INimRoomService..../governance/services/com.jjshome.im.service.dubbo.INimRoomService/providers\"",
-                           "Cache-Control": "max-age=0", "Upgrade-Insecure-Requests": "1",
-                           "Authorization": "Basic Z3Vlc3Q6Z3Vlc3Q="}
-                url = 'http://%s/governance/services/%s/providers' % (huanjing, interface)
-                url_t = 'http://%s/governance/services?keyword=%s' % (huanjing, interface)
-                # 发送请求，查询dubbo后台，获取ip和端口
-                try:
-                    r = requests.get(url=url, headers=headers, timeout=5)
-                    r = re.findall('\d+\.\d+\.\d+\.\d+\:\d+', r.text)
-                except:
-                    if tanchuangbz:
-                        print("请求失败")
-                # 如果获取ip和端口成功
-                if r:
-                    print(r)
-                    print(re.split(':', r[0]))
-                    # 如果是容器则特殊处理
-                    if u'22.100' in huanjing or u'容器' in huanjing:
-                        return ('172.16.22.100', '2008')
-                    return re.split(':', r[0])
 
+    def dubboGetip(self, interface, huanjing, tanchuangbz):
+
+        '''
+        # 从dobbo中心获取服务的直连ip。
+        :param interface: 服务名称
+        :param huanjing: 调用环境
+        :param tanchuangbz: 当获取不到ip时是否弹窗确认打开dubbo后台管理中心
+        :return:
+        '''
+        # 弹窗确认结果，默认为False
+        ry = False
+        if u'正式' in huanjing or u'生产' in huanjing:
+            huanjing = '172.16.4.223:8084'
+        elif u'3.100' in huanjing or u'线下测试' in huanjing:
+            huanjing = '172.16.4.114:9080'
+        elif u'22.100' in huanjing or u'容器' in huanjing:
+            huanjing = '172.16.22.100:9080'
+        elif u'2.54' in huanjing or u'线上测试' in huanjing:
+            huanjing = '192.168.3.70:9080'
+        else:
+            print(u'环境指定错误，默认使用3.100')
+            huanjing = '172.16.4.114:9080'
+        try:
+            headers = {"Accept-Language": "zh-CN,zh;q=0.9", "Accept-Encoding": "gzip, deflate",
+                       "Connection": "keep-alive",
+                       "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+                       "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",
+                       "Host": "172.16.4.223:8084",
+                       "Cookie": "_ga=GA1.1.1890888338.1580476038; HISTORY=\"com.jjshome.im.service.dubbo.NimAccidService..../governance/services/com.jjshome.im.service.dubbo.NimAccidService/providers\\.\\.\\.\\.\\.\\.com.jjshome.im.service.dubbo.INimRoomService..../governance/services/com.jjshome.im.service.dubbo.INimRoomService/providers\"",
+                       "Cache-Control": "max-age=0", "Upgrade-Insecure-Requests": "1",
+                       "Authorization": "Basic Z3Vlc3Q6Z3Vlc3Q="}
+            url = 'http://%s/governance/services/%s/providers' % (huanjing, interface)
+            url_t = 'http://%s/governance/services?keyword=%s' % (huanjing, interface)
+            # 发送请求，查询dubbo后台，获取ip和端口
+            try:
+                r = requests.get(url=url, headers=headers, timeout=5)
+                r = re.findall('\d+\.\d+\.\d+\.\d+\:\d+', r.text)
             except:
-                print("获取不到IP和端口")
+                if tanchuangbz:
+                    print("请求失败")
+            # 如果获取ip和端口成功
+            if r:
+                print(r)
+                print(re.split(':', r[0]))
+                # 如果是容器则特殊处理
+                if u'22.100' in huanjing or u'容器' in huanjing:
+                    return ('172.16.22.100', '2008')
+                return re.split(':', r[0])
+
+        except:
+            print("获取不到IP和端口")
 
 
      #发送乐聊通知提醒
@@ -523,8 +525,8 @@ if __name__ == '__main__':
     if len(WDK_name) == 0:
         print('同事都已打卡，不进行通知')
     else:
-        p.Email(info,WDK_name)
-        send_wx_msg(text)
+        # p.Email(info,WDK_name)
+        # send_wx_msg(text)
         p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
 
