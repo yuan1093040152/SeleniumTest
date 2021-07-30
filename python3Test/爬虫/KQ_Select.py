@@ -255,7 +255,7 @@ class Login():
 
                 else:
                     pass
-            print('请通知同事打上班卡')
+            print('请通知小伙伴们打上班卡')
         else:
 
             # 下班
@@ -266,7 +266,7 @@ class Login():
 
                 else:
                     pass
-            print('请通知同事打下班卡')
+            print('请通知小伙伴们打下班卡')
 
         print('未打卡人员名单：', WDK_name)
         print('未打卡人员名单ID：', WDK_id)
@@ -502,14 +502,14 @@ if __name__ == '__main__':
     xm = '袁猛'
     empnumber = '06045224'
     #乐聊通知名单
-    ids = ["252613", "249279","412999","419544","405984","403963"]
+    ids = ["252613", "249279","412999","419544","405984","403963","089363","171342","436614"]
     # ids = ["252613"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:
-        info = '请以下同事记得打上班卡'
+        info = '请以下小伙伴别忘记打上班卡'
     else:
-        info = '请以下同事记得打下班卡'
+        info = '请以下小伙伴别忘记打下班卡'
     response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(response_time)
 
@@ -523,10 +523,10 @@ if __name__ == '__main__':
 
 
     if len(WDK_name) == 0:
-        print('同事都已打卡，不进行通知')
+        print('小伙伴都已打卡，不进行通知')
     else:
-        # p.Email(info,WDK_name)
-        # send_wx_msg(text)
+        p.Email(info,WDK_name)
+        send_wx_msg(text)
         p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
 
