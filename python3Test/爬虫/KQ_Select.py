@@ -125,6 +125,7 @@ class Login():
 
     #登录
     def login(self,username,password):
+        self.Time(4)
         self.browser.find_element(By.ID, 'workerNo').clear()
         self.browser.find_element(By.ID, 'workerNo').send_keys(username)
         self.browser.find_element(By.ID, 'password').send_keys(password)
