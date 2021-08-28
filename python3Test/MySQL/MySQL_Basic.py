@@ -86,5 +86,5 @@ class Connect_database(object):
 
 if __name__ == '__main__':
 
-    a = Connect_database().selectDB("SELECT * FROM HT_FDD_SIGNER GROUP BY INSERTTIME DESC LIMIT 10;")
+    a = Connect_database().selectDB("SELECT * FROM HT_FDD_SIGNER GROUP BY INSERTTIME DESC LIMIT 1;")
     print(a)
