@@ -42,7 +42,7 @@ def open_browser(browser,url):
 
 class Login():
 
-    def __init__(self,browser,url,):
+    def __init__(self,browser,url):
         self.browser = open_browser(browser, url)
         self.browser.maximize_window()
         self.browser.implicitly_wait(5)
