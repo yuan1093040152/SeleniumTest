@@ -5,6 +5,8 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="urllib.urlopen" />
+          <option value="UI_jjsAutoTest.UI_jjsAsset.lib.pc_login.testname" />
+          <option value="UI_jjsAutoTest.UI_jjsAsset.lib.pc_login.q" />
         </list>
       </option>
     </inspection_tool>
