@@ -48,6 +48,11 @@ class testname:
     def ClickElement(self,type,element):
         self.browser.find_element(by=type,value=element).click()
 
+    #新开页签
+    def execute(self,js):
+        self.browser.execute_script(js)
+        self.browser.switch_to.window(self.browser.window_handles[-1])
+
     #获取文本信息
     # def getTextElement(self,type,element):
     #     self.browser.find_element_by_xpath(element).text

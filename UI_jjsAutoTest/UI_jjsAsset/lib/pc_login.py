@@ -11,25 +11,25 @@ Ctrl+/       快速注释
 """
 
 
-from UI_jjsAutoTest.UI_jjsAsset.lib import openbrowser
+from UI_jjsAutoTest.UI_jjsAsset.lib import openbrowser,read_config
 from selenium.webdriver.common.by import By
 from PIL import Image
 from aip import AipOcr
 import time
 
+
+#登录
 class login(openbrowser.testname):
 
     def __init__(self):
-        self.itesturl = 'http://itest.leyoujia.com/jjslogin/tologin'
-        self.iurl = 'http://i.leyoujia.com/jjslogin/tologin'
-        self.browser = 'Chrome'
-        self.itestempno = '000012'
-        self.iempno = '252613'
-        self.itestpassword = '1'
-        self.ipassword = 'mm711232'
+        self.itestempno = read_config.read_config('user','itestempno')
+        self.iempno = read_config.read_config('user', 'iempno')
+        self.itestpassword = read_config.read_config('user', 'itestpassword')
+        self.ipassword = read_config.read_config('user', 'ipassword')
+        self.browser = read_config.read_config('browser', 'browser')
+        self.itesturl = read_config.read_config('url', 'itesturl')
+        self.iurl = read_config.read_config('url', 'iurl')
         self.nowtime = time.strftime('%Y-%m-%d-%H-%M-%S')
-        # self.p = openbrowser.testname(self.browser, self.itesturl)
-        # self.q = openbrowser.testname(self.browser,self.iurl)
 
 
     # 通过元素获取验证码
@@ -60,9 +60,10 @@ class login(openbrowser.testname):
         #     f.write(r.content)
 
         # 百度高精度识别https://ai.baidu.com/ai-doc/OCR/1k3h7y3db
-        APP_ID = '24416627'
-        API_KEY = '3i88Xum6GtMrtYIYP1H8uwZ5'
-        SECRET_KEY = 'D9Di9Lcon0NbOnEKTtylIGMYUshfLnyj'
+        APP_ID = read_config.read_config('ocr','APP_ID')
+        API_KEY = read_config.read_config('ocr', 'API_KEY')
+        SECRET_KEY = read_config.read_config('ocr', 'SECRET_KEY')
+
         client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
         with open(path1, 'rb') as f:
             image = f.read()
@@ -74,18 +75,20 @@ class login(openbrowser.testname):
     #itest环境登录
     def itestlogin(self):
         p = openbrowser.testname(self.browser, self.itesturl)
+        # p.browser.execute_script()
         self.Time(3)
         p.CleanElement(By.ID,'workerNo')
         p.ImputElement(By.ID,'workerNo',self.itestempno)
         p.ImputElement(By.ID, 'password', self.itestpassword)
         p.ClickElement(By.ID, 'login_button')
         print('已登录新系统')
-        p.Wait(10)
+        self.Time(5)
+        # p.Wait(50)
         try:
-            p.ClickElement(By.CLASS_NAME, 'aui_close')
+            # p.ClickElement(By.CLASS_NAME,'aui_close')
+            p.browser.find_element_by_class_name('aui_close').click()
         except:
             print('没有弹窗跳过')
-            pass
         time.sleep(2)
 
 
@@ -117,11 +120,11 @@ class login(openbrowser.testname):
                 print(e)
                 print('登录成功！')
                 break
-            pass
+
 
 
 
 
 if __name__ == '__main__':
 
-    a = login().ilogin()
+    a = login().itestlogin()
