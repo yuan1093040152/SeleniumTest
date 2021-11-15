@@ -33,8 +33,8 @@ class jggl_select(TestCase_):
 
 
     def test_Property_type(self):
-        """产权类型查询1"""
+        """产权类型租赁查询"""
         self.jggl.open_url()
         self.jggl.Property_type()
-        print('hahahahha')
+
 

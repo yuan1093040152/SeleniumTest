@@ -28,6 +28,7 @@ class BasePage(object):
         self.browser = read_config.read_config('browser', 'browser')
         self.itesturl = read_config.read_config('url', 'itesturl')
         self.iurl = read_config.read_config('url', 'iurl')
+        self.jgurl = read_config.read_config('url', 'jgurl')
 
 
     def url(self):
@@ -38,4 +39,8 @@ class BasePage(object):
 
     def max_window(self):
         self.d.max_window()
+
+    # 关闭网页
+    def close_page(self):
+        self.d.close()
 

@@ -48,6 +48,7 @@ class LoginPage(BasePage):
             print('没有弹窗跳过')
         time.sleep(2)
 
+
     # 线上环境登录
     def ilogin(self):
         time.sleep(2)

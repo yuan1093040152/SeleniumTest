@@ -21,8 +21,13 @@ from UI_jjsAutoTest.UI_jjsAsset.lib.HTMLTestRunner import HTMLTestRunner
 # from lib.sendemail import SendEmail
 # from lib.download_driver import osSystem
 from UI_jjsAutoTest.UI_jjsAsset.lib.tool import delreport
+from UI_jjsAutoTest.UI_jjsAsset.lib.sendemall import SendEmail
+
+
 
 local_readConfig = ReadConfig()
+SendEmail = SendEmail()
+
 
 class Main:
     def __init__(self):
@@ -53,6 +58,9 @@ class Main:
         # now = time.strftime("%Y-%m-%d-%H_%M_%S",time.localtime(time.time()))
         # file_name = '%s-report.html'%now #报告文件名
         # runner.report('自动化测试报告',filename=file_name,report_dir=report_path)#产生报告
+
+        #发送邮件
+        SendEmail.Email(file=filename)
 
 if __name__ == '__main__':
     Main().run()
