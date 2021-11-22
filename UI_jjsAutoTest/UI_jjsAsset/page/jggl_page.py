@@ -47,6 +47,25 @@ class jgglList(LoginPage):
         "gjz": 'xpath=>//*[@id="myForm"]/div/div[1]/div[13]/input',
         # 查询
         "cx": 'xpath=>//*[@id="chaxun"]',
+        #详情
+        "zcxx": 'xpath=>//*[@id="jgRouter"]/a[2]',
+        "czjl": 'xpath=>//*[@id="jgRouter"]/a[3]',
+        "lszt": 'xpath=>//*[@id="jgRouter"]/a[4]',
+        "jg_bj": 'xpath=>//*[@id="updateShopInfo"]',
+        "bj_wylx": 'xpath=>//*[@id="updateJgShopForm"]/div[1]/div[8]/div/div/input',
+        "bj_wylx_zl": 'xpath=>//*[@id="updateJgShopForm"]/div[1]/div[8]/div/div/ul/li[2]',
+        "bj_yfwe": 'xpath=>//*[@id="updateJgShopForm"]/div[3]/div[6]/div/div/input',
+        "bj_yfwe_no": 'xpath=>//*[@id="updateJgShopForm"]/div[3]/div[6]/div/div/ul/li[3]',
+        "bj_bc": 'xpath=>//*[@id="updateShopInfoConfirm"]',
+        "xgjgzt": 'xpath=>//*[@id="jgHeader"]/div/div/p[1]/span[2]/button[3]',
+        "xg_zt": 'xpath=>//*[@id="importForm"]/div[2]/div[2]/select',
+        "xg_yyz": 'xpath=>//*[@id="importForm"]/div[2]/div[2]/select/option[5]',
+        "xg_bc": 'xpath=>//*[@id="importForm"]/div[3]/button[1]',
+        "cktzxq": 'xpath=>//*[@id="cktzxq"]',
+        "tz_htgl": 'xpath=>//*[@id="checkContract"]',
+        "tz_sdfgl": 'xpath=>//*[@id="main-content"]/div/div[3]/div/div[3]/span[1]/a',
+        "tz_zzgl": 'xpath=>//*[@id="license"]/a',
+
         # 校验字段
         "jy_cqlx": 'xpath=>//*[@id="contenBody"]/tr[1]/td[3]',
         "jy_gsgs": 'xpath=>//*[@id="contenBody"]/tr[1]/td[4]',
@@ -54,13 +73,132 @@ class jgglList(LoginPage):
         "jy_jgmc": 'xpath=>//*[@id="contenBody"]/tr[1]/td[9]',
         "jy_jglx": 'xpath=>//*[@id="contenBody"]/tr[1]/td[10]',
         "jy_jgzt": 'xpath=>//*[@id="contenBody"]/tr[1]/td[13]',
+        "jy_jgxq": 'xpath=>//*[@id="jgRouter"]/a[1]',
+        "jy_zcxx": 'xpath=>//*[@id="jgRouter"]/a[2]',
+        "jy_czjl": 'xpath=>//*[@id="jgRouter"]/a[3]',
+        "jy_lszt": 'xpath=>//*[@id="jgRouter"]/a[4]',
+        "jy_fhmc": 'xpath=>//*[@id="updateJgShopForm"]/div[1]/div[3]/span[2]',
+        "jy_jgzt_yyz": 'xpath=>//*[@id="jgHeader"]/div/div/p[1]/span[1]',
+        "jy_tzbgxq": 'xpath=>//*[@id="main-content"]/div/div/h2',
+        "jy_htgl": 'xpath=>//*[@id="main-content"]/div/div/div[1]/a',
+        "jy_sdfgl": 'xpath=>//*[@id="main-content"]/div/div/div[1]/a[1]',
+        "jy_zzgl": 'xpath=>//*[@id="main-content"]/div[2]/div/div/a[1]',
+
 
     }
 
+    # 跳转证照管理
+    def jump_zzgl(self):
+        self.d.click(self.element_data['tz_zzgl'])
+        time.sleep(2)
+
+    def jump_zzgl_check(self):
+        self.d.get_text(self.element_data['jy_zzgl'])
+        time.sleep(2)
 
 
+    # 跳转水电费管理
+    def jump_sdfgl(self):
+        self.d.click(self.element_data['tz_sdfgl'])
+        time.sleep(2)
+
+    def jump_sdfgl_check(self):
+        self.d.get_text(self.element_data['jy_sdfgl'])
+        time.sleep(2)
+
+
+    #跳转合同管理
+    def jump_htgl(self):
+        self.d.click(self.element_data['tz_htgl'])
+        time.sleep(2)
+
+    def jump_htgl_check(self):
+        self.d.get_text(self.element_data['jy_htgl'])
+        time.sleep(2)
+
+
+    #跳转拓展报告
+    def jump_tzbg(self):
+        self.d.click(self.element_data['cktzxq'])
+        time.sleep(2)
+
+    def jump_tzbg_check(self):
+        self.d.get_text(self.element_data['jy_tzbgxq'])
+        time.sleep(2)
+
+
+    #修改机构状态
+    def edit_status(self):
+        self.d.click(self.element_data['xgjgzt'])
+        time.sleep(2)
+        self.d.click(self.element_data['xg_zt'])
+        time.sleep(2)
+        self.d.click(self.element_data['xg_yyz'])
+        time.sleep(2)
+        self.d.click(self.element_data['xg_bc'])
+        time.sleep(2)
+
+    def edit_status_check(self):
+        self.d.get_text(self.element_data['jy_jgzt_yyz'])
+        time.sleep(2)
+
+
+    #编辑机构
+    def jg_edit(self):
+        self.d.click(self.element_data['jg_bj'])
+        time.sleep(2)
+        self.d.click(self.element_data['bj_wylx'])
+        time.sleep(2)
+        self.d.click(self.element_data['bj_wylx_zl'])
+        time.sleep(2)
+        self.d.click(self.element_data['bj_yfwe'])
+        time.sleep(2)
+        self.d.click(self.element_data['bj_yfwe_no'])
+        time.sleep(2)
+        self.d.click(self.element_data['bj_bc'])
+        time.sleep(2)
+
+    def jg_edit_check(self):
+        self.d.get_text(self.element_data['jy_fhmc'])
+        time.sleep(2)
+
+
+    #资产信息
+    def asset_info(self):
+        self.d.click(self.element_data['zcxx'])
+        time.sleep(2)
+
+    def asset_info_check(self):
+        self.d.get_text(self.element_data['jy_zcxx'])
+        time.sleep(2)
+
+
+    #操作记录
+    def record(self):
+        self.d.click(self.element_data['czjl'])
+        time.sleep(2)
+
+    def record_check(self):
+        self.d.get_text(self.element_data['jy_czjl'])
+
+
+    # 历史状态
+    def state(self):
+        self.d.click(self.element_data['lszt'])
+        time.sleep(2)
+
+    def state_check(self):
+        self.d.get_text(self.element_data['jy_lszt'])
+
+
+     #机构管理
     def open_url(self):
         self.d.open(self.jgurl)
+        time.sleep(2)
+
+    # 机构详情
+    def open_url_xq(self):
+        self.d.open(self.jgxqurl)
         time.sleep(2)
 
     # 产权类型选择租赁查询
@@ -213,6 +351,11 @@ class jgglList(LoginPage):
     # 关键字查询校验
     def keyword_check(self):
         self.d.get_text(self.element_data["jy_jgmc"])
+        time.sleep(3)
+
+    #详情页校验
+    def detail_page_check(self):
+        self.d.get_text(self.element_data["jy_jgxq"])
         time.sleep(3)
 
 

@@ -29,6 +29,7 @@ class BasePage(object):
         self.itesturl = read_config.read_config('url', 'itesturl')
         self.iurl = read_config.read_config('url', 'iurl')
         self.jgurl = read_config.read_config('url', 'jgurl')
+        self.jgxqurl = read_config.read_config('url','jgxqurl')
 
 
     def url(self):

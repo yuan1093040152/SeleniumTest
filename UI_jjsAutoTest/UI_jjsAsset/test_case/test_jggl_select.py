@@ -121,3 +121,72 @@ class jggl_select(TestCase_):
         self.jggl.open_url()
         self.jggl.keyword()
         assert(self.jggl.keyword_check(),'测试一分行')
+
+
+    def test_detail_page(self):
+        """进入机构详情页"""
+        self.jggl.open_url_xq()
+        assert (self.jggl.detail_page_check(),"机构信息")
+
+
+    def test_asset_info(self):
+        """进入资产信息页"""
+        self.jggl.open_url_xq()
+        self.jggl.asset_info()
+        assert (self.jggl.asset_info_check(),"资产信息")
+
+
+    def test_record(self):
+        """进入操作记录页"""
+        self.jggl.open_url_xq()
+        self.jggl.record()
+        assert (self.jggl.record_check(),"操作记录")
+
+
+    def test_state(self):
+        """进入历史状态页"""
+        self.jggl.open_url_xq()
+        self.jggl.state()
+        assert (self.jggl.state_check(),"历史状态")
+
+
+    def test_jg_edit(self):
+        """编辑机构信息"""
+        self.jggl.open_url_xq()
+        self.jggl.jg_edit()
+        assert (self.jggl.jg_edit_check(),"测试一分行")
+
+
+    def test_edit_status(self):
+        """修改机构状态"""
+        self.jggl.open_url_xq()
+        self.jggl.edit_status()
+        assert (self.jggl.edit_status_check(),"营业中")
+
+
+    def test_jump_tzbg(self):
+        """跳转拓展报告"""
+        self.jggl.open_url_xq()
+        self.jggl.jump_tzbg()
+        assert (self.jggl.jump_tzbg_check(),"拓展报告详情")
+
+
+    def test_jump_htgl(self):
+        """跳转合同管理"""
+        self.jggl.open_url_xq()
+        self.jggl.jump_htgl()
+        assert (self.jggl.jump_htgl_check(),"合同管理")
+
+
+    def test_jump_sdfgl(self):
+        """跳转水电费管理"""
+        self.jggl.open_url_xq()
+        self.jggl.jump_sdfgl()
+        assert (self.jggl.jump_sdfgl_check(),"管理费")
+
+
+    def test_jump_zzgl(self):
+        """跳转证照管理"""
+        self.jggl.open_url_xq()
+        self.jggl.jump_zzgl()
+        assert (self.jggl.jump_zzgl_check(),"证照详情")
