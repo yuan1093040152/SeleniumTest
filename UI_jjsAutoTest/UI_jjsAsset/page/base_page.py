@@ -42,6 +42,6 @@ class BasePage(object):
         self.d.max_window()
 
     # 关闭网页
-    def close_page(self):
+    def close(self):
         self.d.close()
 

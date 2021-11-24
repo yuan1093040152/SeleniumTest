@@ -86,10 +86,24 @@ class jgglList(LoginPage):
 
 
     }
+     #机构管理
+    def open_url(self):
+        self.d.open(self.jgurl)
+        time.sleep(2)
+
+    # 机构详情
+    def open_url_xq(self):
+        self.d.open(self.jgxqurl)
+        time.sleep(2)
+
+
 
     # 跳转证照管理
     def jump_zzgl(self):
         self.d.click(self.element_data['tz_zzgl'])
+        time.sleep(2)
+        # 打开新页面需要切换页签
+        self.d.switch_to_new_window()
         time.sleep(2)
 
     def jump_zzgl_check(self):
@@ -101,6 +115,9 @@ class jgglList(LoginPage):
     def jump_sdfgl(self):
         self.d.click(self.element_data['tz_sdfgl'])
         time.sleep(2)
+        # 打开新页面需要切换页签
+        self.d.switch_to_new_window()
+        time.sleep(2)
 
     def jump_sdfgl_check(self):
         self.d.get_text(self.element_data['jy_sdfgl'])
@@ -111,6 +128,9 @@ class jgglList(LoginPage):
     def jump_htgl(self):
         self.d.click(self.element_data['tz_htgl'])
         time.sleep(2)
+        # 打开新页面需要切换页签
+        self.d.switch_to_new_window()
+        time.sleep(2)
 
     def jump_htgl_check(self):
         self.d.get_text(self.element_data['jy_htgl'])
@@ -120,6 +140,9 @@ class jgglList(LoginPage):
     #跳转拓展报告
     def jump_tzbg(self):
         self.d.click(self.element_data['cktzxq'])
+        time.sleep(2)
+        #打开新页面需要切换页签
+        self.d.switch_to_new_window()
         time.sleep(2)
 
     def jump_tzbg_check(self):
@@ -190,16 +213,6 @@ class jgglList(LoginPage):
     def state_check(self):
         self.d.get_text(self.element_data['jy_lszt'])
 
-
-     #机构管理
-    def open_url(self):
-        self.d.open(self.jgurl)
-        time.sleep(2)
-
-    # 机构详情
-    def open_url_xq(self):
-        self.d.open(self.jgxqurl)
-        time.sleep(2)
 
     # 产权类型选择租赁查询
     def Property_type_zl(self):
@@ -360,9 +373,13 @@ class jgglList(LoginPage):
 
 
 
-    # # 关闭网页
-    # def close_page(self):
-    #     self.d.close()
+    # 关闭网页
+    def close_page(self):
+        self.d.close()
+
+    # 退出网页
+    def quit_page(self):
+        self.d.quit()
 
 
 

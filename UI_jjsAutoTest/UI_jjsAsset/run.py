@@ -44,7 +44,6 @@ class Main:
         now = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime(time.time()))
         filename = report_path + os.path.sep + now +'report.html'
         f = open(filename ,'wb')
-        # runner = HTMLTestRunner(f,verbosity=2,title=u'%s'%title, description=u'用例执行情况：')
         runner = HTMLTestRunner(f,verbosity=2,title=u'%s'%title, description=u'用例执行情况：')
         runner.run(suite)
         f.flush()

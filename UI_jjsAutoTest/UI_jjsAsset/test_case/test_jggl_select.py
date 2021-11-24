@@ -29,7 +29,8 @@ class jggl_select(TestCase_):
     @classmethod
     def tearDownClass(self):  # 必须使用 @ classmethod装饰器, 所有test运行结束后运行一次
         print('-----------结束机构管理UI自动化巡检--------------')
-        self.jggl.quit()
+        self.jggl.close_page()
+        self.jggl.quit_page()
 
 
     def test_Property_type_zl(self):
@@ -190,3 +191,7 @@ class jggl_select(TestCase_):
         self.jggl.open_url_xq()
         self.jggl.jump_zzgl()
         assert (self.jggl.jump_zzgl_check(),"证照详情")
+
+
+if __name__ == '__main__':
+    unittest.main()

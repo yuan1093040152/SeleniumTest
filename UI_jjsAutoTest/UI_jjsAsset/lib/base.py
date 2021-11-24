@@ -410,7 +410,8 @@ class Base(object):
 
     def switch_to_new_window(self):
         windows = self.driver.window_handles
-        self.driver.switch_to_window(windows[-1])
+        self.driver.switch_to.window(windows[-1])
+        # self.driver.switch_to_window(windows[-1])
 
     def switch_window(self, index):
         # 根据输入的标签页序号切换到任意标签页
