@@ -36,7 +36,7 @@ def birthday_time():
     print(get_GregorianCalendar)
     get_GregorianCalendar = str(get_GregorianCalendar)[4:]
     print(get_GregorianCalendar)
-    sql = "SELECT a.emp_name FROM sys_emp a ,sys_dept b ,sys_emp_detail c WHERE a.dept_number = b. number AND b.comp_id = '330016' AND a.emp_number = c.worker_id  AND a.login_status in (1,2,3) AND a.emp_status in (0,1,2,3,4) AND a.account_status in (0,1,2) AND c.birth_date LIKE'%%%s%%';"%(get_GregorianCalendar)
+    sql = "SELECT a.emp_name FROM sys_emp a ,sys_dept b ,sys_emp_detail c WHERE a.dept_number = b. number AND b.comp_id IN ('330016','330007') AND a.emp_number = c.worker_id  AND a.login_status in (1,2,3) AND a.emp_status in (0,1,2,3,4) AND a.account_status in (0,1,2) AND c.birth_date LIKE'%%%s%%';"%(get_GregorianCalendar)
     #sql = "SELECT a.emp_name FROM sys_emp a ,sys_dept b ,sys_emp_detail c WHERE a.dept_number = b. number AND b.comp_id = '330016' AND a.emp_number = c.worker_id  AND a.login_status in (1,2,3) AND a.emp_status in (0,1,2,3) AND a.account_status in (0,1,2) AND c.birth_date LIKE'%-06-13%';"
     print(sql)
 

@@ -39,7 +39,9 @@ def print_content(msg):
     print ("群内消息", msg["ActualNickName"] + ":" + msg['Text'])
     # try:
     # 这里可以在后面加更多的or msg["ActualNickName"]=='你希望自动回复群中谁的消息   （填备注）
-    if msg["ActualNickName"]==u'丽丽' or msg["ActualNickName"]==u'维维' or msg["ActualNickName"]=='Test-wechat1':
+    # if msg["ActualNickName"]==u'丽丽' or msg["ActualNickName"]==u'维维' or msg["ActualNickName"]=='Test-wechat1':
+    if msg["ActualNickName"] == '万手主力活跃群':
+
         type = get_response(msg['Text'])
         # 打印机器人回复的消息
         print ("机器人回复：",type)
