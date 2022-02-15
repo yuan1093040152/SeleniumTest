@@ -206,9 +206,17 @@ class Login():
             except:
                 pass
 
+        for i in cookie:
+            try:
+                if 'proLEYOUJIA' == i['name']:
+                    proLEYOUJIA_value = i['value']
+                    print('proLEYOUJIA_value====', proLEYOUJIA_value)
+            except:
+                pass
+
         print('------------------------------')
 
-        cookie = 'jjshome_uuid=%s; _smt_uid=%s;cookiesId=bce302d180064c60bd921167c696573c; _ga=GA1.2.317993357.1611364094; agentCardhd_time=1; fhListCookies=; gr_user_id=75926756-dfea-419b-a884-306d3cc99060; login-mac=6C-0B-84-A4-72-DD; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1621326471,1622013004,1622013731; Hm_lvt_728857c2e6b321292b2eb422213d1609=1622013004,1622013731;jjshome_sid=%s; default_city_code=000002; JSESSIONID=%s; proLEYOUJIA=ZDMyZTY1NjItOGYzOC00MzU1LTgyZGItYjFmNGFmODE1YjA2; login-workerid=00350597' % (        jjshome_uuid_value, _smt_uid_value, jjshome_sid_value, JSESSIONID_value)
+        cookie = 'jjshome_uuid=%s; _smt_uid=%s;cookiesId=bce302d180064c60bd921167c696573c; _ga=GA1.2.317993357.1611364094; agentCardhd_time=1; fhListCookies=; gr_user_id=75926756-dfea-419b-a884-306d3cc99060; login-mac=6C-0B-84-A4-72-DD; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1621326471,1622013004,1622013731; Hm_lvt_728857c2e6b321292b2eb422213d1609=1622013004,1622013731;jjshome_sid=%s; default_city_code=000002; JSESSIONID=%s; proLEYOUJIA=%s; login-workerid=00350597' % (jjshome_uuid_value, _smt_uid_value, jjshome_sid_value, JSESSIONID_value,proLEYOUJIA_value)
         print('cookie===', cookie)
 
         # 将中文转换格式为URL编码，方便接口调用
@@ -302,7 +310,7 @@ class Login():
         # 第三方 SMTP 服务
         mail_host = "smtp.qq.com"  # 设置服务器
         mail_user = "1093040152@qq.com"  # 用户名
-        mail_pass = "ffkzjccrdtmsjhhe"  # QQ邮箱登录的授权码
+        mail_pass = "gatjphlxuwbwgbaa"  # QQ邮箱登录的授权码
         # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>','齐红宁<qhn@leyoujia.com>','石进<shij@leyoujia.com>']
         receivers = ['袁猛<1093040152@qq.com>']
         # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
