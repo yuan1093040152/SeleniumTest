@@ -12,4 +12,5 @@ Ctrl+/       快速注释
 
 """
 此文件用来存放浏览器驱动。
+http://chromedriver.storage.googleapis.com/index.html
 """
