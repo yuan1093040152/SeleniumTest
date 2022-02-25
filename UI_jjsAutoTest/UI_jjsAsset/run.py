@@ -32,12 +32,11 @@ SendEmail = SendEmail()
 class Main:
     def __init__(self):
         global title
-        # self.send_mail = SendEmail()
         title = local_readConfig.get_project('title')
     def run(self):
-        # osSystem()
         delreport()
         suite = unittest.TestSuite()
+
         cases = unittest.defaultTestLoader.discover(test_case_path)
         for case in cases:
             suite.addTest(case)
@@ -49,14 +48,14 @@ class Main:
         f.flush()
         f.close()
         print('测试报告已生成，路径：%s'%filename)
-        # self.send_mail.send_email()
+
 
         # 方法2
-        # tests = unittest.defaultTestLoader.discover(case_path,pattern='test_*.py',top_level_dir=None) #找指定路径下以.py结尾的文件
+        # tests = unittest.defaultTestLoader.discover(test_case_path,pattern='test_gzgl*.py',top_level_dir=None) #找指定路径下以.py结尾的文件
         # runner = BeautifulReport(tests)#运行找到的所有用例
         # now = time.strftime("%Y-%m-%d-%H_%M_%S",time.localtime(time.time()))
-        # file_name = '%s-report.html'%now #报告文件名
-        # runner.report('自动化测试报告',filename=file_name,report_dir=report_path)#产生报告
+        # filename = '%s-report.html'%now #报告文件名
+        # runner.report('自动化测试报告',filename=filename,report_dir=report_path)#产生报告
 
         #发送邮件
         SendEmail.Email(file=filename)

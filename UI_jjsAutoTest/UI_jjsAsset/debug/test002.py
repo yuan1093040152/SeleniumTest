@@ -12,7 +12,7 @@ Ctrl+/       快速注释
 
 from UI_jjsAutoTest.UI_jjsAsset.lib.pc_login import login
 from UI_jjsAutoTest.UI_jjsAsset.lib.openbrowser import testname
-from UI_jjsAutoTest.UI_jjsAsset.page.jggl_list import jgglList
+from UI_jjsAutoTest.UI_jjsAsset.page.jggl_list_XX import jgglList
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 

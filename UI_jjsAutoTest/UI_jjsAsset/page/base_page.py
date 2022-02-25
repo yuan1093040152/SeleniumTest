@@ -30,6 +30,17 @@ class BasePage(object):
         self.iurl = read_config.read_config('url', 'iurl')
         self.jgurl = read_config.read_config('url', 'jgurl')
         self.jgxqurl = read_config.read_config('url','jgxqurl')
+        self.gz_gdbb_url = read_config.read_config('url','gz_gdbb_url')
+        self.gz_dpgzh_url = read_config.read_config('url', 'gz_dpgzh_url')
+        self.gz_srzm_url = read_config.read_config('url', 'gz_srzm_url')
+        self.gz_ryzs_url = read_config.read_config('url', 'gz_ryzs_url')
+        self.gz_jzwc_url = read_config.read_config('url', 'gz_jzwc_url')
+        self.gz_xmjyb_url = read_config.read_config('url', 'gz_xmjyb_url')
+        self.gz_cgh_url = read_config.read_config('url', 'gz_cgh_url')
+        self.gz_qt_url = read_config.read_config('url', 'gz_qt_url')
+        self.gz_zlbaht_url = read_config.read_config('url', 'gz_zlbaht_url')
+        self.gz_wfba_url = read_config.read_config('url', 'gz_wfba_url')
+        self.gz_cght_url = read_config.read_config('url', 'gz_cght_url')
 
 
     def url(self):
