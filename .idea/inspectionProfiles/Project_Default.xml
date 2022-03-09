@@ -7,6 +7,16 @@
           <option value="urllib.urlopen" />
           <option value="UI_jjsAutoTest.UI_jjsAsset.lib.pc_login.testname" />
           <option value="UI_jjsAutoTest.UI_jjsAsset.lib.pc_login.q" />
+          <option value="turtle.title" />
+          <option value="turtle.speed" />
+          <option value="turtle.penup" />
+          <option value="turtle.goto" />
+          <option value="turtle.pencolor" />
+          <option value="turtle.begin_fill" />
+          <option value="turtle.pensize" />
+          <option value="turtle.fillcolor" />
+          <option value="turtle.pendown" />
+          <option value="turtle.setheading" />
         </list>
       </option>
     </inspection_tool>

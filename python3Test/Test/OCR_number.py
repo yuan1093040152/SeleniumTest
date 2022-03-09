@@ -19,10 +19,11 @@ def GetImageCode():
     API_KEY = '0ynD0BGPC6QtrPWs68i4sQO9'
     SECRET_KEY = 'fKsckEf41jUtTDBwFIeHYkhnYyvNaViz'
     client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
-    with open('E://test//FKHD.png', 'rb') as f:
+    with open('E://test//123.png', 'rb') as f:
         image = f.read()
 
     image1 = client.basicAccurate(image)
+    print(image1)
 
     #高精度带参数
     # options = {}
@@ -38,10 +39,10 @@ def GetImageCode():
     # print(image1)
     # print (image1['words_result'][0]['words'])
     # return image1['words_result'][0]['words']
-    a =[9,10,17,18,19]
-
-    for i in a:
-        print(image1['words_result'][i]['words'])
+    # a =[9,10,17,18,19]
+    #
+    # for i in a:
+    #     print(image1['words_result'][i]['words'])
 
 
 
