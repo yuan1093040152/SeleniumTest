@@ -51,7 +51,7 @@ def get_OnlinetestPassword(url1):
 	OnlinetestPassword = load['msg']
 
 	# print ('今日预发布环境登陆密码为：',OnlinetestPassword)
-	data = '今日预发布环境登陆密码为：\r\n%s'%OnlinetestPassword
+	data = '今日线上测试环境登陆密码为：\r\n%s'%OnlinetestPassword
 	# data = data.encode()
 	print(data)
 	# with open('.\\OnlinetestPassword.txt', 'wb') as f:
@@ -67,7 +67,7 @@ def Email(rs_time):
 # 第三方 SMTP 服务
     mail_host="smtp.qq.com" #设置服务器
     mail_user="1093040152@qq.com" #用户名
-    mail_pass="wcmynglgfomygecd" # QQ邮箱登录的授权码
+    mail_pass="lnacyybewdgngjcb" # QQ邮箱登录的授权码
     # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>','齐红宁<qhn@leyoujia.com>','石进<shij@leyoujia.com>']
     receivers =['高亚静<838456406@qq.com>','lin@leyoujia.com<lin@leyoujia.com>','袁猛<yuanm@leyoujia.com>']
     # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
@@ -193,7 +193,7 @@ if __name__ == '__main__':
 	url1 = 'http://172.16.4.223:12001/apis/back/oldSystem/PassGet'
 	url = 'http://172.16.4.223:12001/privilege/front/users/login'
 	rs_time = get_OnlinetestPassword(url1)
-	ids = ["252613","388809","446957"]
+	ids = ["252613","388809","446957","404499"]
 	text = rs_time
 	info = 'onlinetest线上测试环境密码'
 	IMsendinfo(ids, text, info,group='im-serve-attend',url='')
