@@ -299,7 +299,7 @@ class Login():
         # 第三方 SMTP 服务
         mail_host = "smtp.qq.com"  # 设置服务器
         mail_user = "1093040152@qq.com"  # 用户名
-        mail_pass = "lnacyybewdgngjcb"  # QQ邮箱登录的授权码
+        mail_pass = "pjosevrxdxurjeeg"  # QQ邮箱登录的授权码
         # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>','齐红宁<qhn@leyoujia.com>','石进<shij@leyoujia.com>']
         receivers = ['袁猛<1093040152@qq.com>']
         # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码

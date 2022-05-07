@@ -11,7 +11,7 @@ Ctrl+/       快速注释
 """
 
 
-import MySQLdb,time,argparse
+import MySQLdb,time,argparse,os
 
 
 def get_htbh(HTBH):
@@ -21,7 +21,19 @@ def get_htbh(HTBH):
 
     print(sql)
 
-    db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='jjsht',charset='utf8')  # 打开数据库连接
+    #获取jenkins执行环境
+    huanjing = os.environ['huanjing']
+    if huanjing == 'itest':
+        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='jjsht',charset='utf8')  # 打开数据库连接
+        print('itest环境已执行')
+    elif huanjing == 'onlinetest':
+        db = MySQLdb.connect(host='172.16.4.223', user='root', passwd='passwd36', port=34117, db='jjsht',charset='utf8')  # 打开数据库连接
+        print('onlinetest环境已执行')
+
+    else:
+        print('执行失败，请检查代码！！')
+
+
     cur = db.cursor()  # 使用cursor()方法获取操作游标
     cur.execute(sql)  # 使用execute方法执行SQL语句
     db.commit()  # 提交请求

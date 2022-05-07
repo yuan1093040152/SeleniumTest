@@ -21,8 +21,8 @@ dfxm=pd.read_excel(r"C:\Users\admin\Desktop\test.xlsx",sheet_name=0)
 
 df=pd.read_excel(r"C:\Users\admin\Desktop\test.xlsx")
 
-dept1=list(dfxm["dept"].astype(str))
-dept=list(dfxm["dept1"].astype(str))
+dept=list(dfxm["dept"].astype(str))
+dept1=list(dfxm["dept1"].astype(str))
 # print(list(dept))
 # print(dept1)
 list1=[]
