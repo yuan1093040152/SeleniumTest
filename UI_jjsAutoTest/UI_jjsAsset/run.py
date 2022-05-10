@@ -74,7 +74,7 @@ local_readConfig = ReadConfig()
 class Main:
     def __init__(self):
         global title
-        self.send_mail = SendEmail()
+        # self.send_mail = SendEmail()
         title = local_readConfig.get_project('title')
         self.m = MysqlServer()
 
