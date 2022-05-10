@@ -62,6 +62,8 @@ BASE_URL = 'http://itest.leyoujia.com'
 
 
 
+CASEDIR = 'test_case'
+
 if __name__ == '__main__':
 
     print(CONFIG_PATH)

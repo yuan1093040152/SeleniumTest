@@ -1,17 +1,6 @@
-#coding=utf-8
-"""
-@Author  : Yuan Meng
-@Time    : 2021/11/12 15:02
-@Software: PyCharm
-Ctrl+shift+v 历史粘贴版
-ctrl+alt+空格 自动补全
-ctrl+alt+D   分屏
-Ctrl+/       快速注释
-
-"""
-
 import os
-from UI_jjsAutoTest.UI_jjsAsset.lib.path import WEBPICTUREPATH,DELREPORTPATH
+from .path import WEBPICTUREPATH,DELREPORTPATH
+
 
 class Tool(object):
     def __init__(self):

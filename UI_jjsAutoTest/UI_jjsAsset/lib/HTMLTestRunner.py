@@ -1,16 +1,3 @@
-#coding=utf-8
-"""
-@Author  : Yuan Meng
-@Time    : 2021/11/12 15:16
-@Software: PyCharm
-Ctrl+shift+v 历史粘贴版
-ctrl+alt+空格 自动补全
-ctrl+alt+D   分屏
-Ctrl+/       快速注释
-
-"""
-
-
 # -*- coding: utf-8 -*-
 """
 A TestRunner for use with the Python unit testing framework. It
@@ -622,7 +609,7 @@ class _TestResult(TestResult):
             sys.stderr.write('F')
 
 
-from UI_jjsAutoTest.UI_jjsAsset.lib.logger import logger
+from .logger import logger
 
 
 class HTMLTestRunner(Template_mixin):
@@ -642,6 +629,7 @@ class HTMLTestRunner(Template_mixin):
             self.description = description
 
         self.startTime = datetime.datetime.now()
+        self.all_test_case = []
 
     def run(self, test):
         "Run the given test case or test suite."
@@ -651,6 +639,7 @@ class HTMLTestRunner(Template_mixin):
         self.generateReport(test, result)
         # print >>sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
         return result
+
 
     def sortResult(self, result_list):
         # unittest does not seems to run in any particular order.
@@ -729,10 +718,12 @@ class HTMLTestRunner(Template_mixin):
     def _generate_report(self, result):
         rows = []
         sortedResult = self.sortResult(result.result)
+        self.all_test_case = []
         for cid, (cls, cls_results) in enumerate(sortedResult):
             # subtotal for a class
             np = nf = ne = 0
             for n, t, o, e in cls_results:
+                self.all_test_case.append([n, t])
                 if n == 0:
                     np += 1
                 elif n == 1:
@@ -758,7 +749,7 @@ class HTMLTestRunner(Template_mixin):
                 cid='c%s' % (cid + 1),
             )
             rows.append(row)
-            from UI_jjsAutoTest.UI_jjsAsset.lib.tool import Tool
+            from .tool import Tool
             pnglist = Tool().error_picture()
             logger.debug(pnglist)
             if len(pnglist) > 0:
@@ -767,7 +758,7 @@ class HTMLTestRunner(Template_mixin):
                     name = cls_p[1].id().split('.')[-1]
                     for png in pnglist:
                         png_name = png[0].split('.')[0]
-                        if png_name == name:
+                        if name in png_name:
                             tmp = cls_p + png
                             Rewrite_results.append(tmp)
                             break
