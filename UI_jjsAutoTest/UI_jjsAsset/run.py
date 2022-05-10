@@ -31,7 +31,7 @@ from UI_jjsAutoTest.UI_jjsAsset.lib.operation_mysql import MysqlServer
 
 
 local_readConfig = ReadConfig()
-SendEmail = SendEmail()
+# SendEmail = SendEmail()
 
 
 # class Main:
