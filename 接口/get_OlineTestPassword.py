@@ -193,8 +193,8 @@ if __name__ == '__main__':
 	url1 = 'http://172.16.3.233:12001/apis/back/oldSystem/PassGet'
 	url = 'http://172.16.3.233:12001/privilege/front/users/login'
 	rs_time = get_OnlinetestPassword(url1)
-	# ids = ["袁猛","李宁","郑晓萍","黄慧","王曼莹","林春雪","林洁虹"]
-	ids = ["252613","388809","446957","404499","045682","190539","421138","405232"]
+	# ids = ["袁猛","李宁","郑晓萍","黄慧","王曼莹","林春雪","林洁虹","刘颖"]
+	ids = ["252613","388809","446957","404499","045682","190539","421138","405232","265727"]
 	text = rs_time
 	info = 'onlinetest线上测试环境密码'
 	IMsendinfo(ids, text, info,group='im-serve-attend',url='')
