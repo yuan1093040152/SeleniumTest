@@ -142,6 +142,7 @@ class Login():
         self.browser.find_element(By.ID, 'workerNo').clear()
         self.browser.find_element(By.ID, 'workerNo').send_keys(username)
         self.browser.find_element(By.ID, 'password').send_keys(password)
+        self.browser.find_element(By.XPATH, '//*[@id="login_form"]/div[1]/div[5]/i').click()
 
 
         for i in range(10):
