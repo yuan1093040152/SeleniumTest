@@ -121,10 +121,10 @@ class Login():
         # with open(path1,'wb') as f:
         #     f.write(r.content)
 
-        #百度高精度识别https://ai.baidu.com/ai-doc/OCR/1k3h7y3db
-        APP_ID = '24416627'
-        API_KEY = '3i88Xum6GtMrtYIYP1H8uwZ5'
-        SECRET_KEY = 'D9Di9Lcon0NbOnEKTtylIGMYUshfLnyj'
+        # 百度文字识别https://console.bce.baidu.com/ai/#/ai/ocr/app/list
+        APP_ID = '26625161'
+        API_KEY = 'OpNmbyV0hn9IhKb8h1lXBGKI'
+        SECRET_KEY = 'zvDDxUHmZioFpNLgrEX2GQAKHPd38MGr'
         client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
         with open(path3, 'rb') as f:
             image = f.read()
@@ -316,7 +316,7 @@ class Login():
         # 第三方 SMTP 服务
         mail_host = "smtp.qq.com"  # 设置服务器
         mail_user = "1093040152@qq.com"  # 用户名
-        mail_pass = "pjosevrxdxurjeeg"  # QQ邮箱登录的授权码
+        mail_pass = "bjqjikmijcobfece"  # QQ邮箱登录的授权码
         # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>','齐红宁<qhn@leyoujia.com>','石进<shij@leyoujia.com>']
         receivers = ['袁猛<1093040152@qq.com>']
         # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码

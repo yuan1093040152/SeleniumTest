@@ -30,9 +30,15 @@ from datetime import datetime
  #判断运行浏览器
 def open_browser(browser,url):
     if browser == 'Chrome':
-        driver = webdriver.Chrome()
+        #添加忽略ssl证书，接收不信任的认证
+        options = webdriver.ChromeOptions()
+        options.add_argument('ignore-certificate-errors')
+        driver = webdriver.Chrome(chrome_options=options)
     elif browser == 'Firefox':
-        driver = webdriver.Firefox()
+        # 添加忽略ssl证书，接收不信任的认证
+        profile = webdriver.FirefoxProfile()
+        profile.accept_untrusted_certs = True
+        driver = webdriver.Firefox(firefox_profile=profile)
     else:
         pass
     driver.get(url)
@@ -46,6 +52,7 @@ class Login():
         self.browser = open_browser(browser, url)
         self.browser.maximize_window()
         self.browser.implicitly_wait(5)
+
 
     # 输入
     def ImputElement(self, type, element, value):
@@ -108,10 +115,10 @@ class Login():
         # with open(path1,'wb') as f:
         #     f.write(r.content)
 
-        #百度高精度识别https://ai.baidu.com/ai-doc/OCR/1k3h7y3db
-        APP_ID = '24416627'
-        API_KEY = '3i88Xum6GtMrtYIYP1H8uwZ5'
-        SECRET_KEY = 'D9Di9Lcon0NbOnEKTtylIGMYUshfLnyj'
+        #百度文字识别https://console.bce.baidu.com/ai/#/ai/ocr/app/list
+        APP_ID = '26625161'
+        API_KEY = 'OpNmbyV0hn9IhKb8h1lXBGKI'
+        SECRET_KEY = 'zvDDxUHmZioFpNLgrEX2GQAKHPd38MGr'
         client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
         with open(path1, 'rb') as f:
             image = f.read()
@@ -126,6 +133,11 @@ class Login():
     #登录
     def login(self,username,password):
         self.Time(4)
+        # 通过js新开一个窗口
+        js = 'window.open("https://localhost.leyoujia.com:25982/CLodopfuncs.js")'
+        self.browser.execute_script(js)
+        time.sleep(2)
+
         self.browser.find_element(By.ID, 'workerNo').clear()
         self.browser.find_element(By.ID, 'workerNo').send_keys(username)
         self.browser.find_element(By.ID, 'password').send_keys(password)
@@ -300,7 +312,7 @@ class Login():
         # 第三方 SMTP 服务
         mail_host = "smtp.qq.com"  # 设置服务器
         mail_user = "1093040152@qq.com"  # 用户名
-        mail_pass = "pjosevrxdxurjeeg"  # QQ邮箱登录的授权码
+        mail_pass = "bjqjikmijcobfece"  # QQ邮箱登录的授权码
         # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>','齐红宁<qhn@leyoujia.com>','石进<shij@leyoujia.com>']
         receivers = ['袁猛<1093040152@qq.com>']
         # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
@@ -409,6 +421,7 @@ class Login():
             url = u'http://172.16.100.12:29998/netdubbo'
             data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'gbk',
                     'outputbz': False}
+            print('data =', data)
             req = requests.post(url=url, data=data, timeout=5)
             print(req.text)
             print(u'调用远程服务成功。')
@@ -513,7 +526,7 @@ if __name__ == '__main__':
     xm = '袁猛'
     empnumber = '06045224'
     #乐聊通知名单
-    ids = ["252613", "249279","412999","419544","405984","403963","089363","171342","436614"]
+    ids = ["252613","412999","419544","405984","403963","089363","171342","436614","410622"]
     # ids = ["252613"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
@@ -538,7 +551,7 @@ if __name__ == '__main__':
     else:
         p.Email(info,WDK_name)
         send_wx_msg(text)
-        p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
+        # p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
     print('-------------------end!----------------------')
 

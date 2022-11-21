@@ -120,6 +120,7 @@ class Login():
             url = u'http://172.16.100.12:29998/netdubbo'
             data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'gbk',
                     'outputbz': False}
+            print('data =',data)
             req = requests.post(url=url, data=data, timeout=5)
             print(req.text)
             print(u'调用远程服务成功。')
@@ -145,15 +146,15 @@ if __name__ == '__main__':
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:
-        info = '请以下小伙伴别忘记打上班卡'
+        info = 'cccc'
     else:
-        info = '请以下小伙伴别忘记打下班卡'
+        info = 'bbbb'
     response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(response_time)
 
 
     # (",".join(str(i) for i in WDK_name  去列表数据并用逗号分割)
-    text = '通知：'
+    text = 'password:'
 
 
 

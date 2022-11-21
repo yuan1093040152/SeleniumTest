@@ -1,6 +1,6 @@
 #coding=utf-8
 from email.mime.text import MIMEText
-import requests,json,time,smtplib,re
+import requests,json,time,smtplib,re,MySQLdb,hashlib
 
 def get_sessionID(url):
 	body = 'loginName=tandf&loginPass=123456'
@@ -51,11 +51,30 @@ def get_OnlinetestPassword(url1):
 	OnlinetestPassword = load['msg']
 
 	# print ('今日预发布环境登陆密码为：',OnlinetestPassword)
-	data = '今日线上测试环境登陆密码为：\r\n%s'%OnlinetestPassword
+	data = OnlinetestPassword
 	# data = data.encode()
 	print(data)
 	# with open('.\\OnlinetestPassword.txt', 'wb') as f:
 	# 	f.write(data)
+
+	# 创建md5对象并加密
+	print("开始对线上密码：%s进行MD5加密......."%OnlinetestPassword)
+	md5 = hashlib.md5()
+	b = OnlinetestPassword.encode(encoding='utf-8')
+	md5.update(b)
+	pass_word = md5.hexdigest()
+	print("MD5加密后为：%s"%pass_word)
+
+	sql = "UPDATE sys_emp_pass SET pass_word = '%s';" %pass_word
+	print(sql)
+	db = MySQLdb.connect(host='172.16.3.233', user='root', passwd='passwd36', port=34117, db='hr',charset='utf8')  # 打开数据库连接
+	cur = db.cursor()  # 使用cursor()方法获取操作游标
+	cur.execute(sql)  # 使用execute方法执行SQL语句
+	db.commit()  # 提交请求
+	# values = cur.fetchall()  # 使用 fetchone() 方法获取一条数据
+	cur.close()  # 关闭数据库连接
+	print("批量修改线上测试环境登录密码为：%s"%OnlinetestPassword)
+
 	return data
 
 
@@ -193,10 +212,10 @@ if __name__ == '__main__':
 	url1 = 'http://172.16.3.233:12001/apis/back/oldSystem/PassGet'
 	url = 'http://172.16.3.233:12001/privilege/front/users/login'
 	rs_time = get_OnlinetestPassword(url1)
-	# ids = ["袁猛","李宁","郑晓萍"]
-	ids = ["252613","388809","446957"]
+	# ids = ["袁猛","李宁","郑晓萍","曾亮","汪永喜","许晓波"]
+	ids = ["252613","388809","446957","454949","405984","463709"]
 	text = rs_time
-	info = 'onlinetest线上测试环境密码'
+	info = 'OnlinetestPassword:'
 	IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 	# Email(rs_time)
 
