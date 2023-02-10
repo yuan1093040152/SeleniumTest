@@ -47,25 +47,23 @@ class Login():
         ry = False
         if u'正式' in huanjing or u'生产' in huanjing:
             huanjing = '172.16.3.233:8084'
-        elif u'3.100' in huanjing or u'线下测试' in huanjing:
-            huanjing = '172.16.4.114:9080'
-        elif u'22.100' in huanjing or u'容器' in huanjing:
-            huanjing = '172.16.22.100:9080'
-        elif u'2.54' in huanjing or u'线上测试' in huanjing:
-            huanjing = '192.168.3.70:9080'
+        elif u'itest' in huanjing or u'ksitest' in huanjing:
+            huanjing = '172.16.16.8:31426'
         else:
-            print(u'环境指定错误，默认使用3.100')
-            huanjing = '172.16.4.114:9080'
+            print(u'环境指定错误，默认使用itest')
+            huanjing = '172.16.16.8:31426'
+        print('huanjing===',huanjing)
         try:
             headers = {"Accept-Language": "zh-CN,zh;q=0.9", "Accept-Encoding": "gzip, deflate",
                        "Connection": "keep-alive",
                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
                        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",
-                       "Host": "172.16.4.223:8084",
+                       "Host": huanjing,
                        "Cookie": "_ga=GA1.1.1890888338.1580476038; HISTORY=\"com.jjshome.im.service.dubbo.NimAccidService..../governance/services/com.jjshome.im.service.dubbo.NimAccidService/providers\\.\\.\\.\\.\\.\\.com.jjshome.im.service.dubbo.INimRoomService..../governance/services/com.jjshome.im.service.dubbo.INimRoomService/providers\"",
                        "Cache-Control": "max-age=0", "Upgrade-Insecure-Requests": "1",
                        "Authorization": "Basic Z3Vlc3Q6Z3Vlc3Q="}
             url = 'http://%s/governance/services/%s/providers' % (huanjing, interface)
+            print('url =',url)
             url_t = 'http://%s/governance/services?keyword=%s' % (huanjing, interface)
             # 发送请求，查询dubbo后台，获取ip和端口
             try:
@@ -78,9 +76,6 @@ class Login():
             if r:
                 print(r)
                 print(re.split(':', r[0]))
-                # 如果是容器则特殊处理
-                if u'22.100' in huanjing or u'容器' in huanjing:
-                    return ('172.16.22.100', '2008')
                 return re.split(':', r[0])
 
         except:
@@ -114,7 +109,8 @@ class Login():
         param = u'{"fromAccid":"servenumber000011","group":"%s","toAccids":[%s],"body":"{\\"type\\":8,\\"data\\":{\\"title\\":\\"%s\\",\\"content\\":\\"%s\\",\\"source\\":\\"im-serve-attend\\",\\"sourceName\\":\\"%s的温馨提示\\",\\"sourceType\\":\\"im-serve-fwsq\\",\\"url\\":\\"%s\\",\\"isOuterOpen\\":true}}"}' % (
             group, idsstr, info, msg, info, url)
 
-        host, port = self.dubboGetip(interface=interface, huanjing=u'生产', tanchuangbz=False)
+        host, port = self.dubboGetip(interface=interface, huanjing='itest', tanchuangbz=False)
+        print('host, port===',host, port)
 
         try:
             url = u'http://172.16.100.12:29998/netdubbo'
@@ -142,7 +138,7 @@ if __name__ == '__main__':
     empnumber = '06045224'
     #乐聊通知名单
     # ids = ["252613", "249279","412999","419544","405984","403963","089363","171342","436614"]
-    ids = ["252613"]
+    ids = ["199114"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:

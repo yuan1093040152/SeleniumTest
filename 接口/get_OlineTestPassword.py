@@ -1,6 +1,9 @@
 #coding=utf-8
+
 from email.mime.text import MIMEText
 import requests,json,time,smtplib,re,MySQLdb,hashlib
+
+
 
 def get_sessionID(url):
 	body = 'loginName=tandf&loginPass=123456'
@@ -126,21 +129,18 @@ def dubboGetip(interface, huanjing, tanchuangbz):
 	ry = False
 	if u'正式' in huanjing or u'生产' in huanjing:
 		huanjing = '172.16.3.233:8084'
-	elif u'3.100' in huanjing or u'线下测试' in huanjing:
-		huanjing = '172.16.4.114:9080'
-	elif u'22.100' in huanjing or u'容器' in huanjing:
-		huanjing = '172.16.22.100:9080'
-	elif u'2.54' in huanjing or u'线上测试' in huanjing:
-		huanjing = '192.168.3.70:9080'
+	elif u'itest' in huanjing or u'ksitest' in huanjing:
+		huanjing = '172.16.16.8:31426'
 	else:
-		print(u'环境指定错误，默认使用3.100')
-		huanjing = '172.16.4.114:9080'
+		print(u'环境指定错误，默认使用itest')
+		huanjing = '172.16.16.8:31426'
+	print('huanjing===', huanjing)
 	try:
 		headers = {"Accept-Language": "zh-CN,zh;q=0.9", "Accept-Encoding": "gzip, deflate",
 				   "Connection": "keep-alive",
 				   "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
 				   "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",
-				   "Host": "172.16.3.233:8084",
+				   "Host": huanjing,
 				   "Cookie": "_ga=GA1.1.1890888338.1580476038; HISTORY=\"com.jjshome.im.service.dubbo.NimAccidService..../governance/services/com.jjshome.im.service.dubbo.NimAccidService/providers\\.\\.\\.\\.\\.\\.com.jjshome.im.service.dubbo.INimRoomService..../governance/services/com.jjshome.im.service.dubbo.INimRoomService/providers\"",
 				   "Cache-Control": "max-age=0", "Upgrade-Insecure-Requests": "1",
 				   "Authorization": "Basic Z3Vlc3Q6Z3Vlc3Q="}
@@ -157,9 +157,6 @@ def dubboGetip(interface, huanjing, tanchuangbz):
 		if r:
 			print(r)
 			print(re.split(':', r[0]))
-			# 如果是容器则特殊处理
-			if u'22.100' in huanjing or u'容器' in huanjing:
-				return ('172.16.22.100', '2008')
 			return re.split(':', r[0])
 
 	except:
@@ -212,10 +209,11 @@ if __name__ == '__main__':
 	url1 = 'http://172.16.3.233:12001/apis/back/oldSystem/PassGet'
 	url = 'http://172.16.3.233:12001/privilege/front/users/login'
 	rs_time = get_OnlinetestPassword(url1)
-	# ids = ["袁猛","李宁","郑晓萍","曾亮","汪永喜","许晓波"]
-	ids = ["252613","388809","446957","454949","405984","463709"]
+	# ids = ["袁猛","李宁","郑晓萍","曾亮","汪永喜","孙杰","苏薇"]
+	ids = ["252613","388809","446957","454949","405984","268709","104667"]
+	# ids = ["252613"]
 	text = rs_time
-	info = 'OnlinetestPassword:'
+	info = 'UAT_Password:'
 	IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 	# Email(rs_time)
 
