@@ -31,6 +31,7 @@ class sharesselect:
             else:
                 pass
             date = date + datetime.timedelta(-1)
+        print(datelist)
         return datelist
 
 
@@ -51,7 +52,7 @@ class sharesselect:
     def sharesUp(self):
         nowdate = self.dateList()[0]
         sql = "SELECT a.`NAME` FROM	shareslist a INNER JOIN sharesquotation b ON a.ts_code = b.ts_code WHERE	market IN ('主板', '中小板') AND b.trade_date BETWEEN '%s' AND '%s' and b.pct_chg < -2 AND b.`CLOSE` > b.`OPEN`;"%(nowdate,nowdate)
-        sql2 = "SELECT a.`NAME` FROM	shareslist a INNER JOIN sharesquotation b ON a.ts_code = b.ts_code WHERE	market IN ('主板', '中小板') AND b.trade_date BETWEEN '2022-07-07' AND '2022-07-07' and b.pct_chg < -2 AND b.`CLOSE` > b.`OPEN`;"
+        #sql2 = "SELECT a.`NAME` FROM	shareslist a INNER JOIN sharesquotation b ON a.ts_code = b.ts_code WHERE	market IN ('主板', '中小板') AND b.trade_date BETWEEN '2022-07-07' AND '2022-07-07' and b.pct_chg < -2 AND b.`CLOSE` > b.`OPEN`;"
 
         sharesup = self.mysql(sql)
         return sharesup

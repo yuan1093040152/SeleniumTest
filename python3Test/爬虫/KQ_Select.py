@@ -526,8 +526,8 @@ if __name__ == '__main__':
     xm = '袁猛'
     empnumber = '06045224'
     #乐聊通知名单
-    ids = ["252613","412999","419544","405984","403963","089363","171342","436614","410622"]
-    # ids = ["252613"]
+    # ids = ["252613","412999","419544","405984","403963","089363","171342","436614","410622"]
+    ids = ["252613"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:
@@ -551,7 +551,7 @@ if __name__ == '__main__':
     else:
         p.Email(info,WDK_name)
         send_wx_msg(text)
-        # p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
+        p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
     print('-------------------end!----------------------')
 
