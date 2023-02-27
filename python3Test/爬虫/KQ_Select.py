@@ -434,7 +434,7 @@ wechat_lock = Lock()
 
 # 这里可以设置UIDS, 多个人可同时接收 [袁猛，李良，蔡姻，张斯杰，罗柳,王凯]
 UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_7zDNlQLoP6BwAJFJ6dRCuy9EQ1fp','UID_dxNzj6aupA6Q4QZrDkwmCcDLMX2e','UID_nSMBON6ECkBvdpOC3QeUfIUb7tJX','UID_pyB3i43mzt2LctecgCBZWBz035GZ','UID_IJVLOOwS4AtmaaydQzjBPoQUeBw0']
-# UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m']
+# UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_IJVLOOwS4AtmaaydQzjBPoQUeBw0']
 
 APP_TOKEN = 'AT_wW7eEobXR61htcs4zw6HIchK1yUaSx8L'
 # AT_zueTbAm3qrDJy2BvWtYwJwqVgRjGZIhF
@@ -487,6 +487,8 @@ def send_wx_msg(*args, **kwargs):
     发送微信Msg
     :param content:   发送内容
     :return:
+    https://wxpusher.zjiecode.com/admin/main/wxuser/list
+    应用管理--关注应用  用户扫描此二维码，WxPuhsher会回调UID给开发者，开发者可通过UID发送消息给用户。
     """
     content = kwargs.get('content', None)
     if content is None:
