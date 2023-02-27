@@ -37,6 +37,9 @@ if __name__ == '__main__':
     param = vars(args)
     text = param['text']
 
+    #测试
+    # text ='1+1=?'
+
     print("问：\n",text,'\n')
     re = Completion(text).choices[0].text
 
