@@ -114,7 +114,7 @@ class Login():
 
         try:
             url = u'http://172.16.100.12:29998/netdubbo'
-            data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'gbk',
+            data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'utf-8',
                     'outputbz': False}
             print('data =',data)
             req = requests.post(url=url, data=data, timeout=5)

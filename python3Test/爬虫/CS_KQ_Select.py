@@ -1,19 +1,6 @@
 #coding=utf-8
 """
 @Author  : Yuan Meng
-@Time    : 2021/11/4 17:43
-@Software: PyCharm
-Ctrl+shift+v 历史粘贴版
-ctrl+alt+空格 自动补全
-ctrl+alt+D   分屏
-Ctrl+/       快速注释
-
-"""
-
-
-#coding=utf-8
-"""
-@Author  : Yuan Meng
 @Time    : 2021/6/22 10:18
 @Software: PyCharm
 Ctrl+shift+v 历史粘贴版
@@ -43,9 +30,15 @@ from datetime import datetime
  #判断运行浏览器
 def open_browser(browser,url):
     if browser == 'Chrome':
-        driver = webdriver.Chrome()
+        #添加忽略ssl证书，接收不信任的认证
+        options = webdriver.ChromeOptions()
+        options.add_argument('ignore-certificate-errors')
+        driver = webdriver.Chrome(chrome_options=options)
     elif browser == 'Firefox':
-        driver = webdriver.Firefox()
+        # 添加忽略ssl证书，接收不信任的认证
+        profile = webdriver.FirefoxProfile()
+        profile.accept_untrusted_certs = True
+        driver = webdriver.Firefox(firefox_profile=profile)
     else:
         pass
     driver.get(url)
@@ -59,6 +52,7 @@ class Login():
         self.browser = open_browser(browser, url)
         self.browser.maximize_window()
         self.browser.implicitly_wait(5)
+
 
     # 输入
     def ImputElement(self, type, element, value):
@@ -97,10 +91,10 @@ class Login():
     #通过元素获取验证码
     def getcode(self):
         # 方法一：通过元素获取验证码
-        path2 = '123.png'
-        path3 = '1234.png'
+        path = '123.png'
+        path1 = '1234.png'
         #截图整个页面
-        self.browser.save_screenshot(path2)
+        self.browser.save_screenshot(path)
         #获取元素的坐标（x为上，y为左，w为下，h为右，减为上移，加为下移）
         img1 = self.browser.find_element(By.ID, 'verify_code')
         left = img1.location['x']-20
@@ -108,10 +102,10 @@ class Login():
         Width = left + img1.size['width']+30
         Height = top + img1.size['height']+30
         print(left,top,Width,Height)
-        picture = Image.open(path2)
+        picture = Image.open(path)
         #根据上面的元素坐标裁剪图片
         picture = picture.crop((left,top,Width,Height))
-        picture.save(path3)
+        picture.save(path1)
 
         # 方法二：通过链接获取验证码
         #获取元素中src的链接
@@ -121,12 +115,12 @@ class Login():
         # with open(path1,'wb') as f:
         #     f.write(r.content)
 
-        # 百度文字识别https://console.bce.baidu.com/ai/#/ai/ocr/app/list
+        #百度文字识别https://console.bce.baidu.com/ai/#/ai/ocr/app/list
         APP_ID = '26625161'
         API_KEY = 'OpNmbyV0hn9IhKb8h1lXBGKI'
         SECRET_KEY = 'zvDDxUHmZioFpNLgrEX2GQAKHPd38MGr'
         client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
-        with open(path3, 'rb') as f:
+        with open(path1, 'rb') as f:
             image = f.read()
         image1 = client.basicAccurate(image)
         print(image1)
@@ -139,6 +133,11 @@ class Login():
     #登录
     def login(self,username,password):
         self.Time(4)
+        # 通过js新开一个窗口
+        js = 'window.open("https://localhost.leyoujia.com:25982/CLodopfuncs.js")'
+        self.browser.execute_script(js)
+        time.sleep(2)
+
         self.browser.find_element(By.ID, 'workerNo').clear()
         self.browser.find_element(By.ID, 'workerNo').send_keys(username)
         self.browser.find_element(By.ID, 'password').send_keys(password)
@@ -191,18 +190,13 @@ class Login():
             except:
                 pass
 
-
         # for i in cookie:
         #     try:
         #         if '_smt_uid' == i['name']:
         #             _smt_uid_value = i['value']
         #             print('_smt_uid_value====', _smt_uid_value)
         #     except:
-        #         _smt_uid_value =''
-        #         print('_smt_uid_value====', _smt_uid_value)
-
-
-
+        #         pass
 
         for i in cookie:
             try:
@@ -222,7 +216,10 @@ class Login():
 
         print('------------------------------')
 
-        cookie = 'jjshome_uuid=%s; _smt_uid=;cookiesId=bce302d180064c60bd921167c696573c; _ga=GA1.2.317993357.1611364094; agentCardhd_time=1; fhListCookies=; gr_user_id=75926756-dfea-419b-a884-306d3cc99060; login-mac=6C-0B-84-A4-72-DD; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1621326471,1622013004,1622013731; Hm_lvt_728857c2e6b321292b2eb422213d1609=1622013004,1622013731;jjshome_sid=%s; default_city_code=000002; JSESSIONID=%s; proLEYOUJIA=%s; login-workerid=00350597' % (jjshome_uuid_value, jjshome_sid_value, JSESSIONID_value,proLEYOUJIA_value)
+        # cookie = 'jjshome_uuid=%s; _smt_uid=%s; /hsl/index/house-list_guidance=1; /hsl/house/house-detail_guidance=1; /community/communityDic/communityDic-list_guidance=1; /community/communityDic/communityDic-detail_guidance=1; /community/communityDg/communityDg-list_guidance=1; /community/communityDg/communityDg-dic_guidance=1; /community/communityDic/communityDic-add-view-batch_guidance=1; /community/communityDg/communityDg-add-batch-cache_guidance=1; /hsl/entrust/entrust-add_guidance=1; /hsl/index/own-house-list_guidance=1; cookiesId=bce302d180064c60bd921167c696573c; _ga=GA1.2.317993357.1611364094; agentCardhd_time=1; fhListCookies=; gr_user_id=75926756-dfea-419b-a884-306d3cc99060; iJSESSIONID=57F9684687F6B8DDAEEAC86F8098123E; testLEYOUJIA=ZWNmZGIzOWYtYzhhNi00MTEzLTk2NzgtNGE0ODJmMjA1MjZl; SESSION=OWE3MTAzMjAtYjk2Ny00ZDEwLWFmZjAtMWM2NjFjOTExYTU0; login-mac=6C-0B-84-A4-72-DD; SESSION=M2Q4OGExMGItZjMwNC00YzBiLTlhNzEtOTVjZWJmY2UzYmE4; _gid=GA1.2.1006926862.1622013004; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1621326471,1622013004,1622013731; Hm_lvt_728857c2e6b321292b2eb422213d1609=1622013004,1622013731; Hm_lpvt_728857c2e6b321292b2eb422213d1609=1622014000; Hm_lpvt_1851e6f08c8180e1e7b5e33fb40c4b08=1622014000; jjshome_sid=%s; default_city_code=000002; JSESSIONID-FANG=FD6178335901E442DE30A3662D4D90EE; JSESSIONID=%s; proLEYOUJIA=YjI3ZTY0OTktOWY5OS00ZmVlLWJlYWUtMTZjMTk2ZGMwZWI4; login-workerid=06045224' % (
+        # jjshome_uuid_value, _smt_uid_value, jjshome_sid_value, JSESSIONID_value)
+
+        cookie ='jjshome_uuid=%s; _smt_uid=; cookiesId=7d8ef6ac0d454f9a8c027e214cbe682f; _ga=GA1.2.1941642435.1637634248; agentCardhd_time=1; token=t.WIqQ1ijlIbbGsa7IaBMJ; prefs={}; fhListCookies=; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1657765368; Hm_lvt_728857c2e6b321292b2eb422213d1609=1657765368; gr_user_id=519db3c6-8d95-44d0-abe8-0ee036500e5d; proLEYOUJIA=%s; JSESSIONID=%s; login-mac=6C-0B-84-A4-72-DD; login-workerid=00453355; jjshome_sid=%s'% (jjshome_uuid_value,proLEYOUJIA_value, jjshome_sid_value, JSESSIONID_value)
         print('cookie2===', cookie)
 
         # 将中文转换格式为URL编码，方便接口调用
@@ -236,8 +233,8 @@ class Login():
         nowtime = time.strftime('%Y-%m-%d', time.localtime(time.time()))
         print(nowtime)
 
-        body2 = "opWorkerId=%s&queryPurview=&pageNum=1&pageSize=100&deptName=%s&deptNumber=7701311&workerName=%s&workerId=%s&scopeType=5&userTypeStr=&timeType=1&startTime=%s&endTime=%s" % (
-        empnumber, bb[0], empnumber, bb[1], nowtime, nowtime)
+        body2 = "opWorkerId=%s&queryPurview=&pageNum=1&pageSize=100&deptName=%s&deptNumber=1988426&workerName=%s&workerId=%s&scopeType=5&userTypeStr=&timeType=1&startTime=%s&endTime=%s" % (
+        empnumber, bb[0], bb[1],empnumber,nowtime, nowtime)
         print('body2=', body2)
 
         headers2 = {
@@ -246,12 +243,11 @@ class Login():
             , 'Content-Length': '236'
             , 'Pragma': 'no-cache'
             , 'Cache-Control': 'no-cache'
-            , 'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"'
+            , 'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"'
             , 'Accept': 'application/json, text/javascript, */*; q=0.01'
             , 'X-Requested-With': 'XMLHttpRequest'
             , 'sec-ch-ua-mobile': '?0'
-            ,
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+            ,'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36'
             , 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             , 'Origin': 'https://i.leyoujia.com'
             , 'Sec-Fetch-Site': 'same-origin'
@@ -264,7 +260,7 @@ class Login():
         }
 
         response2 = requests.request('post', url2, data=body2, headers=headers2, verify=False)
-        print(response2.text)
+        print('response2====',response2.text)
         print('----------------------------------------')
         lists = json.loads(response2.text)['data']['list']
         print(lists)
@@ -423,8 +419,10 @@ class Login():
 
         try:
             url = u'http://172.16.100.12:29998/netdubbo'
-            data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'gbk',
+            #改成utf-8解决中文乱码 （������С�������Ǵ��ϰ࿨）
+            data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'utf-8',
                     'outputbz': False}
+            print('data =', data)
             req = requests.post(url=url, data=data, timeout=5)
             print(req.text)
             print(u'调用远程服务成功。')
@@ -435,8 +433,8 @@ class Login():
 global wechat_lock
 wechat_lock = Lock()
 
-# 这里可以设置UIDS, 多个人可同时接收 [袁猛，李良，蔡姻，张斯杰，罗柳]
-UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_7zDNlQLoP6BwAJFJ6dRCuy9EQ1fp','UID_dxNzj6aupA6Q4QZrDkwmCcDLMX2e','UID_nSMBON6ECkBvdpOC3QeUfIUb7tJX','UID_pyB3i43mzt2LctecgCBZWBz035GZ']
+# 这里可以设置UIDS, 多个人可同时接收 [冯旺，王清波，李安宁,袁猛]
+UIDS = ['UID_NA2KRHJVW60W51YRKMDvjrgAYt7q','UID_Ai7igtiJOnaaq3QcvksgwpYXMfC8','UID_q9CsuEtHTvlUjWUlSQCUcDDuSV73','UID_j0EdePPCONxX3OszmdyvwSYknX8m']
 # UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m']
 
 APP_TOKEN = 'AT_wW7eEobXR61htcs4zw6HIchK1yUaSx8L'
@@ -490,6 +488,8 @@ def send_wx_msg(*args, **kwargs):
     发送微信Msg
     :param content:   发送内容
     :return:
+    https://wxpusher.zjiecode.com/admin/main/wxuser/list
+    应用管理--关注应用  用户扫描此二维码，WxPuhsher会回调UID给开发者，开发者可通过UID发送消息给用户。
     """
     content = kwargs.get('content', None)
     if content is None:
@@ -523,14 +523,14 @@ if __name__ == '__main__':
     browser = 'Chrome'
     url = 'https://i.leyoujia.com/jjslogin/tologin'
     url2 = 'https://i.leyoujia.com/attend/main/doAttendList'
-    username = '350597'
-    password = 's8727119'
-    name = '研发部'
-    xm = '石进'
-    empnumber = '00350597'
+    username = '453355'
+    password = 'abc139'
+    name = '长沙物联科技测试部'
+    xm = '冯旺'
+    empnumber = '00453355'
     #乐聊通知名单
-    # ids = ["252613", "249279","412999","419544","405984","403963","089363","171342","436614"]
-    ids = ["350597"]
+    ids = ["453355","474909","477250","252613"]
+    # ids = ["252613"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:
@@ -553,12 +553,7 @@ if __name__ == '__main__':
         print('小伙伴都已打卡，不进行通知')
     else:
         # p.Email(info,WDK_name)
-        # send_wx_msg(text)
+        send_wx_msg(text)
         p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
-    print('-------------------end!-------------------')
-
-
-
-
-
+    print('-------------------end!----------------------')

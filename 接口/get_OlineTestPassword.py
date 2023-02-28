@@ -195,7 +195,8 @@ def IMsendinfo(ids, text, info,group='im-serve-attend',url=''):
 
 	try:
 		url = u'http://172.16.100.12:29998/netdubbo'
-		data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'gbk',
+		# 改成utf-8解决中文乱码 （������С�������Ǵ��ϰ࿨）
+		data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'utf-8',
 				'outputbz': False}
 		req = requests.post(url=url, data=data, timeout=5)
 		print(req.text)

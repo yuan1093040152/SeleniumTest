@@ -219,7 +219,7 @@ class Login():
         # cookie = 'jjshome_uuid=%s; _smt_uid=%s; /hsl/index/house-list_guidance=1; /hsl/house/house-detail_guidance=1; /community/communityDic/communityDic-list_guidance=1; /community/communityDic/communityDic-detail_guidance=1; /community/communityDg/communityDg-list_guidance=1; /community/communityDg/communityDg-dic_guidance=1; /community/communityDic/communityDic-add-view-batch_guidance=1; /community/communityDg/communityDg-add-batch-cache_guidance=1; /hsl/entrust/entrust-add_guidance=1; /hsl/index/own-house-list_guidance=1; cookiesId=bce302d180064c60bd921167c696573c; _ga=GA1.2.317993357.1611364094; agentCardhd_time=1; fhListCookies=; gr_user_id=75926756-dfea-419b-a884-306d3cc99060; iJSESSIONID=57F9684687F6B8DDAEEAC86F8098123E; testLEYOUJIA=ZWNmZGIzOWYtYzhhNi00MTEzLTk2NzgtNGE0ODJmMjA1MjZl; SESSION=OWE3MTAzMjAtYjk2Ny00ZDEwLWFmZjAtMWM2NjFjOTExYTU0; login-mac=6C-0B-84-A4-72-DD; SESSION=M2Q4OGExMGItZjMwNC00YzBiLTlhNzEtOTVjZWJmY2UzYmE4; _gid=GA1.2.1006926862.1622013004; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1621326471,1622013004,1622013731; Hm_lvt_728857c2e6b321292b2eb422213d1609=1622013004,1622013731; Hm_lpvt_728857c2e6b321292b2eb422213d1609=1622014000; Hm_lpvt_1851e6f08c8180e1e7b5e33fb40c4b08=1622014000; jjshome_sid=%s; default_city_code=000002; JSESSIONID-FANG=FD6178335901E442DE30A3662D4D90EE; JSESSIONID=%s; proLEYOUJIA=YjI3ZTY0OTktOWY5OS00ZmVlLWJlYWUtMTZjMTk2ZGMwZWI4; login-workerid=06045224' % (
         # jjshome_uuid_value, _smt_uid_value, jjshome_sid_value, JSESSIONID_value)
 
-        cookie ='jjshome_uuid=%s; _smt_uid=; cookiesId=116347ef6ac44e45a1c414bf7b790d1b; _ga=GA1.2.1941642435.1637634248; agentCardhd_time=1; token=t.LmX27IZZvGOqM1DRudGm; prefs={}; fhListCookies=; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1640866512; Hm_lvt_728857c2e6b321292b2eb422213d1609=1640866512; gr_user_id=b4d54e60-5a65-41ea-815a-9de61463cd28; proLEYOUJIA=%s; JSESSIONID=%s; login-mac=6C-0B-84-A4-72-DD; login-workerid=01000098; jjshome_sid=%s'% (jjshome_uuid_value,proLEYOUJIA_value, jjshome_sid_value, JSESSIONID_value)
+        cookie ='jjshome_uuid=%s; _smt_uid=; cookiesId=116347ef6ac44e45a1c414bf7b790d1b; _ga=GA1.2.1941642435.1637634248; agentCardhd_time=1; token=t.LmX27IZZvGOqM1DRudGm; prefs={}; fhListCookies=; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1640866512; Hm_lvt_728857c2e6b321292b2eb422213d1609=1640866512; gr_user_id=b4d54e60-5a65-41ea-815a-9de61463cd28; proLEYOUJIA=%s; JSESSIONID=%s; login-mac=6C-0B-84-A4-72-DD; login-workerid=06045224; jjshome_sid=%s'% (jjshome_uuid_value,proLEYOUJIA_value, jjshome_sid_value, JSESSIONID_value)
         print('cookie2===', cookie)
 
         # 将中文转换格式为URL编码，方便接口调用
@@ -419,7 +419,8 @@ class Login():
 
         try:
             url = u'http://172.16.100.12:29998/netdubbo'
-            data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'gbk',
+            #改成utf-8解决中文乱码 （������С�������Ǵ��ϰ࿨）
+            data = {'host': host, 'port': port, 'method': method, 'interface': interface, 'param': param, 'code': 'utf-8',
                     'outputbz': False}
             print('data =', data)
             req = requests.post(url=url, data=data, timeout=5)
@@ -432,9 +433,9 @@ class Login():
 global wechat_lock
 wechat_lock = Lock()
 
-# 这里可以设置UIDS, 多个人可同时接收 [袁猛，李良，蔡姻，张斯杰，罗柳,王凯]
-UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_7zDNlQLoP6BwAJFJ6dRCuy9EQ1fp','UID_dxNzj6aupA6Q4QZrDkwmCcDLMX2e','UID_nSMBON6ECkBvdpOC3QeUfIUb7tJX','UID_pyB3i43mzt2LctecgCBZWBz035GZ','UID_IJVLOOwS4AtmaaydQzjBPoQUeBw0']
-# UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_IJVLOOwS4AtmaaydQzjBPoQUeBw0']
+# 这里可以设置UIDS, 多个人可同时接收 [袁猛，蔡姻，罗柳,王凯.....]
+UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_dxNzj6aupA6Q4QZrDkwmCcDLMX2e','UID_pyB3i43mzt2LctecgCBZWBz035GZ','UID_IJVLOOwS4AtmaaydQzjBPoQUeBw0','UID_pLfwZ9GbaZjOco5HPv8eboziCrqc','UID_2CJ9rS2njM1tZlA41ZaW7JYwmnvZ','UID_dQjL40mX3SfNUOLQHjoR5xqbCUab']
+# UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m']
 
 APP_TOKEN = 'AT_wW7eEobXR61htcs4zw6HIchK1yUaSx8L'
 # AT_zueTbAm3qrDJy2BvWtYwJwqVgRjGZIhF
@@ -528,8 +529,8 @@ if __name__ == '__main__':
     xm = '袁猛'
     empnumber = '06045224'
     #乐聊通知名单
-    # ids = ["252613","412999","419544","405984","403963","089363","171342","436614","410622"]
-    ids = ["252613"]
+    ids = ["252613","412999","419544","405984","403963","089363","171342","436614","410622"]
+    # ids = ["252613"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:
@@ -551,7 +552,7 @@ if __name__ == '__main__':
     if len(WDK_name) == 0:
         print('小伙伴都已打卡，不进行通知')
     else:
-        p.Email(info,WDK_name)
+        # p.Email(info,WDK_name)
         send_wx_msg(text)
         p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
