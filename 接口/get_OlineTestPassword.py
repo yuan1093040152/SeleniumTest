@@ -214,7 +214,7 @@ if __name__ == '__main__':
 	ids = ["252613","388809","446957","454949","405984","268709","104667"]
 	# ids = ["252613"]
 	text = rs_time
-	info = 'UAT_Password:'
+	info = '今天UAT线上测试环境密码为:'
 	IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 	# Email(rs_time)
 
