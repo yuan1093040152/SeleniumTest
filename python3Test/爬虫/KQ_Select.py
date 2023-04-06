@@ -560,7 +560,7 @@ if __name__ == '__main__':
         send_wx_msg(text)
         p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
-    print('-------------------end!----------------------')
+    print('-------------------end!---------------------')
 
 
 
