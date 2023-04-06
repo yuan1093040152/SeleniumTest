@@ -124,7 +124,10 @@ class Login():
             image = f.read()
         image1 = client.basicAccurate(image)
         print(image1)
-        return image1['words_result'][0]['words']
+        try:
+            return image1['words_result'][0]['words']
+        except:
+            return '111111'
 
 
 
@@ -147,6 +150,7 @@ class Login():
         for i in range(10):
             a =i + 1
             self.browser.find_element(By.ID, 'ckNum').clear()
+            time.sleep(1)
             self.browser.find_element(By.ID, 'ckNum').send_keys(self.getcode())
             self.browser.find_element(By.ID, 'login_button').click()
             time.sleep(1)
