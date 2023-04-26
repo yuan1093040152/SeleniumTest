@@ -147,7 +147,7 @@ class Login():
         self.browser.find_element(By.XPATH, '//*[@id="login_form"]/div[1]/div[5]/i').click()
 
 
-        for i in range(15):
+        for i in range(20):
             a =i + 1
             self.browser.find_element(By.ID, 'ckNum').clear()
             time.sleep(1)
