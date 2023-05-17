@@ -10,10 +10,11 @@ Ctrl+/       快速注释
 
 """
 import re
-import urllib.request
+import urllib.request,cv2
 
 from PIL import Image
-from aip import AipOcr
+from pyzbar.pyzbar import decode
+
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from email.mime.text import MIMEText
@@ -87,87 +88,208 @@ class Login():
     def Wait(self, s):
         self.browser.implicitly_wait(s)
 
+        # 通过元素获取验证码
 
-    #通过元素获取验证码
     def getcode(self):
         # 方法一：通过元素获取验证码
         path = '123.png'
         path1 = '1234.png'
-        #截图整个页面
+        # 截图整个页面
         self.browser.save_screenshot(path)
-        #获取元素的坐标（x为上，y为左，w为下，h为右，减为上移，加为下移）
-        img1 = self.browser.find_element(By.ID, 'verify_code')
-        left = img1.location['x']-20
-        top = img1.location['y']-20
-        Width = left + img1.size['width']+30
-        Height = top + img1.size['height']+30
-        print(left,top,Width,Height)
+        # 获取元素的坐标（x为上，y为左，w为下，h为右，减为上移，加为下移）
+        img1 = self.browser.find_element(By.ID, 'code')
+        left = img1.location['x'] - 10
+        top = img1.location['y'] - 10
+        Width = left + img1.size['width'] + 10
+        Height = top + img1.size['height'] + 10
+        print(left, top, Width, Height)
         picture = Image.open(path)
-        #根据上面的元素坐标裁剪图片
-        picture = picture.crop((left,top,Width,Height))
+        # 根据上面的元素坐标裁剪图片
+        picture = picture.crop((left, top, Width, Height))
         picture.save(path1)
 
-        # 方法二：通过链接获取验证码
-        #获取元素中src的链接
-        # img = self.browser.find_element(By.ID,'verify_code').get_attribute('src')
-        # print(img)
-        # r = requests.get(img)
-        # with open(path1,'wb') as f:
-        #     f.write(r.content)
+        # 读取图像文件
+        img = cv2.imread(path1)
 
-        #百度文字识别https://console.bce.baidu.com/ai/#/ai/ocr/app/list
-        APP_ID = '26625161'
-        API_KEY = 'OpNmbyV0hn9IhKb8h1lXBGKI'
-        SECRET_KEY = 'zvDDxUHmZioFpNLgrEX2GQAKHPd38MGr'
-        client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
-        with open(path1, 'rb') as f:
-            image = f.read()
-        image1 = client.basicAccurate(image)
-        print(image1)
-        try:
-            return image1['words_result'][0]['words']
-        except:
-            return '111111'
+        # 解码二维码
+        decoded_qr_codes = decode(img)
+        print(decoded_qr_codes)
 
+        # 输出解码结果
+        for code in decoded_qr_codes:
+            rCodeToken = code.data.decode('utf-8')[-4:]
+            print(rCodeToken)
+            return rCodeToken
 
+        # 登录
 
-
-
-    #登录
-    def login(self,username,password):
-        self.Time(4)
+    def login(self):
+        self.Time(5)
         # 通过js新开一个窗口
         js = 'window.open("https://localhost.leyoujia.com:25982/CLodopfuncs.js")'
         self.browser.execute_script(js)
-        time.sleep(2)
+        self.Time(3)
+        rCodeToken = self.getcode()
+        print('rCodeToken====', rCodeToken)
 
-        self.browser.find_element(By.ID, 'workerNo').clear()
-        self.browser.find_element(By.ID, 'workerNo').send_keys(username)
-        self.browser.find_element(By.ID, 'password').send_keys(password)
-        self.browser.find_element(By.XPATH, '//*[@id="login_form"]/div[1]/div[5]/i').click()
-
-
-        for i in range(20):
-            a =i + 1
-            self.browser.find_element(By.ID, 'ckNum').clear()
-            time.sleep(1)
-            self.browser.find_element(By.ID, 'ckNum').send_keys(self.getcode())
-            self.browser.find_element(By.ID, 'login_button').click()
-            time.sleep(1)
-
+        cookie = self.browser.get_cookies()
+        print('cookie===', cookie)
+        for i in cookie:
             try:
-                info = self.browser.find_element(By.ID, 'errorArea').text
-                print(info)
-                if info=='请输入正确的验证码！':
-                    print('验证码识别错误，第%d次重试'%a)
-                else:
-                    break
+                if 'jjshome_sid' == i['name']:
+                    jjshome_sid_value = i['value']
+                    print('jjshome_sid_value====', jjshome_sid_value)
+            except:
+                pass
 
-            except Exception as e:
-                print(e)
-                print('登录成功！')
-                break
+        for i in cookie:
+            try:
+                if 'jjshome_uuid' == i['name']:
+                    jjshome_uuid_value = i['value']
+                    print('jjshome_uuid_value====', jjshome_uuid_value)
+            except:
+                pass
 
+        for i in cookie:
+            try:
+                if 'JSESSIONID' == i['name']:
+                    JSESSIONID_value = i['value']
+                    print('JSESSIONID_value====', JSESSIONID_value)
+            except:
+                pass
+
+        for i in cookie:
+            try:
+                if 'proLEYOUJIA' == i['name']:
+                    proLEYOUJIA_value = i['value']
+                    print('proLEYOUJIA_value====', proLEYOUJIA_value)
+            except:
+                pass
+
+        print('------------------------------')
+
+        cookie1 = 'lyj_login_w_no=029246; jjshome_uuid=%s; _smt_uid=625fb187.4c1d6965; prefs={}; cookiesId=7d8ef6ac0d454f9a8c027e214cbe682f; agentCardhd_time=1; fhListCookies=; gr_user_id=519db3c6-8d95-44d0-abe8-0ee036500e5d; /hsl/index/house-list_guidance=1; lyj_analysis_pageCookie=1176%%3A2; applyTaskGuide=02081317; csrftoken=5PjyIGdNVAIJVC6LlkA1eFzLfYY3uH62b9ARkVejXuErWID13ivGqZY9OmhdSVb7; /hsl/house/house-detail_guidance=1; /hsl/entrust/entrust-add_guidance=1; connect.sid=s%%3AYzeTEgj5S8WQy23I5OR67P0AwxkCdjiw.cBZ65edt94fce1R4ns4VqaShnGKg6c2q2VwjgQrxS%%2Fk; token=t.ZolH0dnGX4IhzKqZbItX; default_city_code=000002; JSESSIONID-FANG=YzhmY2Q2ZjEtMzliZS00ZmIwLTlmNjgtZTE0ZTJhMDNjNTI3; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1682302655,1683620667; Hm_lpvt_1851e6f08c8180e1e7b5e33fb40c4b08=1683620667; Hm_lvt_728857c2e6b321292b2eb422213d1609=1682302655,1683620667; Hm_lpvt_728857c2e6b321292b2eb422213d1609=1683620667; login-workerid=06045224; login-mac=CB8222B5C1a629B422347aC7597aC794014b86Cb; jjshome_sid=%s; JSESSIONID=%s; proLEYOUJIA=%s' % (
+        jjshome_uuid_value, jjshome_sid_value, JSESSIONID_value, proLEYOUJIA_value)
+        print('cookie1===', cookie1)
+
+        url = "https://i.leyoujia.com/jjslogin/scanCheck"
+        self.Time(2)
+        payload = "rCodeToken=%s" % rCodeToken
+        print(payload)
+        headers = {
+            'host': "i.leyoujia.com",
+            'deptnumber': "1988426",
+            'timestamp': "1683769915",
+            'mobilemodel': "iPhone",
+            'appname': "ios-jjr",
+            'deviceid': "86FCC14C-6A2A-3E7D-A592-FA92A27D9BB0",
+            'd': "0",
+            'methodcode': "70001",
+            'accept': "*/*",
+            'app_name': "JJSOA",
+            'phoneos': "ios",
+            'bundle_identifier': "com.jjshome.oa",
+            'content-length': "15",
+            'accept-encoding': "gzip, deflate, br",
+            'user-agent': "JJSOffice/6.0.0.0 (iPhone; iOS 16.1; Scale/2.00)",
+            'cookie': cookie1,
+            'x-requested-with': "XMLHttpRequest",
+            'phonemodel': "iPhone 6s Plus",
+            'uuid': "86FCC14C-6A2A-3E7D-A592-FA92A27D9BB0",
+            'version': "6.0.0.0",
+            'network': "4G",
+            'clientid': "53257170-A159-44C0-8332-358398308D5C",
+            'channel': "APP Store",
+            'mobileno': "umoXhHUB90ZhkQPj/4VWfg==",
+            'source': "from_self",
+            'empnumber': "00453355",
+            'empno': "00453355",
+            'opid': "00453355",
+            'longitude': "112.898",
+            'accept-language': "zh-Hans-CN;q=1",
+            'idfa': "09436FFC-3AB9-4A43-B695-CA3EF1A1A3D2",
+            'mobile': "umoXhHUB90ZhkQPj/4VWfg==",
+            'cit': "000002",
+            'authorization': "anoxSWwrdHJIdWZyNEpmaE1rNDBjZz09",
+            'connection': "keep-alive",
+            'content-type': "application/x-www-form-urlencoded",
+            'servicecode': "40001",
+            'clientsign': "6151ac4ef4d1584940437806b210d6d7",
+            'workerno': "453355",
+            'appversion': "6.0.0.0",
+            'token': "c46324c862673ac43dcad7547c0bfb19",
+            'aid': "APP002",
+            'ssid': "53257170-A159-44C0-8332-358398308D5C",
+            'v': "10",
+            'imei': "041dd545671cffd510da018bfa3b89e575dd88b3",
+            'carries': "0",
+            'latitude': "28.21968",
+            'cache-control': "no-cache",
+            'postman-token': "d01b2316-648b-92ee-c5b5-f81d22096981"
+        }
+
+        response = requests.request("POST", url, data=payload, headers=headers)
+
+        print(response.text)
+
+        url = "https://i.leyoujia.com/jjslogin/scanLogin"
+        self.Time(2)
+        payload = "rCodeToken=%s" % rCodeToken
+        headers = {
+            'host': "i.leyoujia.com",
+            'deptnumber': "1988426",
+            'timestamp': "1684314581",
+            'mobilemodel': "iPhone",
+            'appname': "ios-jjr",
+            'deviceid': "86FCC14C-6A2A-3E7D-A592-FA92A27D9BB0",
+            'd': "0",
+            'methodcode': "70001",
+            'accept': "*/*",
+            'app_name': "JJSOA",
+            'phoneos': "ios",
+            'bundle_identifier': "com.jjshome.oa",
+            'content-length': "15",
+            'accept-encoding': "gzip, deflate, br",
+            'user-agent': "JJSOffice/6.0.0.0 (iPhone; iOS 16.1; Scale/2.00)",
+            'cookie': cookie1,
+            'x-requested-with': "XMLHttpRequest",
+            'phonemodel': "iPhone 6s Plus",
+            'uuid': "86FCC14C-6A2A-3E7D-A592-FA92A27D9BB0",
+            'version': "6.0.0.0",
+            'network': "WIFI",
+            'clientid': "53257170-A159-44C0-8332-358398308D5C",
+            'channel': "APP Store",
+            'mobileno': "umoXhHUB90ZhkQPj/4VWfg==",
+            'source': "from_self",
+            'empnumber': "00453355",
+            'empno': "00453355",
+            'opid': "00453355",
+            'longitude': "112.898",
+            'accept-language': "zh-Hans-CN;q=1",
+            'idfa': "09436FFC-3AB9-4A43-B695-CA3EF1A1A3D2",
+            'mobile': "umoXhHUB90ZhkQPj/4VWfg==",
+            'cit': "000002",
+            'authorization': "anoxSWwrdHJIdWZyNEpmaE1rNDBjZz09",
+            'connection': "keep-alive",
+            'content-type': "application/x-www-form-urlencoded",
+            'servicecode': "40001",
+            'clientsign': "ad3120f60195fc29531e619116b75086",
+            'workerno': "453355",
+            'appversion': "6.0.0.0",
+            'token': "c46324c862673ac43dcad7547c0bfb19",
+            'aid': "APP002",
+            'ssid': "53257170-A159-44C0-8332-358398308D5C",
+            'v': "10",
+            'imei': "041dd545671cffd510da018bfa3b89e575dd88b3",
+            'carries': "0",
+            'latitude': "28.21968",
+            'cache-control': "no-cache",
+            'postman-token': "f422198d-70a9-166b-076a-b2881e370b51"
+        }
+
+        response = requests.request("POST", url, data=payload, headers=headers)
+
+        print(response.text)
 
 
     def getcookie(self,empnumber,name,url2,xm):
@@ -437,8 +559,8 @@ class Login():
 global wechat_lock
 wechat_lock = Lock()
 
-# 这里可以设置UIDS, 多个人可同时接收 [冯旺，王清波，李安宁,袁猛]
-UIDS = ['UID_NA2KRHJVW60W51YRKMDvjrgAYt7q','UID_Ai7igtiJOnaaq3QcvksgwpYXMfC8','UID_q9CsuEtHTvlUjWUlSQCUcDDuSV73','UID_j0EdePPCONxX3OszmdyvwSYknX8m']
+# 这里可以设置UIDS, 多个人可同时接收 [冯旺，王清波，李安宁,袁猛,罗柳]
+UIDS = ['UID_NA2KRHJVW60W51YRKMDvjrgAYt7q','UID_Ai7igtiJOnaaq3QcvksgwpYXMfC8','UID_q9CsuEtHTvlUjWUlSQCUcDDuSV73','UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_pyB3i43mzt2LctecgCBZWBz035GZ']
 # UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m']
 
 APP_TOKEN = 'AT_wW7eEobXR61htcs4zw6HIchK1yUaSx8L'
@@ -533,7 +655,7 @@ if __name__ == '__main__':
     xm = '冯旺'
     empnumber = '00453355'
     #乐聊通知名单
-    ids = ["453355","474909","477250","252613"]
+    ids = ["453355","474909","477250","252613","428813"]
     # ids = ["252613"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
@@ -546,7 +668,7 @@ if __name__ == '__main__':
 
 
     p = Login(browser,url)
-    p.login(username,password)
+    p.login()
     WDK_name = p.getcookie(empnumber,name,url2,xm)
 
     # (",".join(str(i) for i in WDK_name  去列表数据并用逗号分割)
