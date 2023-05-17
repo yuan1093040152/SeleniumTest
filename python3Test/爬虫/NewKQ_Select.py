@@ -564,8 +564,8 @@ class Login():
 global wechat_lock
 wechat_lock = Lock()
 
-# 这里可以设置UIDS, 多个人可同时接收 [袁猛，蔡姻，罗柳,王凯.....]
-UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_dxNzj6aupA6Q4QZrDkwmCcDLMX2e','UID_pyB3i43mzt2LctecgCBZWBz035GZ','UID_IJVLOOwS4AtmaaydQzjBPoQUeBw0','UID_pLfwZ9GbaZjOco5HPv8eboziCrqc','UID_2CJ9rS2njM1tZlA41ZaW7JYwmnvZ','UID_dQjL40mX3SfNUOLQHjoR5xqbCUab']
+# 这里可以设置UIDS, 多个人可同时接收 [袁猛，蔡姻,王凯.....]
+UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_dxNzj6aupA6Q4QZrDkwmCcDLMX2e','UID_IJVLOOwS4AtmaaydQzjBPoQUeBw0','UID_pLfwZ9GbaZjOco5HPv8eboziCrqc','UID_2CJ9rS2njM1tZlA41ZaW7JYwmnvZ','UID_dQjL40mX3SfNUOLQHjoR5xqbCUab']
 # UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m']
 
 APP_TOKEN = 'AT_wW7eEobXR61htcs4zw6HIchK1yUaSx8L'
