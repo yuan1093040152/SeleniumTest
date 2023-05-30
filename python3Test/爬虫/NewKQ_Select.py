@@ -565,7 +565,7 @@ global wechat_lock
 wechat_lock = Lock()
 
 # 这里可以设置UIDS, 多个人可同时接收 [袁猛，蔡姻,王凯.....]
-UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_dxNzj6aupA6Q4QZrDkwmCcDLMX2e','UID_IJVLOOwS4AtmaaydQzjBPoQUeBw0','UID_pLfwZ9GbaZjOco5HPv8eboziCrqc','UID_2CJ9rS2njM1tZlA41ZaW7JYwmnvZ','UID_dQjL40mX3SfNUOLQHjoR5xqbCUab']
+UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m','UID_dxNzj6aupA6Q4QZrDkwmCcDLMX2e','UID_IJVLOOwS4AtmaaydQzjBPoQUeBw0','UID_pLfwZ9GbaZjOco5HPv8eboziCrqc','UID_2CJ9rS2njM1tZlA41ZaW7JYwmnvZ','UID_dQjL40mX3SfNUOLQHjoR5xqbCUab','UID_atoqZ6EhjUiiyyujA6d0X3FcV9nx']
 # UIDS = ['UID_j0EdePPCONxX3OszmdyvwSYknX8m']
 
 APP_TOKEN = 'AT_wW7eEobXR61htcs4zw6HIchK1yUaSx8L'
@@ -660,7 +660,7 @@ if __name__ == '__main__':
     xm = '袁猛'
     empnumber = '06045224'
     #乐聊通知名单
-    ids = ["252613","412999","419544","405984","403963","089363","171342","436614","410622"]
+    ids = ["252613","412999","419544","405984","403963","089363","171342","436614","410622","401515"]
     # ids = ["252613"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
