@@ -16,13 +16,19 @@ company = os.environ['company']
 # company = '佛山乐有家'
 cj_id = os.environ['cj_id']
 # cj_id = '82149706e01146eebee7cc719097e801'
+env = os.environ['env']
 
-def sys_company(company):
+def sys_company(company,env):
 
     sql = "SELECT old_id FROM sys_company WHERE cm_short_name = '%s' AND cm_state = '1';"%company
     print('sql===',sql)
-    db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='hr',charset='utf8')  # 打开数据库连接
-
+    if env == 'itest':
+        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='hr',charset='utf8')  # 打开数据库连接
+    elif env == 'UAT':
+        db = MySQLdb.connect(host='172.16.3.233', user='root', passwd='passwd36', port=34117, db='hr',charset='utf8')  # 打开数据库连接
+    else:
+        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='hr',charset='utf8')  # 打开数据库连接
+    print('db=====',db)
     cur = db.cursor()  # 使用cursor()方法获取操作游标
     cur.execute(sql)  # 使用execute方法执行SQL语句
     db.commit()  # 提交请求
@@ -33,11 +39,17 @@ def sys_company(company):
     return values
 
 
-def t_main_base(company,cj_id):
-    company_id = sys_company(company)
+def t_main_base(company,cj_id,env):
+    company_id = sys_company(company,env)
     sql = "UPDATE t_main_base SET company_id = '%s',company_name = '%s' WHERE id = '%s';"%(company_id,company,cj_id)
     print('sql===', sql)
-    db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='lyj_trade',charset='utf8')  # 打开数据库连接
+    if env == 'itest':
+        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='lyj_trade',charset='utf8')  # 打开数据库连接
+    elif env == 'UAT':
+        db = MySQLdb.connect(host='172.16.3.233', user='root', passwd='passwd36', port=34117, db='lyj_trade',charset='utf8')  # 打开数据库连接
+    else:
+        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='lyj_trade',charset='utf8')  # 打开数据库连接
+    print('db=====', db)
     cur = db.cursor()  # 使用cursor()方法获取操作游标
     cur.execute(sql)  # 使用execute方法执行SQL语句
     db.commit()  # 提交请求
@@ -49,9 +61,14 @@ def t_main_base(company,cj_id):
 
 
 
-def RefreshHtinfo(cj_id):
-
-    url = "https://itest.leyoujia.com/trade-means/inner/zl-main/createZl/%s"%cj_id
+def RefreshHtinfo(cj_id,env):
+    if env == 'itest':
+        url = "https://itest.leyoujia.com/trade-means/inner/zl-main/createZl/%s" % cj_id
+    elif env == 'UAT':
+        url = "https://onlinetest.leyoujia.com/trade-means/inner/zl-main/createZl/%s"%cj_id
+    else:
+        url = "https://itest.leyoujia.com/trade-means/inner/zl-main/createZl/%s" % cj_id
+    print('url=====', url)
 
     headers = {
         'cache-control': "no-cache",
@@ -66,5 +83,5 @@ def RefreshHtinfo(cj_id):
 
 if __name__ == '__main__':
     time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-    t_main_base(company, cj_id)
-    RefreshHtinfo(cj_id)
+    t_main_base(company, cj_id,env)
+    RefreshHtinfo(cj_id,env)
