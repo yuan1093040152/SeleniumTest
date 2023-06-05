@@ -222,7 +222,7 @@ class Login():
             'clientsign': "8c2879a5abdf9ec3ab62c2daee5d9a97",
             'workerno': "252613",
             'appversion': "6.0.0.0",
-            'token': "29ca2596ea2a45b494e692118389c0b7",
+            'token': "t.ZolH0dnGX4IhzKqZbItX",
             'aid': "APP002",
             'ssid': "800150FB-E029-4F77-BD80-91715BE6FCDF",
             'v': "3",
