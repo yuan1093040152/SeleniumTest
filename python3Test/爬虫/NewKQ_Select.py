@@ -176,7 +176,7 @@ class Login():
         cookie1 ='lyj_login_w_no=029246; jjshome_uuid=%s; _smt_uid=625fb187.4c1d6965; prefs={}; cookiesId=7d8ef6ac0d454f9a8c027e214cbe682f; agentCardhd_time=1; fhListCookies=; gr_user_id=519db3c6-8d95-44d0-abe8-0ee036500e5d; /hsl/index/house-list_guidance=1; lyj_analysis_pageCookie=1176%%3A2; applyTaskGuide=02081317; csrftoken=5PjyIGdNVAIJVC6LlkA1eFzLfYY3uH62b9ARkVejXuErWID13ivGqZY9OmhdSVb7; /hsl/house/house-detail_guidance=1; /hsl/entrust/entrust-add_guidance=1; connect.sid=s%%3AYzeTEgj5S8WQy23I5OR67P0AwxkCdjiw.cBZ65edt94fce1R4ns4VqaShnGKg6c2q2VwjgQrxS%%2Fk; token=t.ZolH0dnGX4IhzKqZbItX; default_city_code=000002; JSESSIONID-FANG=YzhmY2Q2ZjEtMzliZS00ZmIwLTlmNjgtZTE0ZTJhMDNjNTI3; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1682302655,1683620667; Hm_lpvt_1851e6f08c8180e1e7b5e33fb40c4b08=1683620667; Hm_lvt_728857c2e6b321292b2eb422213d1609=1682302655,1683620667; Hm_lpvt_728857c2e6b321292b2eb422213d1609=1683620667; login-workerid=06045224; login-mac=CB8222B5C1a629B422347aC7597aC794014b86Cb; jjshome_sid=%s; JSESSIONID=%s; proLEYOUJIA=%s'% (jjshome_uuid_value, jjshome_sid_value, JSESSIONID_value,proLEYOUJIA_value)
         print('cookie1===', cookie1)
 
-
+        # 若登录失败更换token
         url = "https://i.leyoujia.com/jjslogin/scanCheck"
         self.Time(2)
         payload = "rCodeToken=%s"%rCodeToken
@@ -222,7 +222,7 @@ class Login():
             'clientsign': "8c2879a5abdf9ec3ab62c2daee5d9a97",
             'workerno': "252613",
             'appversion': "6.0.0.0",
-            'token': "t.ZolH0dnGX4IhzKqZbItX",
+            'token': "29ca2596ea2a45b494e692118389c0b7",
             'aid': "APP002",
             'ssid': "800150FB-E029-4F77-BD80-91715BE6FCDF",
             'v': "3",
@@ -233,10 +233,10 @@ class Login():
             'postman-token': "d01b2316-648b-92ee-c5b5-f81d22096981"
         }
 
-        response = requests.request("POST", url, data=payload, headers=headers)
-
+        response = requests.request("POST", url, data=payload, headers=headers,verify=False)
         print(response.text)
 
+        #若登录失败更换token
         url = "https://i.leyoujia.com/jjslogin/scanLogin"
         self.Time(2)
         payload = "rCodeToken=%s"%rCodeToken
@@ -278,7 +278,7 @@ class Login():
             'connection': "keep-alive",
             'content-type': "application/x-www-form-urlencoded",
             'servicecode': "40001",
-            'clientsign': "0458e0eefc32c02bf36a8b1bb96fe2d1",
+            'clientsign': "0c073a8c8a3e4a02ff7556478e203d3d",
             'workerno': "252613",
             'appversion': "6.0.0.0",
             'token': "29ca2596ea2a45b494e692118389c0b7",
@@ -292,7 +292,7 @@ class Login():
             'postman-token': "f422198d-70a9-166b-076a-b2881e370b51"
         }
 
-        response = requests.request("POST", url, data=payload, headers=headers)
+        response = requests.request("POST", url, data=payload, headers=headers,verify=False)
 
         print(response.text)
 
