@@ -17,17 +17,17 @@ import json,os
 class AI_paint:
 
     def __init__(self):
-        self.API_KEY = "6pacgjywWwuwuWSlUGOdfHfB"
-        self.SECRET_KEY = "BYiM4ugyLyd22Y0IKhN82ER3TKBFocyV"
+        self.API_KEY = "YkrPkujMQglreKdlSDxNX7qI"
+        self.SECRET_KEY = "mFj8UeB9qVtiVhrtznwkGcIszMLxmRFi"
         self.prompt = os.environ['prompt']
         self.image_num = os.environ['image_num']
         self.width = os.environ['width']
         self.height = os.environ['height']
         #调试
-        # self.prompt = ""
-        # self.image_num =
-        # self.width =
-        # self.height =
+        # self.prompt = "萌，闪亮，完美，超高清，金色双马尾，金色月亮头饰，面容精致，详细刻画身体，人像居中，看镜头"
+        # self.image_num =1
+        # self.width =1024
+        # self.height =1024
 
 
 
