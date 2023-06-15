@@ -109,7 +109,7 @@ class Login():
         param = u'{"fromAccid":"servenumber000011","group":"%s","toAccids":[%s],"body":"{\\"type\\":8,\\"data\\":{\\"title\\":\\"%s\\",\\"content\\":\\"%s\\",\\"source\\":\\"im-serve-attend\\",\\"sourceName\\":\\"%s的温馨提示\\",\\"sourceType\\":\\"im-serve-fwsq\\",\\"url\\":\\"%s\\",\\"isOuterOpen\\":true}}"}' % (
             group, idsstr, info, msg, info, url)
 
-        host, port = self.dubboGetip(interface=interface, huanjing='itest', tanchuangbz=False)
+        host, port = self.dubboGetip(interface=interface, huanjing=u'生产', tanchuangbz=False)
         print('host, port===',host, port)
 
         try:
@@ -138,11 +138,11 @@ if __name__ == '__main__':
     empnumber = '06045224'
     #乐聊通知名单
     # ids = ["252613", "249279","412999","419544","405984","403963","089363","171342","436614"]
-    ids = ["199114"]
+    ids = ["252613"]
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:
-        info = 'cccc'
+        info = '请知悉，影响扣分：'
     else:
         info = 'bbbb'
     response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -150,7 +150,7 @@ if __name__ == '__main__':
 
 
     # (",".join(str(i) for i in WDK_name  去列表数据并用逗号分割)
-    text = 'password:'
+    text = '1.每天检查备忘，要合格规范；2.每天检查工单中是否有需要日清的Bug和问题；3.需求评审后2天内填写完成测试方案；4.项目转测前完成研发自测用例编写并给到开发；5.测试用例需要加上必测用例。'
 
 
 
