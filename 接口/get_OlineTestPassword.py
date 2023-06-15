@@ -213,6 +213,7 @@ if __name__ == '__main__':
 	# ids = ["袁猛","曾亮","汪永喜","孙杰","苏薇","杨耿晖","李珍一"]
 	ids = ["252613","454949","405984","268709","104667","407662","428606"]
 	# ids = ["252613"]
+	print(ids)
 	text = rs_time
 	info = '今天UAT线上测试环境密码为:'
 	IMsendinfo(ids, text, info,group='im-serve-attend',url='')
