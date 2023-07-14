@@ -63,6 +63,7 @@ class Login():
         self.browser = open_browser(browser, url)
         self.browser.maximize_window()
         self.browser.implicitly_wait(5)
+        self.token = 'b9a81dc14855eb4889bbcb5338b3c951'
 
 
     # 输入
@@ -222,7 +223,7 @@ class Login():
             'clientsign': "8c2879a5abdf9ec3ab62c2daee5d9a97",
             'workerno': "252613",
             'appversion': "6.0.0.0",
-            'token': "0154159108439f459d08be2d6f4009d1",
+            'token': self.token,
             'aid': "APP002",
             'ssid': "800150FB-E029-4F77-BD80-91715BE6FCDF",
             'v': "3",
@@ -281,7 +282,7 @@ class Login():
             'clientsign': "0c073a8c8a3e4a02ff7556478e203d3d",
             'workerno': "252613",
             'appversion': "6.0.0.0",
-            'token': "0154159108439f459d08be2d6f4009d1",
+            'token': self.token,
             'aid': "APP002",
             'ssid': "800150FB-E029-4F77-BD80-91715BE6FCDF",
             'v': "3",
