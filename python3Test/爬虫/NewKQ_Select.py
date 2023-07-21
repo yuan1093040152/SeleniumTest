@@ -63,7 +63,7 @@ class Login():
         self.browser = open_browser(browser, url)
         self.browser.maximize_window()
         self.browser.implicitly_wait(5)
-        self.token = '08d23604bcb93c6b6416a9d33ca38124'
+        self.token = '3ff27a6e2ef2330b3b080a4d0c36997a'
 
 
     # 输入
