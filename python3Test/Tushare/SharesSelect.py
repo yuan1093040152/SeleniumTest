@@ -14,6 +14,7 @@ import smtplib
 import  MySQLdb,time,datetime
 from chinese_calendar import is_workday
 from email.mime.text import MIMEText
+from email.header import Header
 
 
 class sharesselect:
@@ -94,33 +95,45 @@ class sharesselect:
 
 
     # 发送邮件
-    def Email(self):
-        upstoplist = self.sharesrise()
+    def Email(self,a):
+        # upstoplist = self.sharesrise()
         title = '20CM涨停的股'
-        content = '明天看涨的股票：%s'%upstoplist
+        content = '明天看涨的股票：%s'%a
+
         # 第三方 SMTP 服务
         mail_host = "smtp.qq.com"  # 设置服务器
+        smtp_port = 587
         mail_user = "1093040152@qq.com"  # 用户名
-        mail_pass = "pugbzjhrfpfqfeca"  # QQ邮箱登录的授权码
-        # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>']
+        mail_pass = "vnguzluijowfjjec"  # QQ邮箱登录的授权码
+        # receivers =['袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>']
         receivers = ['袁猛<1093040152@qq.com>']
-        # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
-        message = MIMEText(content, 'plain', 'utf-8')  # 文本内容
-        message['From'] = '袁猛<1093040152@qq.com>'  # mail_user # 发送者   （发送人同QQ备注，可不写）
-        message['To'] = ','.join(receivers)  # 这里必须要把多个邮箱按照逗号拼接为字符串
+
+        # 构造邮件内容
         subject = title  # 主题
-        message['Subject'] = subject
-
+        message = MIMEText(content, 'plain', 'utf-8')
+        message['From'] = Header(mail_user)
+        message['To'] = Header(','.join(receivers))
+        message['Subject'] = Header(subject)
         try:
-            c = smtplib.SMTP()
-            c.connect(mail_host, 25)  # 25 为 SMTP 端口号
-            c.login(mail_user, mail_pass)  # 登录
-            c.sendmail(mail_user, receivers, message.as_string())  # 发送
-            print("邮件发送成功！")
-        except smtplib.SMTPException as e:
-            print(e)
-            print("Error: 无法发送邮件")
+            # 连接SMTP服务器
+            smtp_obj = smtplib.SMTP(mail_host, smtp_port)
+            smtp_obj.starttls()  # 使用TLS加密连接
+            smtp_obj.login(mail_user, mail_pass)  # 登录发件人邮箱
+
+            # 发送邮件
+            smtp_obj.sendmail(mail_user, receivers, message.as_string())
+            print("邮件发送成功")
+
+        except Exception as e:
+            print("邮件发送失败:", e)
+
+        finally:
+            smtp_obj.quit()
 
 
-
-sharesselect().Email()
+if __name__ == '__main__':
+    a = sharesselect().sharesrise()
+    if len(a) == 0:
+        print('今日无推荐股票，不发送邮件')
+    else:
+        sharesselect().Email(a)

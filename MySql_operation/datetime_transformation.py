@@ -3,6 +3,7 @@
 from borax.calendars.lunardate import LunarDate
 from email.mime.text import MIMEText
 import datetime,MySQLdb,json,re,smtplib,time
+from email.header import Header
 
 def get_time():
     #获取当前时间
@@ -56,28 +57,36 @@ def Email(str1):
     response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(response_time)
     content = response_time+u'今天生日成员名单：%s'%str1   #内容
-# 第三方 SMTP 服务
-    mail_host="smtp.qq.com" #设置服务器
-    mail_user="1093040152@qq.com" #用户名
-    mail_pass="pugbzjhrfpfqfeca" # QQ邮箱登录的授权码
-    # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>','齐红宁<qhn@leyoujia.com>','石进<shij@leyoujia.com>']
-    receivers =['袁猛<1093040152@qq.com>']
-    # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
-    message = MIMEText(content, 'plain', 'utf-8') #文本内容
-    message['From'] ='袁猛<1093040152@qq.com>' #mail_user # 发送者   （发送人同QQ备注，可不写）
-    message['To'] = ','.join(receivers) # 这里必须要把多个邮箱按照逗号拼接为字符串
-    subject = u'今天有人过生日，记得送祝福'  #标题
-    message['Subject'] = subject
 
+    # 第三方 SMTP 服务
+    mail_host = "smtp.qq.com"  # 设置服务器
+    smtp_port = 587
+    mail_user = "1093040152@qq.com"  # 用户名
+    mail_pass = "vnguzluijowfjjec"  # QQ邮箱登录的授权码
+    #receivers =['袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>']
+    receivers = ['袁猛<1093040152@qq.com>']
+
+    # 构造邮件内容
+    subject = u'今天有人过生日，记得送祝福'
+    message = MIMEText(content, 'plain', 'utf-8')
+    message['From'] = Header(mail_user)
+    message['To'] = Header(','.join(receivers))
+    message['Subject'] = Header(subject)
     try:
-        c = smtplib.SMTP()
-        c.connect(mail_host, 25) # 25 为 SMTP 端口号
-        c.login(mail_user,mail_pass)  #登录
-        c.sendmail(mail_user,receivers,message.as_string())    #发送
-        print ("邮件发送成功")
-    except smtplib.SMTPException as e:
-        print (e)
-        print ("Error: 无法发送邮件")
+        # 连接SMTP服务器
+        smtp_obj = smtplib.SMTP(mail_host, smtp_port)
+        smtp_obj.starttls()  # 使用TLS加密连接
+        smtp_obj.login(mail_user, mail_pass)  # 登录发件人邮箱
+
+        # 发送邮件
+        smtp_obj.sendmail(mail_user, receivers, message.as_string())
+        print("邮件发送成功")
+
+    except Exception as e:
+        print("邮件发送失败:", e)
+
+    finally:
+        smtp_obj.quit()
 
 
 if __name__ == '__main__':

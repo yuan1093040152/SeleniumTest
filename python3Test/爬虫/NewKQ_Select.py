@@ -32,6 +32,7 @@ import requests
 import sys
 import traceback
 from datetime import datetime
+from email.header import Header
 
 
 
@@ -433,36 +434,43 @@ class Login():
 
     # 发送邮件函数
     def Email(self,info,WDK_name):
-
         response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         print(response_time)
         title = info
         # (",".join(str(i) for i in WDK_name  去列表数据并用逗号分割)
         content = '跟新时间：' + response_time + '\n' + '通知：\n      ' + info + ':\n      ' + ",".join(
             str(i) for i in WDK_name)
-        # content = response_time+u'    成交列表响应时间为%s秒，请通知开发及时处理'%WDK_name
+
         # 第三方 SMTP 服务
         mail_host = "smtp.qq.com"  # 设置服务器
+        smtp_port = 587
         mail_user = "1093040152@qq.com"  # 用户名
-        mail_pass = "pugbzjhrfpfqfeca"  # QQ邮箱登录的授权码
-        # receivers =['袁猛<1093040152@qq.com>','袁猛<yuanm@leyoujia.com>','齐红宁<qhn@leyoujia.com>','石进<shij@leyoujia.com>']
+        mail_pass = "vnguzluijowfjjec"  # QQ邮箱登录的授权码
+        # receivers =['袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>']
         receivers = ['袁猛<1093040152@qq.com>']
-        # 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
-        message = MIMEText(content, 'plain', 'utf-8')  # 文本内容
-        message['From'] = '袁猛<1093040152@qq.com>'  # mail_user # 发送者   （发送人同QQ备注，可不写）
-        message['To'] = ','.join(receivers)  # 这里必须要把多个邮箱按照逗号拼接为字符串
-        subject = title  # 主题
-        message['Subject'] = subject
 
+        # 构造邮件内容
+        subject = title
+        message = MIMEText(content, 'plain', 'utf-8')
+        message['From'] = Header(mail_user)
+        message['To'] = Header(','.join(receivers))
+        message['Subject'] = Header(subject)
         try:
-            c = smtplib.SMTP()
-            c.connect(mail_host, 25)  # 25 为 SMTP 端口号
-            c.login(mail_user, mail_pass)  # 登录
-            c.sendmail(mail_user, receivers, message.as_string())  # 发送
-            print("邮件发送成功！")
-        except smtplib.SMTPException as e:
-            print(e)
-            print("Error: 无法发送邮件")
+            # 连接SMTP服务器
+            smtp_obj = smtplib.SMTP(mail_host, smtp_port)
+            smtp_obj.starttls()  # 使用TLS加密连接
+            smtp_obj.login(mail_user, mail_pass)  # 登录发件人邮箱
+
+            # 发送邮件
+            smtp_obj.sendmail(mail_user, receivers, message.as_string())
+            print("邮件发送成功")
+
+        except Exception as e:
+            print("邮件发送失败:", str(e))
+
+        finally:
+            smtp_obj.quit()
+
 
         # ##############################################
         # 从dubbo后台获取直连ip
@@ -684,7 +692,7 @@ if __name__ == '__main__':
     if len(WDK_name) == 0:
         print('小伙伴都已打卡，不进行通知')
     else:
-        # p.Email(info,WDK_name)
+        p.Email(info,WDK_name)
         send_wx_msg(text)
         p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
