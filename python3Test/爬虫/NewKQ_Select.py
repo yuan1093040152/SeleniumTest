@@ -30,7 +30,7 @@ import urllib.parse
 from threading import Lock, Thread
 import requests
 import sys
-import traceback
+import traceback,argparse
 from datetime import datetime
 from email.header import Header
 
@@ -60,11 +60,22 @@ def open_browser(browser,url):
 
 class Login():
 
+    def jenkins(self):
+        # 获取jenkins传递过来的参数
+        parser = argparse.ArgumentParser()
+        parser.add_argument("token")
+        args = parser.parse_args()
+        param = vars(args)
+        token = param['token']
+        return token
+
+
     def __init__(self,browser,url):
+
         self.browser = open_browser(browser, url)
         self.browser.maximize_window()
         self.browser.implicitly_wait(5)
-        self.token = '225a761b145cd8a048e1c2ae983a637f'
+        self.token = self.jenkins()
 
 
     # 输入
