@@ -17,8 +17,8 @@ import json,os
 class AI_paint:
 
     def __init__(self):
-        self.API_KEY = "YkrPkujMQglreKdlSDxNX7qI"
-        self.SECRET_KEY = "mFj8UeB9qVtiVhrtznwkGcIszMLxmRFi"
+        self.API_KEY = "sThOuSRuA9Lka8GR8wQGZVRs"
+        self.SECRET_KEY = "wKnFjb9OIQZ3LMkXEosVmKZYd9PqzfGn"
         self.prompt = os.environ['prompt']
         self.image_num = os.environ['image_num']
         self.width = os.environ['width']
@@ -44,13 +44,26 @@ class AI_paint:
     def paint(self):
         url = "https://aip.baidubce.com/rpc/2.0/ernievilg/v1/txt2imgv2?access_token="+ self.get_access_token()
         # image 可以通过 get_file_content_as_base64("C:\fakepath\350X150.png",False) 方法获取
+
+        #高级版
+        # payload = json.dumps({
+        #     "prompt": self.prompt,
+        #     "version": "v2",
+        #     "width": int(self.width),
+        #     "height": int(self.height),
+        #     "image_num": self.image_num
+        # })
+
+        #基础版
         payload = json.dumps({
             "prompt": self.prompt,
-            "version": "v2",
-            "width": self.width,
-            "height": self.height,
-            "image_num": self.image_num
+            "resolution":"1024*1024",
+            "style": "写实风格",
+            "image_num": self.image_num,
+            'code': 'utf-8'
         })
+
+
         print(payload)
         headers = {
             'Content-Type': 'application/json',
