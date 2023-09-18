@@ -16,32 +16,15 @@ import MySQLdb,os
 
 class ht_info:
 
+    #获取jenkins传参
     def __init__(self):
         self.lx = os.environ['lx']
         self.cjdh = os.environ['cjdh']
         self.env = os.environ['env']
 
-        # 获取jenkins传递过来的参数
-        # parser = argparse.ArgumentParser()
-        # parser.add_argument("aalx")
-        # parser.add_argument("aacjdh")
-        # parser.add_argument("aaenv")
-        # print('1111111111')
-        # env_vars = os.environ
-        # args = parser.parse_args([f"--{key}={val}" for key, val in env_vars.items() if key.startswith('AA_')])
-        # a = args.lx
 
-        # args = parser.parse_args()
-        # param = vars(args)
-        # print(param)
-        # a= param['lx']
-        # print('2222222222222',a)
-        # return param
-
-    #获取jenkins传递过来的合同类型
+    #转义jenkins传参数据
     def htlx(self):
-        # param = self.jenkins()
-        # lx = param['lx']
         if self.lx =='租赁电子合同':
             return 1
         elif self.lx =='买卖电子合同':
@@ -50,18 +33,6 @@ class ht_info:
             return 3
         else:
             return 1
-
-    #获取jenkins传递过来的成交单号
-    # def cjdh(self):
-    #     param = self.jenkins()
-    #     cjdh = param['cjdh']
-    #     return cjdh
-
-    #获取jenkins传递过来需要修改的环境
-    # def env(self):
-    #     param = self.jenkins()
-    #     env = param['env']
-    #     return env
 
 
     def redeExcel(self):
@@ -82,6 +53,7 @@ class ht_info:
             print('传值错误，无法生成合同')
 
 
+    #通过成交单号获取合同ID
     def get_htid(self):
         global db
         sql = "SELECT a.ID FROM CJ_MAIN a WHERE GZDH = '%s';"%self.cjdh
@@ -111,6 +83,7 @@ class ht_info:
             return htid
 
 
+    #通过成交ID修改json数据
     def fill_ht(self):
 
         global db
@@ -135,6 +108,7 @@ class ht_info:
         db.commit()  # 提交请求
         cur.close()  # 关闭数据库连接
         return
+
 
 
 if __name__ == '__main__':
