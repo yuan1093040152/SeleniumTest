@@ -67,6 +67,7 @@ class Login():
         args = parser.parse_args()
         param = vars(args)
         token = param['token']
+        print('token======',token)
         return token
 
 
@@ -76,6 +77,8 @@ class Login():
         self.browser.maximize_window()
         self.browser.implicitly_wait(5)
         self.token = self.jenkins()
+        #调试用
+        # self.token = '74cbaf873e9d3f75ab3190bfdf3f468c'
 
 
     # 输入
