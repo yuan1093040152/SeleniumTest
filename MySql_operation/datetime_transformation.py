@@ -42,7 +42,7 @@ def birthday_time():
     print(sql)
 
     # db = MySQLdb.connect(host='172.16.4.223',user='coa_group_qhn_sj',passwd='jjszrExXC1Bu4uH6jktL+_&^',port=35113,db='hr',charset='utf8')  #打开数据库连接
-    db = MySQLdb.connect(host='172.16.22.101',user='root',passwd='admintest',port=33096,db='hr',charset='utf8')  #打开数据库连接
+    db = MySQLdb.connect(host='172.16.22.101',user='idev_user',passwd='IxmTQ_!*OPzNUSKE0V2B3iGI',port=33096,db='hr',charset='utf8')  #打开数据库连接
 
     cur = db.cursor()           #使用cursor()方法获取操作游标
     cur.execute(sql)            #使用execute方法执行SQL语句
