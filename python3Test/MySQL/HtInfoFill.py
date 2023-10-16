@@ -60,7 +60,7 @@ class ht_info:
         print("获取合同IDsql为：",sql)
         huanjing = self.env
         if huanjing == 'itest':
-            db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='jjscj',
+            db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='jjscj',
                                  charset='utf8')  # 打开数据库连接
             print('itest环境已执行')
         elif huanjing == 'UAT':

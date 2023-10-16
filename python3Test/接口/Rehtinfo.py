@@ -23,11 +23,11 @@ def sys_company(company,env):
     sql = "SELECT old_id FROM sys_company WHERE cm_short_name = '%s' AND cm_state = '1';"%company
     print('sql===',sql)
     if env == 'itest':
-        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='hr',charset='utf8')  # 打开数据库连接
+        db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='hr',charset='utf8')  # 打开数据库连接
     elif env == 'UAT':
         db = MySQLdb.connect(host='172.16.3.233', user='root', passwd='passwd36', port=34117, db='hr',charset='utf8')  # 打开数据库连接
     else:
-        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='hr',charset='utf8')  # 打开数据库连接
+        db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='hr',charset='utf8')  # 打开数据库连接
     print('db=====',db)
     cur = db.cursor()  # 使用cursor()方法获取操作游标
     cur.execute(sql)  # 使用execute方法执行SQL语句
@@ -44,11 +44,11 @@ def t_main_base(company,cj_id,env):
     sql = "UPDATE t_main_base SET company_id = '%s',company_name = '%s' WHERE id = '%s';"%(company_id,company,cj_id)
     print('sql===', sql)
     if env == 'itest':
-        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='lyj_trade',charset='utf8')  # 打开数据库连接
+        db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='lyj_trade',charset='utf8')  # 打开数据库连接
     elif env == 'UAT':
         db = MySQLdb.connect(host='172.16.3.233', user='root', passwd='passwd36', port=34117, db='lyj_trade',charset='utf8')  # 打开数据库连接
     else:
-        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='lyj_trade',charset='utf8')  # 打开数据库连接
+        db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='lyj_trade',charset='utf8')  # 打开数据库连接
     print('db=====', db)
     cur = db.cursor()  # 使用cursor()方法获取操作游标
     cur.execute(sql)  # 使用execute方法执行SQL语句
