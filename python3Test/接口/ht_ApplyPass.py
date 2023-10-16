@@ -16,7 +16,7 @@ def apply_id(HTBH,url1,url2):
 
     ht_sql = "SELECT b.APPLY_ID FROM HT_MAIN a RIGHT JOIN APPLY_COMMON b ON a.ID = b.GL_ID WHERE HTBH = '%s'"%HTBH
     print(ht_sql)
-    ht = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='jjsht',charset='utf8')  # 打开数据库连接
+    ht = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='jjsht',charset='utf8')  # 打开数据库连接
     ht_cur = ht.cursor()  # 使用cursor()方法获取操作游标
     ht_cur.execute(ht_sql)  # 使用execute方法执行SQL语句
     ht.commit()  # 提交请求
@@ -28,7 +28,7 @@ def apply_id(HTBH,url1,url2):
 
     hr_sql = "SELECT * FROM APPROVAL_PEOPLE WHERE APPLY_ID = '%s' ORDER BY ORDER_NUMBER;"%applyId
     print(hr_sql)
-    hr = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='workflowplatform', charset='utf8')
+    hr = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='workflowplatform', charset='utf8')
     hr_cur = hr.cursor()
     hr_cur.execute(hr_sql)
     hr.commit()
@@ -45,7 +45,7 @@ def apply_id(HTBH,url1,url2):
 
         emp_no_sql = "SELECT emp_no FROM sys_emp WHERE emp_number ='%s';" % WORKER_ID
         print(emp_no_sql)
-        hr_no = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='hr',charset='utf8')
+        hr_no = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='hr',charset='utf8')
         hr_no_cur = hr_no.cursor()
         hr_no_cur.execute(emp_no_sql)
         hr_no.commit()

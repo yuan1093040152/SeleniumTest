@@ -24,7 +24,7 @@ def get_htbh(HTBH):
     #获取jenkins执行环境
     huanjing = os.environ['huanjing']
     if huanjing == 'itest':
-        db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='jjsht',charset='utf8')  # 打开数据库连接
+        db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='jjsht',charset='utf8')  # 打开数据库连接
         print('itest环境已执行')
     elif huanjing == 'onlinetest':
         db = MySQLdb.connect(host='172.16.3.233', user='root', passwd='passwd36', port=34117, db='jjsht',charset='utf8')  # 打开数据库连接
