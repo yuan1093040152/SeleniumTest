@@ -93,7 +93,7 @@ class ht_info:
         # 获取jenkins执行环境
         huanjing = self.env
         if huanjing == 'itest':
-            db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='jjsht',
+            db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='jjsht',
                                  charset='utf8')  # 打开数据库连接
             print('itest环境已执行')
         elif huanjing == 'UAT':
