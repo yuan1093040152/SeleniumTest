@@ -29,7 +29,7 @@ def get_htbh(emp_number):
 
     print(sql)
 
-    db = MySQLdb.connect(host='172.16.3.233', user='root', passwd='passwd36', port=34117, db='hr',charset='utf8')  # 打开数据库连接
+    db = MySQLdb.connect(host='192.168.6.2', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=6033, db='hr',charset='utf8')  # 打开数据库连接
 
 
 

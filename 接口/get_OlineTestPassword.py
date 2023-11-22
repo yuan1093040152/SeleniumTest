@@ -70,7 +70,7 @@ def get_OnlinetestPassword(url1):
 
 	sql = "UPDATE sys_emp_pass SET pass_word = '%s';" %pass_word
 	print(sql)
-	db = MySQLdb.connect(host='172.16.3.233', user='root', passwd='passwd36', port=34117, db='hr',charset='utf8')  # 打开数据库连接
+	db = MySQLdb.connect(host='192.168.6.2', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=6033, db='hr',charset='utf8')  # 打开数据库连接
 	cur = db.cursor()  # 使用cursor()方法获取操作游标
 	cur.execute(sql)  # 使用execute方法执行SQL语句
 	db.commit()  # 提交请求
@@ -210,8 +210,8 @@ if __name__ == '__main__':
 	url1 = 'http://172.16.3.233:12001/apis/back/oldSystem/PassGet'
 	url = 'http://172.16.3.233:12001/privilege/front/users/login'
 	rs_time = get_OnlinetestPassword(url1)
-	# ids = ["袁猛","曾亮","汪永喜","孙杰","苏薇","杨耿晖","李珍一","黄慧","曾佩","王曼莹","刘颖","冉成浩","李峥"]
-	ids = ["252613","454949","405984","268709","104667","407662","428606","045682","029246","190539","265727","410622","412190"]
+	# ids = ["袁猛","曾亮","汪永喜","孙杰","苏薇","杨耿晖","李珍一","黄慧","曾佩","王曼莹","刘颖","冉成浩"]
+	ids = ["252613","454949","405984","268709","104667","407662","428606","045682","029246","190539","265727","410622"]
 	# ids = ["252613"]
 	print(ids)
 	text = rs_time
