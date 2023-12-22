@@ -25,7 +25,7 @@ def sys_company(company,env):
     if env == 'itest':
         db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='hr',charset='utf8')  # 打开数据库连接
     elif env == 'UAT':
-        db = MySQLdb.connect(host='192.168.6.2', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=6033, db='hr',charset='utf8')  # 打开数据库连接
+        db = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117, db='hr',charset='utf8')  # 打开数据库连接
     else:
         db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='hr',charset='utf8')  # 打开数据库连接
     print('db=====',db)
@@ -46,7 +46,7 @@ def t_main_base(company,cj_id,env):
     if env == 'itest':
         db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='lyj_trade',charset='utf8')  # 打开数据库连接
     elif env == 'UAT':
-        db = MySQLdb.connect(host='192.168.6.2', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=6033, db='lyj_trade',charset='utf8')  # 打开数据库连接
+        db = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117, db='lyj_trade',charset='utf8')  # 打开数据库连接
     else:
         db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='lyj_trade',charset='utf8')  # 打开数据库连接
     print('db=====', db)

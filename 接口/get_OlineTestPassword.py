@@ -70,7 +70,7 @@ def get_OnlinetestPassword(url1):
 
 	sql = "UPDATE sys_emp_pass SET pass_word = '%s';" %pass_word
 	print(sql)
-	db = MySQLdb.connect(host='192.168.6.2', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=6033, db='hr',charset='utf8')  # 打开数据库连接
+	db = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117, db='hr',charset='utf8')  # 打开数据库连接
 	cur = db.cursor()  # 使用cursor()方法获取操作游标
 	cur.execute(sql)  # 使用execute方法执行SQL语句
 	db.commit()  # 提交请求

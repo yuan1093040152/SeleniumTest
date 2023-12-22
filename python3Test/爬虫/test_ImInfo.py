@@ -142,7 +142,7 @@ if __name__ == '__main__':
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:
-        info = '请知悉，影响扣分：'
+        info = '123123'
     else:
         info = 'bbbb'
     response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -150,7 +150,7 @@ if __name__ == '__main__':
 
 
     # (",".join(str(i) for i in WDK_name  去列表数据并用逗号分割)
-    text = '1.每天检查备忘，要合格规范；2.每天检查工单中是否有需要日清的Bug和问题；3.需求评审后2天内填写完成测试方案；4.项目转测前完成研发自测用例编写并给到开发；5.测试用例需要加上必测用例。'
+    text = '哈哈哈哈哈哈哈'
 
 
 

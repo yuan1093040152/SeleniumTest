@@ -64,7 +64,7 @@ class ht_info:
                                  charset='utf8')  # 打开数据库连接
             print('itest环境已执行')
         elif huanjing == 'UAT':
-            db = MySQLdb.connect(host='192.168.6.2', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=6033, db='jjscj',
+            db = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117, db='jjscj',
                                  charset='utf8')  # 打开数据库连接
             print('onlinetest环境已执行')
         else:
@@ -97,7 +97,7 @@ class ht_info:
                                  charset='utf8')  # 打开数据库连接
             print('itest环境已执行')
         elif huanjing == 'UAT':
-            db = MySQLdb.connect(host='192.168.6.2', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=6033, db='jjsht',
+            db = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117, db='jjsht',
                                  charset='utf8')  # 打开数据库连接
             print('onlinetest环境已执行')
         else:
