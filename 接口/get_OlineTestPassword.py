@@ -205,6 +205,64 @@ def IMsendinfo(ids, text, info,group='im-serve-attend',url=''):
 		print(u'乐聊通知处理出错！')
 
 
+"""
+1、利用消息平台发送UAT密码给相关人员
+"""
+def XXPT_fs(txt,i):
+    url = "https://i.leyoujia.com/msg/im/addTemplateInfo"
+    data ={
+        "belongDept":"12",
+        "laterRemind":"1",
+        "pushMode": "1",
+        "pushWorker": "2",
+        "rank": "1",
+        "title": "线上密码",
+        "type": "1",
+        "templateContents": [{"type":"text",
+                              "value":txt}],
+
+        "templateWorkers": [
+
+                            {"type": "1",
+                             "workerType": "1",
+                             "value": i,
+                             "name": ""},
+                            ]}
+    headers = {"Accept":"application/json, text/javascript, */*; q=0.01",
+               "Accept-Encoding":"gzip, deflate, br",
+               "Accept-Language":"zh-CN,zh;q=0.9",
+               "Cache-Control":"no-cache",
+               "Connection":"keep-alive",
+               "Content-Length":"464",
+               "Content-Type":"application/json; charset=UTF-8",
+               "Cookie":"prefs={}; fhListCookies=; jjshome_uuid=2d8db24a-d505-94df-befa-fce33a6057be; _ga=GA1.2.469380103.1688031287; /hsl/index/house-list_guidance=1; cookiesId=67fd28febc684aa2b689cff24c43107f; ysl-list=1; reserve-list=1; token=t.ORD0x1QdtR11YEgLgNn0; gr_user_id=3fab8280-a3be-4c3e-bb5d-e2517dd30cd9; connect.sid=s%3A85-aogZtViP5TpwyLIgr5Dfqhj9R0Zb1.%2FdFAOCuSJ4XDikYu6bzsKwowklPrcx62icgEKERUM3g; JSESSIONID-FANG=MWY3Y2IzMDUtNzI2MS00ZWRkLTliMTYtNmQxNGZhZDI3ZDA0; JSESSIONID=8C62D5150084F58A28CB4B8D6072A1D9; proLEYOUJIA=MDJlYzFhOTItMzIzMi00YWRiLWIwNmMtMDdkMzgzYmE3YWE0; login-mac=; jjshome_sid=c6a53232-74a1-7b26-9781-61bc63dd5f5f; login-workerid=33029115; fatLEYOUJIA=N2U5YTIwNTctOTAxNS00ZTYzLWIwYmItNDlmZDkxZDk5MmE2",
+               "Host":"i.leyoujia.com",
+               "Origin":"https://i.leyoujia.com",
+               "Pragma":"no-cache",
+               "Referer":"https://i.leyoujia.com/lyj-menu/syssetting/SYS_XXTP?submenu=sent",
+               "Sec-Fetch-Dest":"empty",
+               "Sec-Fetch-Mode":"cors",
+               "Sec-Fetch-Site":"same-origin",
+               "User-Agent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+               "X-Requested-With":"XMLHttpRequest"}
+    response = requests.post(url, data=json.dumps(data), headers=headers)
+    s1 = response.json()
+    return s1['success']
+
+
+# ids = ["袁猛","曾亮","孙杰","苏薇","杨耿晖","李珍一","黄慧","王曼莹","刘颖","冉成浩"]
+# ids = ["06045224", "00454949", "06061310", "33029737", "00407662", "00428606", "77807633",  "02081317", "06058331","00410622"]
+ids = ["06045224","00410622"]
+
+
+def js():
+    # p1 = UAT_pass()
+    txt = '111'
+    for i in ids:
+        FS_xx = XXPT_fs(txt,i)
+        print(FS_xx)
+
+
 
 if __name__ == '__main__':
 	url1 = 'http://172.16.3.233:12001/apis/back/oldSystem/PassGet'
