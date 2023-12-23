@@ -15,3 +15,9 @@ import requests,json
 url = "pl:NXXR"
 print(url[-4:])
 
+
+a = [{'袁猛':'06045224'},{'冉成浩':'00410622'}]
+
+for i in a:
+    print(type(list(i.keys())[0]))
+    print(list(i.values())[0])

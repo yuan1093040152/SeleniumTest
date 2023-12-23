@@ -14,63 +14,11 @@ Ctrl+/       快速注释
 import requests
 import json
 
-"""
-1、获取每日UAT密码
-"""
-def UAT_pass():
-    url = 'http://172.16.3.233:12001/apis/back/oldSystem/PassGet'
-    data = {"roomId":"52026368004000"}
-    headers = {
-        "Accept":"application/json, text/javascript, */*; q=0.01",
-        "Accept-Encoding":"gzip, deflate",
-        "Accept-Language":"zh-CN,zh;q=0.9",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Content-Length": "0",
-        "Host": "172.16.3.233:12001",
-        "Origin": "http://172.16.3.233:12001",
-        "Pragma": "no-cache",
-        "Referer":"http://172.16.3.233:12001/portal/index",
-        "sessionID": "zz27wTDemu07bKfdLTXx86c7r27LBC",
-        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest"
-    }
-    response = requests.post(url,data=json.dumps(data),headers=headers)
-    s = response.json()
-    return s['msg']
-
-"""
-1、登录新系统获取cookie
-"""
-# def DL():
-#     url = "https://i.leyoujia.com/jjslogin/doLoginByImV1"
-#     data = {"Accept":"application/json, text/plain, */*",
-#             "Accept-Encoding":"gzip, deflate, br",
-#             "Accept-Language":"zh-CN,zh;q=0.9",
-#             "appName":"pc-im",
-#             "Connection":"keep-alive",
-#             "Content-Length": "901",
-#             "Content-Type": "application/x-www-form-urlencoded",
-#             "Cookie": "jjshome_uuid=aeece851-8cf4-acae-e79e-44b66a69fba6; lyj_pc_token=Vme5y9RlmHOkd1gsI0h3ZHUnHU50kKHX; proLEYOUJIA=ODUxYmYzOTYtMzNhNS00ZWI2LWEzOTYtZWYyZTAwZTczYTAw",
-#             "Host": "i.leyoujia.com",
-#             "imei": "pcMac-80C5484B6EFC",
-#             "Sec-Fetch-Dest":"empty",
-#             "Sec-Fetch-Mode":"cors",
-#             "Sec-Fetch-Site":"none",
-#             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36 leyoujiaIm/3.0.6.2",
-#             "version":"3.0.6.2"
-#             }
-#     headres = {"secret":"bD25op4M+n5nlrViLDoYFFNzi3DE+v8Ml5bPQ5Fz0LnmD7vj7CuomccULb/BtjNnCZ7wFvSpU9SQCJNWCkDwcBshqqoBfmYMgIrK6vKUtyjwr2B+AUTJTUTWEbATwluJrHQGQEWJ+fF3rWezDilwPzzlSrahme9h7bhAAYgEWtAsYfDBrYUKXaXSAoUiEPFMXaNTjkA8GdaM0CiFpJ9rQtgChHows0DACZWqZYjNLxDUgMIOPZhLXLqeC5z3KBN6xA++MZ3n1pxHvIagIarT8unjDhA6gFo+rN0sq8MB02aibOyeYzah1r7XrYRCe3mAb6IeZZwtqhVS5MqXWn4FQIXjLKdPOUt5YGpaqo2IxNWBN/5Y2DnknHduUFfZPMBKshxixWLEEcqRlVuvc4reM1CJ68kuGG4xHvz29ql7tvSsOtkFkWtScE6FrZDtwz92k9xmYdon47TufaAWGQ6VVbaMjNrjm95Rzmwyg3MXobj4vjfupO8fwlhJtBc+K0aQWUQZm3NEUmc+VYQLWnNkTckvqYsx2/HQRDVu6qIRXcCHOhAyHKKcL/QNjriHPNP6GD3l1mnqmlDmmfXNdYE4K49t9/Ne0KBsMaQTHOd7uKCSnzRDIr8WgkWBGb2fEWchv7lfnSjEwhqDpF5cAUlnbyPdyEkk6pHMb8dAIhUz5+F7cvQE/k8du2rb5csmw6lrnF7Y9Tca5sIc0O0lj7UnxzVSQLH0NmZko8KwouCHEsiAySxVHWlNdHKp2vvSvUFdRLOeWOHvBRZHxa2hFlnS9LwKJeyoNlNpqedX/lZwSPYR0uieNT1i2PiqmmskRth4sTPEF1JRP9vzJIncz25EZg=="}
-#     respose = requests.post(url,headers=headres,data=data)
-#     ck = respose.cookies
-#     print(ck)
-
-
 
 """
 1、利用消息平台发送UAT密码给相关人员
 """
-def XXPT_fs(txt,i):
+def XXPT_fs(txt,title,emp_number,emp_name):
     url = "https://i.leyoujia.com/msg/im/addTemplateInfo"
     data ={
         "belongDept":"12",
@@ -78,18 +26,17 @@ def XXPT_fs(txt,i):
         "pushMode": "1",
         "pushWorker": "2",
         "rank": "1",
-        "title": "线上密码",
+        "title": title,
         "type": "1",
-        "templateContents": [{"type":"text",
-                              "value":txt}],
+        "templateContents": [{"type":"text","value":txt}],
 
         "templateWorkers": [
-
                             {"type": "1",
                              "workerType": "1",
-                             "value": i,
-                             "name": ""},
-                            ]}
+                             "value": emp_number,
+                             "name": emp_name}
+                            ]
+    }
     headers = {"Accept":"application/json, text/javascript, */*; q=0.01",
                "Accept-Encoding":"gzip, deflate, br",
                "Accept-Language":"zh-CN,zh;q=0.9",
@@ -109,21 +56,23 @@ def XXPT_fs(txt,i):
                "X-Requested-With":"XMLHttpRequest"}
     response = requests.post(url, data=json.dumps(data), headers=headers)
     s1 = response.json()
-    return s1['success']
+    return s1
 
 
-# ids = ["袁猛","曾亮","孙杰","苏薇","杨耿晖","李珍一","黄慧","王曼莹","刘颖","冉成浩"]
-# ids = ["06045224", "00454949", "06061310", "33029737", "00407662", "00428606", "77807633",  "02081317", "06058331","00410622"]
-ids = ["06045224","00410622"]
-
-
-def js():
-    # p1 = UAT_pass()
-    txt = '111'
+"""
+ids:发送的人员   例：[{'06045224': '袁猛'}, {'00410622': '冉成浩'}]
+title:发送的标题   
+text:发送的内容
+"""
+def js(ids,text,title):
     for i in ids:
-        FS_xx = XXPT_fs(txt,i)
-        print(FS_xx)
+        emp_number = list(i.keys())[0]
+        emp_name = list(i.values())[0]
+        sendinfo = XXPT_fs(text,title,emp_number,emp_name)
+        print(emp_number,emp_name)
 
 if __name__ == "__main__":
-    # DL()
-    js()
+    title = 'UAT验收环境登陆密码'
+    ids = [{'06045224': '袁猛'}, {'00410622': '冉成浩'}]
+    text = '今日UAT验收环境登陆密码为：'
+    js(ids,text)

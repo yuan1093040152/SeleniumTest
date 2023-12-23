@@ -205,10 +205,11 @@ def IMsendinfo(ids, text, info,group='im-serve-attend',url=''):
 		print(u'乐聊通知处理出错！')
 
 
+
 """
 1、利用消息平台发送UAT密码给相关人员
 """
-def XXPT_fs(txt,i):
+def XXPT_fs(txt,title,emp_number,emp_name):
     url = "https://i.leyoujia.com/msg/im/addTemplateInfo"
     data ={
         "belongDept":"12",
@@ -216,18 +217,17 @@ def XXPT_fs(txt,i):
         "pushMode": "1",
         "pushWorker": "2",
         "rank": "1",
-        "title": "线上密码",
+        "title": title,
         "type": "1",
-        "templateContents": [{"type":"text",
-                              "value":txt}],
+        "templateContents": [{"type":"text","value":txt}],
 
         "templateWorkers": [
-
                             {"type": "1",
                              "workerType": "1",
-                             "value": i,
-                             "name": ""},
-                            ]}
+                             "value": emp_number,
+                             "name": emp_name}
+                            ]
+    }
     headers = {"Accept":"application/json, text/javascript, */*; q=0.01",
                "Accept-Encoding":"gzip, deflate, br",
                "Accept-Language":"zh-CN,zh;q=0.9",
@@ -247,20 +247,21 @@ def XXPT_fs(txt,i):
                "X-Requested-With":"XMLHttpRequest"}
     response = requests.post(url, data=json.dumps(data), headers=headers)
     s1 = response.json()
-    return s1['success']
+    return s1
 
 
-# ids = ["袁猛","曾亮","孙杰","苏薇","杨耿晖","李珍一","黄慧","王曼莹","刘颖","冉成浩"]
-# ids = ["06045224", "00454949", "06061310", "33029737", "00407662", "00428606", "77807633",  "02081317", "06058331","00410622"]
-ids = ["06045224","00410622"]
-
-
-def js():
-    # p1 = UAT_pass()
-    txt = '111'
+"""
+ids:发送的人员   例：[{'06045224': '袁猛'}, {'00410622': '冉成浩'}]
+title:发送的标题   
+text:发送的内容
+"""
+def js(ids,text,title):
     for i in ids:
-        FS_xx = XXPT_fs(txt,i)
-        print(FS_xx)
+        emp_number = list(i.keys())[0]
+        emp_name = list(i.values())[0]
+        sendinfo = XXPT_fs(text,title,emp_number,emp_name)
+        print(emp_number,emp_name)
+
 
 
 
@@ -269,11 +270,14 @@ if __name__ == '__main__':
 	url = 'http://172.16.3.233:12001/privilege/front/users/login'
 	rs_time = get_OnlinetestPassword(url1)
 	# ids = ["袁猛","曾亮","汪永喜","孙杰","苏薇","杨耿晖","李珍一","黄慧","曾佩","王曼莹","刘颖","冉成浩"]
-	ids = ["252613","454949","405984","268709","104667","407662","428606","045682","029246","190539","265727","410622"]
+	#ids = ["252613","454949","405984","268709","104667","407662","428606","045682","029246","190539","265727","410622"]
 	# ids = ["252613"]
+	ids = [{'06045224': '袁猛'}, {'00410622': '冉成浩'}, {'77807633': '黄慧'}, {'02081317': '王曼莹'}, {'06058331': '刘颖'}]
 	print(ids)
 	text = rs_time
-	info = '今天UAT线上测试环境密码为:'
-	IMsendinfo(ids, text, info,group='im-serve-attend',url='')
+	title = 'UAT验收环境登陆密码'
+	js(ids,text,title)
+
+	# IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 	# Email(rs_time)
 
