@@ -56,7 +56,7 @@ class ht_info:
     #通过成交单号获取合同ID
     def get_htid(self):
         global db
-        sql = "SELECT a.ID FROM CJ_MAIN a WHERE GZDH = '%s';"%self.cjdh
+        sql = "SELECT a.HT_ID FROM CJ_MAIN a WHERE GZDH = '%s';"%self.cjdh
         print("获取合同IDsql为：",sql)
         huanjing = self.env
         if huanjing == 'itest':
