@@ -44,7 +44,7 @@ def XXPT_fs(txt,title,emp_number,emp_name):
                "Connection":"keep-alive",
                "Content-Length":"464",
                "Content-Type":"application/json; charset=UTF-8",
-               "Cookie":"prefs={}; fhListCookies=; jjshome_uuid=2d8db24a-d505-94df-befa-fce33a6057be; _ga=GA1.2.469380103.1688031287; /hsl/index/house-list_guidance=1; cookiesId=67fd28febc684aa2b689cff24c43107f; ysl-list=1; reserve-list=1; token=t.ORD0x1QdtR11YEgLgNn0; gr_user_id=3fab8280-a3be-4c3e-bb5d-e2517dd30cd9; connect.sid=s%3A85-aogZtViP5TpwyLIgr5Dfqhj9R0Zb1.%2FdFAOCuSJ4XDikYu6bzsKwowklPrcx62icgEKERUM3g; JSESSIONID-FANG=MWY3Y2IzMDUtNzI2MS00ZWRkLTliMTYtNmQxNGZhZDI3ZDA0; JSESSIONID=8C62D5150084F58A28CB4B8D6072A1D9; proLEYOUJIA=MDJlYzFhOTItMzIzMi00YWRiLWIwNmMtMDdkMzgzYmE3YWE0; login-mac=; jjshome_sid=c6a53232-74a1-7b26-9781-61bc63dd5f5f; login-workerid=33029115; fatLEYOUJIA=N2U5YTIwNTctOTAxNS00ZTYzLWIwYmItNDlmZDkxZDk5MmE2",
+               "Cookie":"jjshome_uuid=e3521da2-faa5-fc59-f853-454b445f4cc9; _smt_uid=; cookiesId=116347ef6ac44e45a1c414bf7b790d1b; _ga=GA1.2.1941642435.1637634248; agentCardhd_time=1; token=t.LmX27IZZvGOqM1DRudGm; prefs={}; fhListCookies=; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1640866512; Hm_lvt_728857c2e6b321292b2eb422213d1609=1640866512; gr_user_id=b4d54e60-5a65-41ea-815a-9de61463cd28; proLEYOUJIA=ZDEzZTk4ZWQtMzc0Mi00NTliLTkxYTUtNDY4YTI1Njk2MmE1; JSESSIONID=f10c3d27-47c3-ad52-48c6-0912d406b6df; login-mac=6C-0B-84-A4-72-DD; login-workerid=06045224; jjshome_sid=0CED257DF86775424FC22B6B3AC55A9D",
                "Host":"i.leyoujia.com",
                "Origin":"https://i.leyoujia.com",
                "Pragma":"no-cache",
@@ -75,4 +75,4 @@ if __name__ == "__main__":
     title = 'UAT验收环境登陆密码'
     ids = [{'06045224': '袁猛'}, {'00410622': '冉成浩'}]
     text = '今日UAT验收环境登陆密码为：'
-    js(ids,text)
+    js(ids,text,title)

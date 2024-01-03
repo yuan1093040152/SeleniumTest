@@ -367,7 +367,7 @@ class Login():
         # jjshome_uuid_value, _smt_uid_value, jjshome_sid_value, JSESSIONID_value)
 
         cookie ='jjshome_uuid=%s; _smt_uid=; cookiesId=116347ef6ac44e45a1c414bf7b790d1b; _ga=GA1.2.1941642435.1637634248; agentCardhd_time=1; token=t.LmX27IZZvGOqM1DRudGm; prefs={}; fhListCookies=; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1640866512; Hm_lvt_728857c2e6b321292b2eb422213d1609=1640866512; gr_user_id=b4d54e60-5a65-41ea-815a-9de61463cd28; proLEYOUJIA=%s; JSESSIONID=%s; login-mac=6C-0B-84-A4-72-DD; login-workerid=06045224; jjshome_sid=%s'% (jjshome_uuid_value,proLEYOUJIA_value, jjshome_sid_value, JSESSIONID_value)
-        print('cookie2===', cookie)
+        print('cookie===', cookie)
 
         # 将中文转换格式为URL编码，方便接口调用
         aa = [name, xm]
@@ -440,10 +440,12 @@ class Login():
 
         print('未打卡人员名单：', WDK_name)
         print('未打卡人员名单ID：', WDK_id)
+        print('cookie:',cookie)
+        x = {'WDK_name':WDK_name,'WDK_id':WDK_id,'cookie':cookie}
 
         self.browser.close()
         self.browser.quit()
-        return WDK_name
+        return x
 
 
     # 发送邮件函数
@@ -676,7 +678,7 @@ def send_wx_msg(*args, **kwargs):
 """
 1、利用消息平台发送UAT密码给相关人员
 """
-def XXPT_fs(txt,title,emp_number,emp_name):
+def XXPT_fs(txt,title,emp_number,emp_name,cookie):
     url = "https://i.leyoujia.com/msg/im/addTemplateInfo"
     data ={
         "belongDept":"12",
@@ -702,7 +704,7 @@ def XXPT_fs(txt,title,emp_number,emp_name):
                "Connection":"keep-alive",
                "Content-Length":"464",
                "Content-Type":"application/json; charset=UTF-8",
-               "Cookie":"prefs={}; fhListCookies=; jjshome_uuid=2d8db24a-d505-94df-befa-fce33a6057be; _ga=GA1.2.469380103.1688031287; /hsl/index/house-list_guidance=1; cookiesId=67fd28febc684aa2b689cff24c43107f; ysl-list=1; reserve-list=1; token=t.ORD0x1QdtR11YEgLgNn0; gr_user_id=3fab8280-a3be-4c3e-bb5d-e2517dd30cd9; connect.sid=s%3A85-aogZtViP5TpwyLIgr5Dfqhj9R0Zb1.%2FdFAOCuSJ4XDikYu6bzsKwowklPrcx62icgEKERUM3g; JSESSIONID-FANG=MWY3Y2IzMDUtNzI2MS00ZWRkLTliMTYtNmQxNGZhZDI3ZDA0; JSESSIONID=8C62D5150084F58A28CB4B8D6072A1D9; proLEYOUJIA=MDJlYzFhOTItMzIzMi00YWRiLWIwNmMtMDdkMzgzYmE3YWE0; login-mac=; jjshome_sid=c6a53232-74a1-7b26-9781-61bc63dd5f5f; login-workerid=33029115; fatLEYOUJIA=N2U5YTIwNTctOTAxNS00ZTYzLWIwYmItNDlmZDkxZDk5MmE2",
+               "Cookie":cookie,
                "Host":"i.leyoujia.com",
                "Origin":"https://i.leyoujia.com",
                "Pragma":"no-cache",
@@ -722,11 +724,11 @@ ids:发送的人员   例：[{'06045224': '袁猛'}, {'00410622': '冉成浩'}]
 title:发送的标题   
 text:发送的内容
 """
-def js(ids,text,title):
+def js(ids,text,title,cookie):
     for i in ids:
         emp_number = list(i.keys())[0]
         emp_name = list(i.values())[0]
-        sendinfo = XXPT_fs(text,title,emp_number,emp_name)
+        sendinfo = XXPT_fs(text,title,emp_number,emp_name,cookie)
         print(emp_number,emp_name)
 
 
@@ -741,7 +743,8 @@ if __name__ == '__main__':
     empnumber = '06045224'
     #乐聊通知名单
     ids = [{'06045224': '袁猛'}, {'00410622': '冉成浩'}, {'00454949': '曾亮'}, {'77850920': '李宗荣'}, {'00417286': '丁凯'}, {'00401515': '甘婷'}, {'02070281': '曹燕'}, {'77850125': '林美玲'}]
-    # ids = [{'06045224': '袁猛'}]
+    # ids = [{'06045224': '袁猛'}, {'00401515': '甘婷'}]
+    print(ids)
     hh = time.strftime('%H', time.localtime(time.time()))
     print(hh)
     if int(hh) < 12:
@@ -754,18 +757,19 @@ if __name__ == '__main__':
 
     p = Login(browser,url)
     p.login()
-    WDK_name = p.getcookie(empnumber,name,url2,xm)
+    x = p.getcookie(empnumber,name,url2,xm)
 
     # (",".join(str(i) for i in WDK_name  去列表数据并用逗号分割)
-    text = '通知：' + response_time + '\n\n    ' + info + ':\n    ' + "\n    ".join(str(i) for i in WDK_name)
+    text = '通知：' + response_time + '\n\n    ' + info + ':\n    ' + "\n    ".join(str(i) for i in x['WDK_name'])
 
 
-    if len(WDK_name) == 0:
+    if len(x['WDK_name']) == 0:
         print('小伙伴都已打卡，不进行通知')
     else:
-        p.Email(info,WDK_name)
+        # p.Email(info,x['WDK_name'])
         send_wx_msg(text)
-        js(ids, text, title=info)
+        js(ids, text, title=info,cookie=x['cookie'])
+    print('未打卡人员乐聊通知成功！')
         # p.IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 
     print('-------------------end!-----------------------')

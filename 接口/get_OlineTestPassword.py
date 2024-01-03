@@ -276,7 +276,7 @@ if __name__ == '__main__':
 	print(ids)
 	text = rs_time
 	title = 'UAT验收环境登陆密码'
-	js(ids,text,title)
+	# js(ids,text,title)
 
 	# IMsendinfo(ids, text, info,group='im-serve-attend',url='')
 	# Email(rs_time)
