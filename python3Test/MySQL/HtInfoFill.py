@@ -67,6 +67,10 @@ class ht_info:
             db = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117, db='jjscj',
                                  charset='utf8')  # 打开数据库连接
             print('onlinetest环境已执行')
+        elif huanjing == '3.100':
+            db = MySQLdb.connect(host='172.16.3.230', user='root_u3230', passwd='Nb37GxP&3_230**#ETwgps4Nq', port=33096, db='jjscj',
+                                 charset='utf8')  # 打开数据库连接
+            print('3.100环境已执行')
         else:
             print('执行失败，请检查代码！！')
 
@@ -100,6 +104,10 @@ class ht_info:
             db = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117, db='jjsht',
                                  charset='utf8')  # 打开数据库连接
             print('onlinetest环境已执行')
+        elif huanjing == '3.100':
+            db = MySQLdb.connect(host='172.16.3.230', user='root_u3230', passwd='Nb37GxP&3_230**#ETwgps4Nq', port=33096, db='jjsht',
+                                 charset='utf8')  # 打开数据库连接
+            print('3.100环境已执行')
         else:
             print('执行失败，请检查代码！！')
 
