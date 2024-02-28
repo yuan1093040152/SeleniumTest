@@ -71,7 +71,7 @@ class sharesdoji:
             elif CLOSE < 10 and abs(pct_chg)< 1 :
                 if self.diff(OPEN, CLOSE) < 0.01:
                     if self.diff(high, low) < 0.1:
-                        uplist.append(symbol)
+                        uplist.append(NAME)
                     else:
                         pass
                 else:
@@ -80,7 +80,7 @@ class sharesdoji:
             elif CLOSE < 20 and abs(pct_chg)< 1 :
                 if self.diff(OPEN,CLOSE) < 0.03:
                     if self.diff(high,low) < 0.2:
-                        uplist.append(symbol)
+                        uplist.append(NAME)
                         # print('已添加',uplist)
                     else:
                         pass
@@ -90,7 +90,7 @@ class sharesdoji:
             elif CLOSE < 40 and abs(pct_chg)< 1 :
                 if self.diff(OPEN,CLOSE) < 0.05:
                     if self.diff(high,low) < 0.3:
-                        uplist.append(symbol)
+                        uplist.append(NAME)
                         # print('已添加',uplist)
                     else:
                         pass
@@ -100,7 +100,7 @@ class sharesdoji:
             elif CLOSE > 40 and abs(pct_chg)< 1  :
                 if self.diff(OPEN,CLOSE) < 0.1:
                     if self.diff(high,low) < 0.4:
-                        uplist.append(symbol)
+                        uplist.append(NAME)
                         # print('已添加',uplist)
                     else:
                         pass
@@ -122,9 +122,8 @@ class sharesdoji:
 
     # 发送邮件
     def Email(self, a):
-        # upstoplist = self.sharesrise()
-        title = '20CM涨停的股'
-        content = '明天看涨的股票：%s' % a
+        title = '十字星股票'
+        content = '十字星股票：%s' % a
 
         # 第三方 SMTP 服务
         mail_host = "smtp.qq.com"  # 设置服务器
@@ -158,5 +157,7 @@ class sharesdoji:
 
 
 
+if __name__ == '__main__':
 
-sharesdoji().datahandle()
+    a = sharesdoji().datahandle()
+    sharesdoji().Email(a)
