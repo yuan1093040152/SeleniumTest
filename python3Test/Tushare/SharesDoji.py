@@ -41,7 +41,7 @@ class sharesdoji:
 
     #获取sql查询的数据
     def sharesUp(self):
-        nowdate = '2024-02-28'# self.dateList()
+        nowdate =  self.dateList()
         sql = "SELECT a.`NAME`,a.`symbol`,b.`OPEN`,b.`CLOSE`,b.high,b.low,b.pct_chg  FROM	shareslist a INNER JOIN sharesquotation b ON a.ts_code = b.ts_code WHERE	market IN ('主板', '中小板') AND b.trade_date BETWEEN '%s' AND '%s' ;"%(nowdate,nowdate)
         # sql = "SELECT b.`OPEN`,b.`CLOSE`,b.high,b.low  FROM	sharesquotation b  WHERE b.trade_date BETWEEN '2024-02-27' AND '2024-02-27' ;"
         print(sql)
