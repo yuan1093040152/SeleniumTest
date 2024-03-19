@@ -54,18 +54,17 @@ def birthday_time():
 
 #发送邮件函数
 def Email(str1):
+    global smtp_obj
     response_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(response_time)
     content = response_time+u'今天生日成员名单：%s'%str1   #内容
-
     # 第三方 SMTP 服务
     mail_host = "smtp.qq.com"  # 设置服务器
     smtp_port = 587
     mail_user = "1093040152@qq.com"  # 用户名
-    mail_pass = "jwppyeifcydxhjee"  # QQ邮箱登录的授权码
-    #receivers =['袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>']
+    mail_pass = "kjdwsramukzxfjda"  # QQ邮箱登录的授权码
+    #receivers =['袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>']
     receivers = ['袁猛<1093040152@qq.com>']
-
     # 构造邮件内容
     subject = u'今天有人过生日，记得送祝福'
     message = MIMEText(content, 'plain', 'utf-8')
@@ -76,17 +75,20 @@ def Email(str1):
         # 连接SMTP服务器
         smtp_obj = smtplib.SMTP(mail_host, smtp_port)
         smtp_obj.starttls()  # 使用TLS加密连接
-        smtp_obj.login(mail_user, mail_pass)  # 登录发件人邮箱
+        try:
+            smtp_obj.login(mail_user, mail_pass)  # 登录发件人邮箱
+            print('22')
+        except Exception as e:
 
+            print('登录失败：',e)
         # 发送邮件
         smtp_obj.sendmail(mail_user, receivers, message.as_string())
+        print('22')
         print("邮件发送成功")
-
     except Exception as e:
         print("邮件发送失败:", e)
 
-    finally:
-        smtp_obj.quit()
+
 
 
 

@@ -461,7 +461,7 @@ class Login():
         mail_host = "smtp.qq.com"  # 设置服务器
         smtp_port = 587
         mail_user = "1093040152@qq.com"  # 用户名
-        mail_pass = "jwppyeifcydxhjee"  # QQ邮箱登录的授权码
+        mail_pass = "kjdwsramukzxfjda"  # QQ邮箱登录的授权码
         # receivers =['袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>','袁猛<1093040152@qq.com>']
         receivers = ['袁猛<1093040152@qq.com>']
 
