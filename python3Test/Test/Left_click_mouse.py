@@ -17,8 +17,8 @@ import pyautogui,time
 time.sleep(5)
 #获取鼠标的位置
 mouse_position = pyautogui.position()
-for i in range(1,51):
-    time.sleep(2)
+for i in range(1,30):
+    time.sleep(1)
     #点击左键
     pyautogui.mouseDown(mouse_position)
     #松开左键
