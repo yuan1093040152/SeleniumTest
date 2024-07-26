@@ -18,6 +18,9 @@ class ht_info:
 
     #获取jenkins传参
     def __init__(self):
+        # self.lx = '买卖电子合同'
+        # self.cjdh = 'M3012407-0117'
+        # self.env = 'UAT'
         self.lx = os.environ['lx']
         self.cjdh = os.environ['cjdh']
         self.env = os.environ['env']
@@ -45,6 +48,7 @@ class ht_info:
             return value
         elif self.htlx() ==2:
             value = df.iloc[1, 1]
+            print(value)
             return value
         elif self.htlx() ==3:
             value = df.iloc[2, 1]

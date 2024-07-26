@@ -31,24 +31,24 @@ class ht_info:
 
     #获取jenkins传参
     def __init__(self):
-        # self.lx = os.environ['lx']
-        # self.cjdh = os.environ['cjdh']
-        # self.env = os.environ['env']
-        # self.yz = os.environ['yz']
-        # self.kh = os.environ['kh']
-        self.lx = '买卖电子合同'
-        self.cjdh = 'M3012407-0117'
-        self.env = 'UAT'
-        self.yz = '袁猛'
-        self.kh = '李益祯'
+        self.lx = os.environ['lx']
+        self.cjdh = os.environ['cjdh']
+        self.env = os.environ['env']
+        self.yz = os.environ['yz']
+        self.kh = os.environ['kh']
+        # self.lx = '买卖电子合同'
+        # self.cjdh = 'M1112407-0121'
+        # self.env = 'UAT'
+        # self.yz = '袁猛'
+        # self.kh = '李益祯'
 
 
     #转义jenkins传参数据
     def htlx(self):
         if self.lx =='租赁电子合同':
-            return 1
+            return 12
         elif self.lx =='买卖电子合同':
-            return 2
+            return 4
         else:
             return 1
 
@@ -108,43 +108,116 @@ class ht_info:
 
 
 
-
-
-
     def get_json(self):
         wymc = self.get_wymc()
         info = self.auth_info()
-        sql = "SELECT a.extend_json FROM test_htinfo a WHERE WYMC = '%s';"%wymc
+        #sql = "SELECT a.extend_json FROM test_htinfo a WHERE YWLX = '%s' AND WYMC = '%s';"%(self.htlx(),wymc)
+        sql = "SELECT a.EXTEND_JSON FROM HT_MAIN a WHERE WYMC = '%s' AND YWLX = '%s' AND `STATUS` IN(8,7) AND GZDH IS NOT NULL ORDER BY INSERT_TIME DESC LIMIT 1 ;" % (wymc,self.htlx())
+        print(sql)
         db = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117,
-                             db='fastrunner',
+                             db='jjsht',  #fastrunner
                              charset='utf8')  # 打开数据库连接
+
+        db1 = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096,
+                             db='jjsht',
+                             charset='utf8')  # 打开数据库连接
+
+
         cur = db.cursor()  # 获取操作游标
         cur.execute(sql)  # 执行SQL语句
         db.commit()  # 提交请求
         values = cur.fetchall()  # 获取一条数据
         if len(values) == 0:
-            print('该成交单号未查询到成交信息，请检查是否填写正确！')
-        else:
+            print("UAT 没找到数据，现在去itest找数据")
+            cur = db1.cursor()  # 获取操作游标
+            cur.execute(sql)  # 执行SQL语句
+            db.commit()  # 提交请求
+            values = cur.fetchall()  # 获取一条数据
             cur.close()  # 关闭数据库连接
             extend_json = values[0][0]
+            print('extend_json==========', extend_json)
 
             a = json.loads(extend_json)
-            yzinfo = a['yzInfo']['list'][0]
-            yzinfo['ppName'] = info[0][0]
-            yzinfo['ppZj'] = info[0][1]
-            yzinfo['ppDhhm'] = info[0][2]
+            print('------------', a)
+            #租单和售单分开处理
+            if self.htlx() ==4:
+                yzinfo = a['yzInfo']['list'][0]
+                yzinfo['ppName'] = info[0][0]
+                yzinfo['ppZj'] = info[0][1]
+                yzinfo['ppDhhm'] = info[0][2]
 
-            khinfo = a['khInfo']['list'][0]
-            khinfo['ppName']=info[1][0]
-            khinfo['ppZj'] = info[1][1]
-            khinfo['ppDhhm'] = info[1][2]
+                khinfo = a['khInfo']['list'][0]
+                khinfo['ppName'] = info[1][0]
+                khinfo['ppZj'] = info[1][1]
+                khinfo['ppDhhm'] = info[1][2]
+                b = json.dumps(a, ensure_ascii=False)
+                b = b.replace('\\"', '\\\\"')
+                print('==========', b)
+                return b
 
-            print(a)
-            return a
+            elif self.htlx() ==12:
+                yzinfo = a['yzInfo'][0]
+                yzinfo['name'] = info[0][0]
+                yzinfo['idCard'] = info[0][1]
+                yzinfo['tel'] = info[0][2]
 
-            #extend_json1 = eval(extend_json)
-            #print(type(a))
-            #return extend_json
+                khinfo = a['khInfo'][0]
+                khinfo['name'] = info[1][0]
+                khinfo['idCard'] = info[1][1]
+                khinfo['tel'] = info[1][2]
+                b = json.dumps(a, ensure_ascii=False)
+                b = b.replace('\\"', '\\\\"')
+                print('==========', b)
+                return b
+            else:
+                print('该成交单号未查询到成交信息，请检查是否填写正确！')
+                cur.close()  # 关闭数据库连接
+
+
+
+        else:
+            print("UAT 找到了数据，就同步UAT的数据")
+            cur.close()  # 关闭数据库连接
+            extend_json = values[0][0]
+            print('extend_json==========',extend_json)
+
+            a = json.loads(extend_json)
+            print('------------',a)
+
+            # 租单和售单分开处理
+            if self.htlx() == 4:
+                yzinfo = a['yzInfo']['list'][0]
+                yzinfo['ppName'] = info[0][0]
+                yzinfo['ppZj'] = info[0][1]
+                yzinfo['ppDhhm'] = info[0][2]
+
+                khinfo = a['khInfo']['list'][0]
+                khinfo['ppName'] = info[1][0]
+                khinfo['ppZj'] = info[1][1]
+                khinfo['ppDhhm'] = info[1][2]
+                b = json.dumps(a, ensure_ascii=False)
+                b = b.replace('\\"', '\\\\"')
+                print('==========', b)
+                return b
+
+            elif self.htlx() == 12:
+                yzinfo = a['yzInfo'][0]
+                yzinfo['name'] = info[0][0]
+                yzinfo['idCard'] = info[0][1]
+                yzinfo['tel'] = info[0][2]
+
+                khinfo = a['khInfo'][0]
+                khinfo['name'] = info[1][0]
+                khinfo['idCard'] = info[1][1]
+                khinfo['tel'] = info[1][2]
+                b = json.dumps(a, ensure_ascii=False)
+                b = b.replace('\\"', '\\\\"')
+                print('==========', b)
+                return b
+            else:
+                print('该成交单号未查询到成交信息，请检查是否填写正确！')
+                cur.close()  # 关闭数据库连接
+
 
 
 
@@ -198,7 +271,7 @@ class ht_info:
             cur.close()  # 关闭数据库连接
             htid = values[0][0]
             print(type(htid))
-            # return htid
+            return htid
 
 
     #通过成交ID修改json数据
