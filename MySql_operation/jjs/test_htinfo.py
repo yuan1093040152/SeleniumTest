@@ -114,11 +114,11 @@ class ht_info:
         #sql = "SELECT a.extend_json FROM test_htinfo a WHERE YWLX = '%s' AND WYMC = '%s';"%(self.htlx(),wymc)
         sql = "SELECT a.EXTEND_JSON FROM HT_MAIN a WHERE WYMC = '%s' AND YWLX = '%s' AND `STATUS` IN(8,7) AND GZDH IS NOT NULL ORDER BY INSERT_TIME DESC LIMIT 1 ;" % (wymc,self.htlx())
         print(sql)
-        db = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117,
+        db1 = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117,
                              db='jjsht',  #fastrunner
                              charset='utf8')  # 打开数据库连接
 
-        db1 = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096,
+        db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096,
                              db='jjsht',
                              charset='utf8')  # 打开数据库连接
 
@@ -128,7 +128,7 @@ class ht_info:
         db.commit()  # 提交请求
         values = cur.fetchall()  # 获取一条数据
         if len(values) == 0:
-            print("UAT 没找到数据，现在去itest找数据")
+            print("itest没找到数据，现在去UAT找数据")
             cur = db1.cursor()  # 获取操作游标
             cur.execute(sql)  # 执行SQL语句
             db.commit()  # 提交请求
@@ -176,7 +176,7 @@ class ht_info:
 
 
         else:
-            print("UAT 找到了数据，就同步UAT的数据")
+            print("itest 找到了数据，优先同步itest的数据")
             cur.close()  # 关闭数据库连接
             extend_json = values[0][0]
             print('extend_json==========',extend_json)
