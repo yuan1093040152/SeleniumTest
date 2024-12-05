@@ -122,7 +122,7 @@ class ht_info:
         wymc = self.get_wymc()
         info = self.auth_info()
         IFnew = self.IFnew()
-        print(type(IFnew))
+
         #sql = "SELECT a.extend_json FROM test_htinfo a WHERE YWLX = '%s' AND WYMC = '%s';"%(self.htlx(),wymc)
         if IFnew==1:
             sql = "SELECT a.EXTEND_JSON FROM HT_MAIN a WHERE WYMC = '%s' AND YWLX = '%s' AND XYLX IN(11,13) AND `STATUS` IN(8,7)  AND EXTEND_JSON NOT LIKE '%%appVersion%%'  AND GZDH IS NOT NULL ORDER BY INSERT_TIME DESC LIMIT 1 ;" % (wymc,self.htlx())
