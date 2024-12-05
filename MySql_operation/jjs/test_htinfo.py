@@ -36,11 +36,13 @@ class ht_info:
         self.env = os.environ['env']
         self.yz = os.environ['yz']
         self.kh = os.environ['kh']
+        self.ifnew = os.environ['ifnew']
         # self.lx = '买卖电子合同'
         # self.cjdh = 'M1112407-0121'
         # self.env = 'UAT'
         # self.yz = '袁猛'
         # self.kh = '李益祯'
+        # self.ifnew = '旧合同（移动端）'
 
 
     #转义jenkins传参数据
@@ -49,6 +51,14 @@ class ht_info:
             return 12
         elif self.lx =='买卖电子合同':
             return 4
+        else:
+            return 1
+
+    def IFnew(self):
+        if self.ifnew == '旧合同（移动端）':
+            return 1
+        elif self.ifnew == '新合同（前端）':
+            return 2
         else:
             return 1
 
@@ -111,8 +121,16 @@ class ht_info:
     def get_json(self):
         wymc = self.get_wymc()
         info = self.auth_info()
+        IFnew = self.IFnew()
+        print(type(IFnew))
         #sql = "SELECT a.extend_json FROM test_htinfo a WHERE YWLX = '%s' AND WYMC = '%s';"%(self.htlx(),wymc)
-        sql = "SELECT a.EXTEND_JSON FROM HT_MAIN a WHERE WYMC = '%s' AND YWLX = '%s' AND XYLX IN(11,13) AND `STATUS` IN(8,7) AND GZDH IS NOT NULL ORDER BY INSERT_TIME DESC LIMIT 1 ;" % (wymc,self.htlx())
+        if IFnew==1:
+            sql = "SELECT a.EXTEND_JSON FROM HT_MAIN a WHERE WYMC = '%s' AND YWLX = '%s' AND XYLX IN(11,13) AND `STATUS` IN(8,7)  AND EXTEND_JSON NOT LIKE '%%appVersion%%'  AND GZDH IS NOT NULL ORDER BY INSERT_TIME DESC LIMIT 1 ;" % (wymc,self.htlx())
+        elif IFnew ==2:
+            sql = "SELECT a.EXTEND_JSON FROM HT_MAIN a WHERE WYMC = '%s' AND YWLX = '%s' AND XYLX IN(11,13) AND `STATUS` IN(8,7)  AND EXTEND_JSON LIKE '%%appVersion%%'  AND GZDH IS NOT NULL ORDER BY INSERT_TIME DESC LIMIT 1 ;" % (wymc,self.htlx())
+        else:
+            sql = "SELECT a.EXTEND_JSON FROM HT_MAIN a WHERE WYMC = '%s' AND YWLX = '%s' AND XYLX IN(11,13) AND `STATUS` IN(8,7)  AND EXTEND_JSON NOT LIKE '%%appVersion%%'  AND GZDH IS NOT NULL ORDER BY INSERT_TIME DESC LIMIT 1 ;" % (wymc,self.htlx())
+
         print(sql)
         db1 = MySQLdb.connect(host='172.16.3.233', user='root_uattest', passwd='PUSYPAB&&6_2**McGxWyDVm', port=34117,
                              db='jjsht',  #fastrunner
