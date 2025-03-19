@@ -157,39 +157,45 @@ class ht_info:
 
             a = json.loads(extend_json)
             print('------------', a)
-            #租单和售单分开处理
-            if self.htlx() ==4:
-                yzinfo = a['yzInfo']['list'][0]
-                yzinfo['ppName'] = info[0][0]
-                yzinfo['ppZj'] = info[0][1]
-                yzinfo['ppDhhm'] = info[0][2]
-
-                khinfo = a['khInfo']['list'][0]
-                khinfo['ppName'] = info[1][0]
-                khinfo['ppZj'] = info[1][1]
-                khinfo['ppDhhm'] = info[1][2]
-                b = json.dumps(a, ensure_ascii=False)
-                b = b.replace('\\"', '\\\\"')
-                print('==========', b)
-                return b
-
-            elif self.htlx() ==12:
-                yzinfo = a['yzInfo'][0]
-                yzinfo['name'] = info[0][0]
-                yzinfo['idCard'] = info[0][1]
-                yzinfo['tel'] = info[0][2]
-
-                khinfo = a['khInfo'][0]
-                khinfo['name'] = info[1][0]
-                khinfo['idCard'] = info[1][1]
-                khinfo['tel'] = info[1][2]
-                b = json.dumps(a, ensure_ascii=False)
-                b = b.replace('\\"', '\\\\"')
-                print('==========', b)
-                return b
-            else:
-                print('该成交单号未查询到成交信息，请检查是否填写正确！')
+            #判断新合同就不更换签约人
+            IFnew = self.IFnew()
+            if IFnew =='2':
+                print('新版合同不更换签约人')
                 cur.close()  # 关闭数据库连接
+            else:
+                #租单和售单分开处理
+                if self.htlx() ==4:
+                    yzinfo = a['yzInfo']['list'][0]
+                    yzinfo['ppName'] = info[0][0]
+                    yzinfo['ppZj'] = info[0][1]
+                    yzinfo['ppDhhm'] = info[0][2]
+
+                    khinfo = a['khInfo']['list'][0]
+                    khinfo['ppName'] = info[1][0]
+                    khinfo['ppZj'] = info[1][1]
+                    khinfo['ppDhhm'] = info[1][2]
+                    b = json.dumps(a, ensure_ascii=False)
+                    b = b.replace('\\"', '\\\\"')
+                    print('==========', b)
+                    return b
+
+                elif self.htlx() ==12:
+                    yzinfo = a['yzInfo'][0]
+                    yzinfo['name'] = info[0][0]
+                    yzinfo['idCard'] = info[0][1]
+                    yzinfo['tel'] = info[0][2]
+
+                    khinfo = a['khInfo'][0]
+                    khinfo['name'] = info[1][0]
+                    khinfo['idCard'] = info[1][1]
+                    khinfo['tel'] = info[1][2]
+                    b = json.dumps(a, ensure_ascii=False)
+                    b = b.replace('\\"', '\\\\"')
+                    print('==========', b)
+                    return b
+                else:
+                    print('该成交单号未查询到成交信息，请检查是否填写正确！')
+                    cur.close()  # 关闭数据库连接
 
 
 
