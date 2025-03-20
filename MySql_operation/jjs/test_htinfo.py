@@ -153,49 +153,40 @@ class ht_info:
             values = cur.fetchall()  # 获取一条数据
             cur.close()  # 关闭数据库连接
             extend_json = values[0][0]
-            print('extend_json==========', extend_json)
-
             a = json.loads(extend_json)
-            print('------------', a)
-            #判断新合同就不更换签约人
-            IFnew = self.IFnew()
-            if IFnew =='2':
-                print('新版合同不更换签约人')
-                cur.close()  # 关闭数据库连接
+            #租单和售单分开处理
+            if self.htlx() ==4:
+                yzinfo = a['yzInfo']['list'][0]
+                yzinfo['ppName'] = info[0][0]
+                yzinfo['ppZj'] = info[0][1]
+                yzinfo['ppDhhm'] = info[0][2]
+
+                khinfo = a['khInfo']['list'][0]
+                khinfo['ppName'] = info[1][0]
+                khinfo['ppZj'] = info[1][1]
+                khinfo['ppDhhm'] = info[1][2]
+                b = json.dumps(a, ensure_ascii=False)
+                b = b.replace('\\"', '\\\\"')
+                print('==========', b)
+                return b
+
+            elif self.htlx() ==12:
+                yzinfo = a['yzInfo'][0]
+                yzinfo['name'] = info[0][0]
+                yzinfo['idCard'] = info[0][1]
+                yzinfo['tel'] = info[0][2]
+
+                khinfo = a['khInfo'][0]
+                khinfo['name'] = info[1][0]
+                khinfo['idCard'] = info[1][1]
+                khinfo['tel'] = info[1][2]
+                b = json.dumps(a, ensure_ascii=False)
+                b = b.replace('\\"', '\\\\"')
+                print('==========', b)
+                return b
             else:
-                #租单和售单分开处理
-                if self.htlx() ==4:
-                    yzinfo = a['yzInfo']['list'][0]
-                    yzinfo['ppName'] = info[0][0]
-                    yzinfo['ppZj'] = info[0][1]
-                    yzinfo['ppDhhm'] = info[0][2]
-
-                    khinfo = a['khInfo']['list'][0]
-                    khinfo['ppName'] = info[1][0]
-                    khinfo['ppZj'] = info[1][1]
-                    khinfo['ppDhhm'] = info[1][2]
-                    b = json.dumps(a, ensure_ascii=False)
-                    b = b.replace('\\"', '\\\\"')
-                    print('==========', b)
-                    return b
-
-                elif self.htlx() ==12:
-                    yzinfo = a['yzInfo'][0]
-                    yzinfo['name'] = info[0][0]
-                    yzinfo['idCard'] = info[0][1]
-                    yzinfo['tel'] = info[0][2]
-
-                    khinfo = a['khInfo'][0]
-                    khinfo['name'] = info[1][0]
-                    khinfo['idCard'] = info[1][1]
-                    khinfo['tel'] = info[1][2]
-                    b = json.dumps(a, ensure_ascii=False)
-                    b = b.replace('\\"', '\\\\"')
-                    print('==========', b)
-                    return b
-                else:
-                    print('该成交单号未查询到成交信息，请检查是否填写正确！')
-                    cur.close()  # 关闭数据库连接
+                print('该成交单号未查询到成交信息，请检查是否填写正确！')
+                cur.close()  # 关闭数据库连接
 
 
 
@@ -203,11 +194,7 @@ class ht_info:
             print("itest 找到了数据，优先同步itest的数据")
             cur.close()  # 关闭数据库连接
             extend_json = values[0][0]
-            print('extend_json==========',extend_json)
-
             a = json.loads(extend_json)
-            print('------------',a)
-
             # 租单和售单分开处理
             if self.htlx() == 4:
                 yzinfo = a['yzInfo']['list'][0]
@@ -300,9 +287,17 @@ class ht_info:
 
     #通过成交ID修改json数据
     def fill_ht(self):
-
         global db
-        sql = "UPDATE HT_MAIN SET EXTEND_JSON = '%s' WHERE ID = '%s';" % (str(self.get_json()),self.get_htid())
+        IFnew = self.IFnew()
+        wymc = self.get_wymc()
+        htid = self.get_htid()
+
+        if IFnew == 2:
+            print('新版合同不更换签约人')
+            sql = "UPDATE jjsht.HT_MAIN SET EXTEND_JSON = (SELECT EXTEND_JSON FROM ( SELECT a.EXTEND_JSON FROM HT_MAIN a WHERE WYMC = '%s' AND YWLX = '%s' AND XYLX IN (11, 13) AND `STATUS` IN (8, 7) AND EXTEND_JSON LIKE '%%appVersion%%' AND GZDH IS NOT NULL ORDER BY INSERT_TIME DESC LIMIT 1 ) AS subquery ) WHERE ID = '%s';"%(wymc,self.htlx(),htid)
+
+        else:
+            sql = "UPDATE HT_MAIN SET EXTEND_JSON = '%s' WHERE ID = '%s';" % (str(self.get_json()),self.get_htid())
         print(sql)
 
         # 获取jenkins执行环境
