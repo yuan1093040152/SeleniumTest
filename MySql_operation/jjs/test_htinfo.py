@@ -22,7 +22,6 @@ ctrl+alt+D   分屏
 Ctrl+/       快速注释
 
 """
-import pandas as pd
 import MySQLdb,os,json
 
 
@@ -38,11 +37,11 @@ class ht_info:
         self.kh = os.environ['kh']
         self.ifnew = os.environ['ifnew']
         # self.lx = '买卖电子合同'
-        # self.cjdh = 'M1112407-0121'
-        # self.env = 'UAT'
+        # self.cjdh = 'M3012508-0107'
+        # self.env = 'itest'
         # self.yz = '袁猛'
         # self.kh = '李益祯'
-        # self.ifnew = '旧合同（移动端）'
+        # self.ifnew = '新合同（前端）'
 
 
     #转义jenkins传参数据

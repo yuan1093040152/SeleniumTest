@@ -14,16 +14,34 @@ import hmac
 import hashlib,time
 
 
+res = 'eanq1t'
+
+# MD5加密
+def encryptionMD5(res):
+    md5_hash = hashlib.md5()
+    md5_hash.update(res.encode('utf-8'))
+    md5_hex = md5_hash.hexdigest()
+    return md5_hex
+
+
+# 获取当前时间戳（秒级）
+def timeStamp():
+    timestamp = time.time()
+    return int(timestamp)
+
+
+
+
 # 示例
 data = {"mac" : "5e:b5:9b:44:88:26",
   "mobileNo" : "",
-  "timestamp" : "1742786900",
-  "passwordv2" : "c85a8a709acee171fae6af4514aedbf5",
+  "timestamp" : timeStamp(),
+  "passwordv2" : encryptionMD5(res),
   "appVer" : "6.4.3.1",
   "phoneBrand" : "iPhone",
   "appType" : "2",
   "loginAddr" : "广东省深圳市福田区八卦四路52-1号",
-  "password" : "c85a8a709acee171fae6af4514aedbf5",
+  "password" : encryptionMD5(res),
   "imei" : "0d7684b2e0d7869be91d2a039cb216ae22bfc638",
   "typ" : "密码",
   "username" : "P2Vi10000Syz",
@@ -70,14 +88,14 @@ class LoginUtils:
         print(LoginUtils.encode_hex_str(signature))
         return LoginUtils.encode_hex_str(signature)
 
-# aa = LoginUtils.get_signature_str(data)
-# data["signature"]=aa
-# print(data)
+aa = LoginUtils.get_signature_str(data)
+data["signature"]=aa
+print(data)
 
 
-timestamp = time.time()
-print("当前时间戳（秒级）:", timestamp)
-print("当前时间戳（秒级）:", int(timestamp))
+# timestamp = time.time()
+# print("当前时间戳（秒级）:", timestamp)
+# print("当前时间戳（秒级）:", int(timestamp))
 
 
 
