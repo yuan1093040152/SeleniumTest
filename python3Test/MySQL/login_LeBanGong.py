@@ -10,12 +10,11 @@ Ctrl+/       快速注释
 
 """
 
+import uuid,MySQLdb,time,os
 
-import uuid,MySQLdb,time,argparse
-
-
+emp_number = os.environ['emp_number']
 def get_empNo(emp_number):
-    db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='hr',charset='utf8')  # 打开数据库连接
+    db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='hr',charset='utf8')  # 打开数据库连接
     cur = db.cursor()  # 使用cursor()方法获取操作游标
     cur.execute("SELECT emp_number FROM hr.sys_emp WHERE emp_no = '%s';"%emp_number)  # 使用execute方法执行SQL语句
     db.commit()  # 提交请求
@@ -31,7 +30,7 @@ def get_empNo(emp_number):
 
 
 def get_empNumber(emp_number):
-    db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='hr',charset='utf8')  # 打开数据库连接
+    db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='hr',charset='utf8')  # 打开数据库连接
     cur = db.cursor()  # 使用cursor()方法获取操作游标
     cur.execute("SELECT emp_number FROM hr.sys_emp WHERE emp_number = '%s';"%emp_number)  # 使用execute方法执行SQL语句
     db.commit()  # 提交请求
@@ -47,7 +46,7 @@ def get_empNumber(emp_number):
 
 
 def create_user(emp_number4):
-    db = MySQLdb.connect(host='172.16.22.101', user='root', passwd='admintest', port=33096, db='hr',charset='utf8')  # 打开数据库连接
+    db = MySQLdb.connect(host='172.16.22.101', user='idev_user', passwd='IxmTQ_!*OPzNUSKE0V2B3iGI', port=33096, db='hr',charset='utf8')  # 打开数据库连接
     cur = db.cursor()  # 使用cursor()方法获取操作游标
     cur.execute("UPDATE hr.sys_emp SET login_status = '3' , emp_status = '3' , account_status = '1' , status = '3' WHERE emp_number = '%s';" % emp_number4)  # 使用execute方法执行SQL语句
     cur.execute("INSERT INTO `hr`.`sys_loginUser` (`emp_number`, `password`, `status`, `BI_DATE`) VALUES ('%s', 'e10adc3949ba59abbe56e057f20f883e', '3', '2020-03-21 10:33:41');" % emp_number4)  # 使用execute方法执行SQL语句
@@ -92,16 +91,6 @@ def main(emp_number):
 
 
 if __name__ == '__main__':
-    #获取jenkins传递过来的参数
-    parser = argparse.ArgumentParser()
-    parser.add_argument("emp_number")
-    args = parser.parse_args()
-    param = vars(args)
-    emp_number = param['emp_number']
-    print('emp_number',emp_number)
-
-    # emp_number = '90300005'
-
     main(emp_number)
 
 
