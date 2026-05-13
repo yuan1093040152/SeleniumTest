@@ -2,12 +2,11 @@
 """
 @Author  : Yuan Meng
 @File    : onlineHtList.py
-@Time   : 2026/4/2 15:23
-@Software: PyCharm
+@Time: 2026/4/2 15:23
 Ctrl+shift+v 历史粘贴版
 ctrl+alt+空格 自动补全
-ctrl+alt+D   分屏
-Ctrl+/       快速注释
+ctrl+alt+D 分屏
+Ctrl+/ 快速注释
 
 """
 import json

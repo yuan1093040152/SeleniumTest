@@ -2,12 +2,12 @@
 """
 @Author  : Yuan Meng
 @File    : get_OlineTestPassword.py
-@Time    : 2026/1/24 10:56
+@Time: 2026/1/24 10:56
 @Software: PyCharm
 Ctrl+shift+v 历史粘贴版
 ctrl+alt+空格 自动补全
-ctrl+alt+D   分屏
-Ctrl+/       快速注释
+ctrl+alt+D 分屏
+Ctrl+/ 快速注释
 
 """
 
