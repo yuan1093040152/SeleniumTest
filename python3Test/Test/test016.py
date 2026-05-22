@@ -1,8 +1,8 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 """
 @Author: Yuan Meng
-@File: test016.py
-@Time: 2026/5/13 22:17
+@File: sign_status.py
+@Time: 2026/5/19 20:11
 @Software: PyCharm
 Ctrl+shift+v 历史粘贴版
 ctrl+alt+空格 自动补全
@@ -10,105 +10,105 @@ ctrl+alt+D 分屏
 Ctrl+/ 快速注释
 
 """
-import subprocess
 import json
-
+from datetime import date
+from urllib.parse import urlencode
 import requests
+import base64
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+from traits.trait_types import self
 
 
-def cjlist_accurate():
-    url = "https://i.leyoujia.com/jjscj-deal/index/cjIndexList"
+class ht_status:
+	def __init__(self):
+		self.times =date.today().strftime("%Y-%m-%d")
+		self.AES_KEY = b"ODcyYTUxNGM1N2M2"
 
-    # 使用从浏览器复制的完整 headers
-    headers = {
-        'content-type': 'application/json',
-        'cookie': 'jjshome_uuid=17ba35ec-9032-5667-970e-762d7bcd3496; prefs={}; fhListCookies=; gr_user_id=cff45c57-2c71-4a02-8138-82e7894de66c; cookiesId=7f2b44a078c34dc18d6ac70f44aa728f; userInfoCookie=bC3nvfu4XquEcf2F5XZgdZxuWGLDRydSQSX3co-BZr2o6tzvjPURDw-gIvl04w22AoLfMCGX781Z-J67PDeksPRcrWB8upERzxkwT0cJV1I=1; agentCardhd_time=1; token=t.RgsYudEC8r4CuGfqPXtA; Hm_lvt_1851e6f08c8180e1e7b5e33fb40c4b08=1774527206,1776391025; Hm_lvt_728857c2e6b321292b2eb422213d1609=1774527206,1776391025; login-workerid=06045224; login-mac=dc02f04c52b58e4751f9223b9d2fe776; JSESSIONID=F34BFF000BF4F3E013F5530F6D6D41AB; accTyp=1; proLEYOUJIA=M2M1MDcwNTgtNWQzZC00MmM2LTllOTktZWJhYjA1NWY5MDQy; __session:0.05605370019726297:_dgHidden=false; jjshome_sid=88774264-2137-053e-d8c2-2ebaec695ada',  # 从 cURL 中复制完整 cookie
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',  # 很可能就是这个！
-        'referer': 'https://i.leyoujia.com/jjscj-deal/index/cjIndexList',
-        'origin': 'https://i.leyoujia.com',
-        'accept': 'application/json, text/plain, */*',
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-    }
+	def get_cookie(self):
+		"""获取cookie文件内容"""
+		cookie_path = r"C:\Users\Administrator\.openclaw\plugin-skills\leyoujia-dzht\scripts\cookie.txt"
+		try:
+			with open(cookie_path, 'r', encoding='utf-8') as f:
+				co =  f.read().strip()
+				return co
+		except FileNotFoundError:
+			print(f"Cookie文件不存在: {cookie_path}")
+			return None
+		except Exception as e:
+			print(f"读取cookie失败: {e}")
+			return None
 
-    # 请求体保持和浏览器完全一致
-    inner_params = {
-        "pageSize": 100,
-        "currPage": 1,
-        "workerType": 0,
-        "workerId": None,
-        "managerTypeVal": 3,
-        "dateType": 1,
-        "dateS": None,
-        "dateE": None,
-        "orderTab": 1,
-        "managerType": 3,
-        "cjTypeStr": None,
-        "jdztArr": [],
-        "jyztArr": [],
-        "gzdh": "M1112605-4806",  # 你的工单号
-        "unpayment": 0,
-        "sxyq": 0,
-        "isJrgx": 0,
-        "fxd": 0,
-        "ycd": 0,
-        "ykfp": 0,
-        "hjStatus": 0,
-        "ssStatus": 0,
-        "cfStatus": 0,
-        "wsygh": 0,
-        "istsd": 0,
-        "isGlGzdh": 0,
-        "sfsjd": 0,
-        "sflhd": 0,
-        "sdZdjd": 0,
-        "isUpdateCommission": 0,
-        "isMainChange": 0,
-        "isWlyj": 0,
-        "yjChangeByGlr": 0,
-        "lljf": 0,
-        "htXzd": 0,
-        "zffsArr": None,
-        "slfsArr": None,
-        "ishdlk": None,
-        "zlsqType": 1,
-        "zlsqValue": None,
-        "mainRele": {"ywjdSydkDkfs": None},
-        "ywjdArr": None,
-        "fxCompanyId": None,
-        "taskNodeTypeStr": None,
-        "useHtTypes": None,
-        "rgsZtArr": [],
-        "hasUseHt": None,
-        "companyIdStr": None,
-        "hzjgIdStr": None,
-        "khly": None,
-        "wymc": None,
-        "yzxm": None,
-        "jjfw": None,
-        "fybh": None,
-        "qdbz": None,
-        "cwbz": None,
-        "provinceId": None,
-        "cityId": None,
-        "areaId": None,
-        "fyztArr": None,
-        "unpaymentS": None,
-        "unpaymentE": None,
-        "jdfhStatusArr": None,
-        "shqlStatusArr": None,
-        "messageYzOrKh": None,
-        "messageDayArr": None,
-        "dzjeSqMin": None,
-        "dzjeSqMax": None,
-        "dzjeShMin": None,
-        "dzjeShMax": None
-    }
-    payload = {"key": json.dumps(inner_params, separators=(',', ':'))}
-    print("aaaaaaaaaaaaaa----", payload)
-    # 关键：使用 data=json.dumps(payload) 并确保 headers 中的 content-type 是 application/json
-    response = requests.post(url, headers=headers, data=json.dumps(payload))
-    data = response.json()
-    print("完整响应:", json.dumps(data, indent=2, ensure_ascii=False))  # 打印完整响应
-cjlist_accurate()
+
+	def build_query(self,gzdh: str, **overrides) -> dict:
+		query = {
+			"pageSize": 100,
+			"currPage": 1,
+			"workerType": 0,
+			"managerTypeVal": 3,
+			"dateType": 1,
+			"orderTab": 1,
+			"managerType": 3,
+			"gzdh": gzdh,
+			"zlsqType": 1,
+		}
+		query.update(overrides)
+		return query
+
+	def _encrypt(self,plain: dict) -> str:
+		text = json.dumps(plain, ensure_ascii=False, separators=(",", ":"))
+		ct = AES.new(self.AES_KEY, AES.MODE_ECB).encrypt(pad(text.encode(), 16))
+		return base64.b64encode(ct).decode()
+
+	def _decrypt(self,cipher: str) -> dict:
+		raw = base64.b64decode(cipher.strip())
+		plain = unpad(AES.new(self.AES_KEY, AES.MODE_ECB).decrypt(raw), 16)
+		return json.loads(plain.decode())
+
+	def cj_index_list(self,query: dict) -> dict:
+		URL = 'https://i.leyoujia.com/jjscj-deal/index/cjIndexList'
+		HEADERS = {
+			"content-type": "application/json;charset=UTF-8",
+			"encrypt": "true",
+			"referer": "https://i.leyoujia.com/lyj-menu/cj/CJ_NEW?showTab=true&submenu=CJCX",
+			"cookie": self.get_cookie(),
+		}
+		resp = requests.post(URL, json={"key": self._encrypt(query)}, headers=HEADERS, timeout=60)
+		resp.raise_for_status()
+		return self._decrypt(resp.text)
+
+	def check_jyzt(self,gzdh: str, result: dict) -> list:
+		"""jdzt 不符合规则时，将传参的 gzdh 加入 cj_error。"""
+		cj_error = []
+		if not gzdh:
+			return cj_error
+
+		prefix = gzdh[0].upper()
+		for item in (result.get("data")).get("list"):
+			jyzt = item.get("jyzt")
+			print("jyzt", jyzt)
+			if prefix == "M" and jyzt != 1:
+				cj_error.append(gzdh)
+				break
+			if prefix == "Z" and jyzt != 4:
+				cj_error.append(gzdh)
+				break
+		return cj_error
+
+	def batch_cjlist(self):
+		# cjdhlist = self.batch_htlist()
+		cjdhlist = ['Z3332605-9752','Z3332605-9759','M3062605-4631','M3012605-5149']
+		for gzdh1 in cjdhlist:
+			result = self.cj_index_list(self.build_query(gzdh1))
+			cj_error = self.check_jyzt(gzdh1, result)
+
+			# print(json.dumps(result, ensure_ascii=False, indent=2))
+		print("--- cj_error ---")
+		print(json.dumps(cj_error, ensure_ascii=False, indent=2))
+
+
+
+if __name__ == '__main__':
+	import sys
+	print(sys.executable)
+	# ht_status().batch_cjlist()

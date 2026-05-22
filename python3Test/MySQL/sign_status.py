@@ -10,16 +10,21 @@ ctrl+alt+D 分屏
 Ctrl+/ 快速注释
 
 """
+import datetime
 import json
 from datetime import date
 from urllib.parse import urlencode
 import requests
-from traits.trait_types import self
+import base64
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+from sendE import Send
 
 
 class ht_status:
 	def __init__(self):
 		self.times =date.today().strftime("%Y-%m-%d")
+		self.AES_KEY = b"ODcyYTUxNGM1N2M2"
 
 	def get_cookie(self):
 		"""获取cookie文件内容"""
@@ -83,131 +88,78 @@ class ht_status:
 				htlists.append(cjdh)
 		return htlists
 
-
-	def cjlist(self,gzdh):
-		url = "https://i.leyoujia.com/jjscj-deal/index/cjIndexList"
-		inner_params  = {
-        "pageSize": 100,
-        "currPage": 1,
-        "workerType": 0,
-        "workerId": None,
-        "managerTypeVal": 3,
-        "dateType": 1,
-        "dateS": None,
-        "dateE": None,
-        "orderTab": 1,
-        "managerType": 3,
-        "cjTypeStr": None,
-        "jdztArr": [],
-        "jyztArr": [],
-        "gzdh": gzdh,  # 你的工单号
-        "unpayment": 0,
-        "sxyq": 0,
-        "isJrgx": 0,
-        "fxd": 0,
-        "ycd": 0,
-        "ykfp": 0,
-        "hjStatus": 0,
-        "ssStatus": 0,
-        "cfStatus": 0,
-        "wsygh": 0,
-        "istsd": 0,
-        "isGlGzdh": 0,
-        "sfsjd": 0,
-        "sflhd": 0,
-        "sdZdjd": 0,
-        "isUpdateCommission": 0,
-        "isMainChange": 0,
-        "isWlyj": 0,
-        "yjChangeByGlr": 0,
-        "lljf": 0,
-        "htXzd": 0,
-        "zffsArr": None,
-        "slfsArr": None,
-        "ishdlk": None,
-        "zlsqType": 1,
-        "zlsqValue": None,
-        "mainRele": {"ywjdSydkDkfs": None},
-        "ywjdArr": None,
-        "fxCompanyId": None,
-        "taskNodeTypeStr": None,
-        "useHtTypes": None,
-        "rgsZtArr": [],
-        "hasUseHt": None,
-        "companyIdStr": None,
-        "hzjgIdStr": None,
-        "khly": None,
-        "wymc": None,
-        "yzxm": None,
-        "jjfw": None,
-        "fybh": None,
-        "qdbz": None,
-        "cwbz": None,
-        "provinceId": None,
-        "cityId": None,
-        "areaId": None,
-        "fyztArr": None,
-        "unpaymentS": None,
-        "unpaymentE": None,
-        "jdfhStatusArr": None,
-        "shqlStatusArr": None,
-        "messageYzOrKh": None,
-        "messageDayArr": None,
-        "dzjeSqMin": None,
-        "dzjeSqMax": None,
-        "dzjeShMin": None,
-        "dzjeShMax": None
-    }
-		# 包装成需要的格式
-		payload1 = {"key": json.dumps(inner_params, separators=(',', ':'))}
-		print("aaaaaaaaaaaaaa----",payload1)
-		headers1 = {
-			'cookie': self.get_cookie(),
-			'content-type': 'application/json; charset=UTF-8',
-			'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
-			'X-Requested-With': 'XMLHttpRequest',
-			'Referer': 'https://i.leyoujia.com/lyj-menu/cj/CJ_NEW?showTab=true&submenu=CJCX',
-			'authority': 'true',
-			'encrypt': 'i.leyoujia.com',
-			'method': 'POST',
-			'path': '/jjscj-deal/index/cjIndexList',
-			'scheme': 'https',
-			'accept': 'application/json, text/javascript, */*; q=0.01',
-			'accept-encoding': 'gzip, deflate, br, zstd',
-			'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-			'content-length': '1418',
-			'priority': 'u=1, i'
+	def build_query(self, gzdh: str, **overrides) -> dict:
+		query = {
+			"pageSize": 100,
+			"currPage": 1,
+			"workerType": 0,
+			"managerTypeVal": 3,
+			"dateType": 1,
+			"orderTab": 1,
+			"managerType": 3,
+			"gzdh": gzdh,
+			"zlsqType": 1,
 		}
-		response = requests.request("POST", url, headers=headers1, data=json.dumps(payload1))
-		data = response.json()
-		print("完整响应:", json.dumps(data, indent=2, ensure_ascii=False))  # 打印完整响应
-		return data
+		query.update(overrides)
+		return query
 
+	def _encrypt(self, plain: dict) -> str:
+		text = json.dumps(plain, ensure_ascii=False, separators=(",", ":"))
+		ct = AES.new(self.AES_KEY, AES.MODE_ECB).encrypt(pad(text.encode(), 16))
+		return base64.b64encode(ct).decode()
 
+	def _decrypt(self, cipher: str) -> dict:
+		raw = base64.b64decode(cipher.strip())
+		plain = unpad(AES.new(self.AES_KEY, AES.MODE_ECB).decrypt(raw), 16)
+		return json.loads(plain.decode())
 
+	def cj_index_list(self, query: dict) -> dict:
+		URL = 'https://i.leyoujia.com/jjscj-deal/index/cjIndexList'
+		HEADERS = {
+			"content-type": "application/json;charset=UTF-8",
+			"encrypt": "true",
+			"referer": "https://i.leyoujia.com/lyj-menu/cj/CJ_NEW?showTab=true&submenu=CJCX",
+			"cookie": self.get_cookie(),
+		}
+		resp = requests.post(URL, json={"key": self._encrypt(query)}, headers=HEADERS, timeout=60)
+		resp.raise_for_status()
+		return self._decrypt(resp.text)
+
+	def check_jyzt(self, gzdh: str, result: dict) -> list:
+		"""jyzt 不符合规则时，将传参的 gzdh 加入 cj_error。"""
+		cj_error = []
+		if not gzdh:
+			return cj_error
+		prefix = gzdh[0].upper()
+		for item in (result.get("data")).get("list"):
+			jyzt = item.get("jyzt")
+			print("gzdh:",gzdh,"jyzt:", jyzt)
+			if prefix == "M" and jyzt != 1:
+				cj_error.append(gzdh)
+				break
+			if prefix == "Z" and jyzt != 4:
+				cj_error.append(gzdh)
+				break
+		return json.dumps(cj_error)
 
 	def batch_cjlist(self):
-		# cjlists = self.batch_htlist()
-		cjlists = ['Z3332605-8542']
-		for cjdh in cjlists:
-			result = self.cjlist(cjdh)
+		cjdhlist = self.batch_htlist()
+		# cjdhlist = ['Z3332605-9752', 'Z3332605-9759', 'M3062605-4631', 'M3012605-5149']
+		print("-----------  当天已签署合同的成交单号  -----------")
+		print(cjdhlist)
+		print("-----------  数据比对  -----------")
+		for gzdh1 in cjdhlist:
+			result = self.cj_index_list(self.build_query(gzdh1))
+			cj_error = self.check_jyzt(gzdh1, result)
+		print("--- 合同已签署但成交交易状态还为待签约的数据 ---")
+		print(cj_error)
+		return cj_error
 
-
-
-			# cj_status = result["data"]["list"]
-			# for cjstatus in result["data"]["list"]:
-
-				# cj_status = cjstatus["jyzt"]
-			# print("-------",cj_status)
-				#校验
-				# if
-
-
-
-
-
-
-
+	def sendEmail(self):
+		cj_error = self.batch_cjlist()
+		nowtime = datetime.datetime.now()
+		a = Send()
+		a.send_qq_email(title='已签署合同成交单异常状态数据', info=cj_error)
 
 if __name__ == '__main__':
-	ht_status().batch_cjlist()
+	ht_status().sendEmail()
