@@ -1,101 +1,55 @@
-#coding=utf-8
-"""
-@Author  : Yuan Meng
-@Time    : 2025/3/24 11:21
-@Software: PyCharm
-Ctrl+shift+v 历史粘贴版
-ctrl+alt+空格 自动补全
-ctrl+alt+D   分屏
-Ctrl+/       快速注释
+import requests
+import json
 
-"""
+url = "https://zero-ai-test.leyoujia.com/zero-ai-api/v1/wop/execute"
 
-import hmac
-import hashlib,time
+# ============ 请将Cookie更新为您最新的值 ============
+cookie_string = "jjshome_uuid=aa682b3f-a02e-71dc-60a8-e63ccf824bbf; login-mac=; JSESSIONID=9BF3C2407FE07CB954793A2E35984ED0; proLEYOUJIA=MzhhMWQwY2UtMTRkMS00MzhiLWE3MDUtNTY5NTRkZDY1MDdj; jjshome_sid=513deaf4-abab-dc65-3fe1-8341aa437bbc; fatLEYOUJIA=NjA4N2VlMDQtMzA5NS00YjljLWExYmQtYjEzZjA1YTBmZmU4; login-workerid=77835581"
+# ===================================================
 
+headers = {
+    'Accept': 'text/event-stream',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'zh-CN,zh;q=0.9',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/json',
+    'Cookie': cookie_string,
+    'DNT': '1',
+    'Origin': 'https://zero-ai-test.leyoujia.com',
+    'Pragma': 'no-cache',
+    'Referer': 'https://zero-ai-test.leyoujia.com/?page=intents&package=0cb5f7da-6654-4e69-8e7d-545711172d00&tab=recipes',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-origin',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36',
+    'X-ZAI-INTERNAL-KEY': 'lyj.123456',      # 关键内部认证Key
+    'X-ZAI-Trace-ID': 'trace-1784871663329-xsb57js', # 建议每次生成唯一值
+    'X-ZAI-User': '092992',                  # 关键用户标识
+    'sec-ch-ua': '"Not;A=Brand";v="8", "Chromium";v="150", "Google Chrome";v="150"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"'
+}
 
-res = 'eanq1t'
+payload = {
+    "intent_id": "modify_user_role",
+    "tenant_id": "tenant_default",
+    "user_id": "admin_01",
+    "target_system": "iam",
+    "operation_type": "MODIFY",
+    "entity_type": "user_role",
+    "entity_id": "usr_772",
+    "payload": {
+        "new_role": "super_admin"
+    },
+    "idempotency_key": "b6a7114c-1234-4567-89ab-cdef01234567",
+    "human_confirmed": False
+}
 
-# MD5加密
-def encryptionMD5(res):
-    md5_hash = hashlib.md5()
-    md5_hash.update(res.encode('utf-8'))
-    md5_hex = md5_hash.hexdigest()
-    return md5_hex
-
-
-# 获取当前时间戳（秒级）
-def timeStamp():
-    timestamp = time.time()
-    return int(timestamp)
-
-
-
-
-# 示例
-data = {"mac" : "5e:b5:9b:44:88:26",
-  "mobileNo" : "",
-  "timestamp" : timeStamp(),
-  "passwordv2" : encryptionMD5(res),
-  "appVer" : "6.4.3.1",
-  "phoneBrand" : "iPhone",
-  "appType" : "2",
-  "loginAddr" : "广东省深圳市福田区八卦四路52-1号",
-  "password" : encryptionMD5(res),
-  "imei" : "0d7684b2e0d7869be91d2a039cb216ae22bfc638",
-  "typ" : "密码",
-  "username" : "P2Vi10000Syz",
-  "lat" : "22.57012",
-  "mobileInfo" : "0d7684b2e0d7869be91d2a039cb216ae22bfc638",
-  "phoneModel" : "iPhone 12",
-  "lng" : "114.1052",
-  "ipStr" : "192.168.1.121"}
-
-class LoginUtils:
-    HMAC_SHA1 = "sha1"
-    CHARSET_NAME_UTF8 = "utf-8"
-    DIGITAL = "0123456789ABCDEF"
-
-    @staticmethod
-    def hmac_sha1(datas, key):
-        """ 计算 HMAC-SHA1 """
-        mac = hmac.new(key, digestmod=hashlib.sha1)
-        for data in datas:
-            mac.update(data.encode(LoginUtils.CHARSET_NAME_UTF8))
-        return mac.digest()
-
-    @staticmethod
-    def encode_hex_str(byte_array):
-        """ 将字节数组转换为十六进制字符串 """
-        if byte_array is None:
-            return None
-        return ''.join(f"{b:02X}" for b in byte_array)
-
-    @staticmethod
-    def to_bytes(string):
-        """ 将字符串转换为 UTF-8 字节数组 """
-        return string.encode(LoginUtils.CHARSET_NAME_UTF8) if string else None
-
-    @staticmethod
-    def get_signature_str(data_map):
-        """ 计算签名字符串 """
-        param_value_list = [f"{k}{v}" for k, v in data_map.items()]
-        print('param_value_list====',param_value_list)
-        param_value_list.sort()
-        datas = param_value_list
-        signature = LoginUtils.hmac_sha1(datas, LoginUtils.to_bytes("~leyoujia&applogin#$%"))
-
-        print(LoginUtils.encode_hex_str(signature))
-        return LoginUtils.encode_hex_str(signature)
-
-aa = LoginUtils.get_signature_str(data)
-data["signature"]=aa
-print(data)
-
-
-# timestamp = time.time()
-# print("当前时间戳（秒级）:", timestamp)
-# print("当前时间戳（秒级）:", int(timestamp))
-
-
-
+try:
+    response = requests.post(url, headers=headers, json=payload, timeout=30)
+    print(f"HTTP状态码: {response.status_code}")
+    print("响应内容:")
+    print(json.dumps(response.json(), ensure_ascii=False, indent=2))
+except Exception as e:
+    print(f"请求异常: {e}")
