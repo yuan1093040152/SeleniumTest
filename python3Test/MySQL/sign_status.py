@@ -19,12 +19,17 @@ import base64
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from sendE import Send
+import pandas as pd
 
 
 class ht_status:
 	def __init__(self):
-		self.times =date.today().strftime("%Y-%m-%d")
+		self.Stimes = (date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+		print(self.Stimes)
+		self.Etimes =date.today().strftime("%Y-%m-%d")
+		print(self.Etimes)
 		self.AES_KEY = b"ODcyYTUxNGM1N2M2"
+		self.file_path = r'D:\Program Files\已签署待签约数据.xlsx'
 
 	def get_cookie(self):
 		"""获取cookie文件内容"""
@@ -60,8 +65,8 @@ class ht_status:
 				"approvalStatus": "",
 				"htlx": "",
 				"dateType": 3,
-				"dateS": self.times,
-				"dateE": self.times,
+				"dateS": self.Stimes,
+				"dateE": self.Etimes,
 				"platform": "",
 				"keyWord": keyword
 			}
@@ -70,7 +75,9 @@ class ht_status:
 			'content-type': 'application/x-www-form-urlencoded'
 		}
 		response = requests.request("POST", url, headers=headers, data=urlencode(payload))
+		print('response-----------',response)
 		data = response.json()
+		print('data-------------',data)
 		return data
 
 
@@ -132,20 +139,43 @@ class ht_status:
 			return cj_error
 		prefix = gzdh[0].upper()
 		for item in (result.get("data")).get("list"):
-			jyzt = item.get("jyzt")
+			jyzt = item.get("jyzt", '')
+			gzdh = item.get('gzdh', '')
+			wymc = item.get('wymc', '')
+			htbh = item.get('htbh', '')
+			djr = item.get('djr', '')
+			zdr = item.get('zdr', '')
+			cjrq = item.get('cjrq', '')
+
 			print("gzdh:",gzdh,"jyzt:", jyzt)
 			if prefix == "M" and jyzt != 1:
-				cj_error.append(gzdh)
+				cj_error.append({
+        'gzdh': gzdh,
+		'jyzt': jyzt,
+        'wymc': wymc,
+        'htbh': htbh,
+        'djr': djr,
+        'zdr': zdr,
+        'cjrq': cjrq
+    })
 				break
 			if prefix == "Z" and jyzt != 4:
-				cj_error.append(gzdh)
+				cj_error.append({
+        'gzdh': gzdh,
+		'jyzt': jyzt,
+        'wymc': wymc,
+        'htbh': htbh,
+        'djr': djr,
+        'zdr': zdr,
+        'cjrq': cjrq
+    })
 				break
 		return json.dumps(cj_error)
 
 	def batch_cjlist(self):
-		cjdhlist = self.batch_htlist()
-		# cjdhlist = ['Z3332605-9752', 'Z3332605-9759', 'M3062605-4631', 'M3012605-5149']
-		print("-----------  当天已签署合同的成交单号  -----------")
+		# cjdhlist = self.batch_htlist()
+		cjdhlist = ['Z3332605-9752', 'M3072607-0041']
+		print("-----------  2天内已签署合同的成交单号  -----------")
 		print(cjdhlist)
 		print("-----------  数据比对  -----------")
 		for gzdh1 in cjdhlist:
@@ -155,11 +185,33 @@ class ht_status:
 		print(cj_error)
 		return cj_error
 
-	def sendEmail(self):
+	def insertE(self):
 		cj_error = self.batch_cjlist()
-		nowtime = datetime.datetime.now()
+		# 定义要取的字段和对应的中文名
+		fields = ['gzdh', 'jyzt', 'wymc', 'htbh', 'djr', 'zdr', 'cjrq']
+		headers = ['成交单号', '交易状态', '物业名称', '合同编号', '登记人', '主单人', '成交日期']
+		# 提取数据
+		data = []
+		for item in cj_error:
+			row = [item.get(field, '') for field in fields]
+			data.append(row)
+
+		# 创建DataFrame
+		df = pd.DataFrame(data, columns=headers)
+
+		# 写入Excel
+		with pd.ExcelWriter(self.file_path, engine='openpyxl', mode='w') as writer:
+			df.to_excel(writer, sheet_name='已签署待签约数据', index=False)
+
+		print(f"✅ 成功写入 {len(df)} 条数据")
 		a = Send()
 		a.send_qq_email(title='已签署合同成交单异常状态数据', info=cj_error)
 
+	# def sendEmail(self):
+	# 	cj_error = self.batch_cjlist()
+	# 	nowtime = datetime.datetime.now()
+	# 	a = Send()
+	# 	a.send_qq_email(title='已签署合同成交单异常状态数据', info=cj_error)
+
 if __name__ == '__main__':
-	ht_status().sendEmail()
+	ht_status().insertE()
