@@ -738,7 +738,7 @@ if __name__ == "__main__":
         exit(1)
 
     print("\n" + "=" * 60)
-    print("开始执行测试...")
+    print("开始执行测试.......")
     print("=" * 60)
 
     pytest.main([
