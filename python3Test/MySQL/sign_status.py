@@ -49,7 +49,7 @@ class ht_status:
 	def htlist(self,ywlx,keyword):
 		url = "https://i.leyoujia.com/jjsht/htMainListNew"
 		payload = {
-				"pageSize": 25,
+				"pageSize": 500,
 				"currPage": 1,
 				"workerType": "",
 				"workerId": "",
@@ -173,8 +173,8 @@ class ht_status:
 		return json.dumps(cj_error)
 
 	def batch_cjlist(self):
-		# cjdhlist = self.batch_htlist()
-		cjdhlist = ['Z3332605-9752', 'M3072607-0041']
+		cjdhlist = self.batch_htlist()
+		# cjdhlist = ['Z3332606-03490', 'M3072607-0041']
 		print("-----------  2天内已签署合同的成交单号  -----------")
 		print(cjdhlist)
 		print("-----------  数据比对  -----------")
