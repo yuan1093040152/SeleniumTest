@@ -25,9 +25,9 @@ import pandas as pd
 class ht_status:
 	def __init__(self):
 		self.Stimes = (date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-		print(self.Stimes)
+		print('签署开始时间：',self.Stimes)
 		self.Etimes =date.today().strftime("%Y-%m-%d")
-		print(self.Etimes)
+		print('签署结束时间：',self.Etimes)
 		self.AES_KEY = b"ODcyYTUxNGM1N2M2"
 		self.file_path = r'D:\Program Files\已签署待签约数据.xlsx'
 
@@ -75,9 +75,9 @@ class ht_status:
 			'content-type': 'application/x-www-form-urlencoded'
 		}
 		response = requests.request("POST", url, headers=headers, data=urlencode(payload))
-		print('response-----------',response)
+		# print('response-----------',response)
 		data = response.json()
-		print('data-------------',data)
+		print('已签署合同详细数据：',data)
 		return data
 
 
@@ -175,7 +175,7 @@ class ht_status:
 	def batch_cjlist(self):
 		cjdhlist = self.batch_htlist()
 		# cjdhlist = ['Z3332606-03490', 'M3072607-0041']
-		print("-----------  2天内已签署合同的成交单号  -----------")
+		print("-----------  2天内已签署合同的成交单号共计",len(cjdhlist),"条  -----------")
 		print(cjdhlist)
 		print("-----------  数据比对  -----------")
 		for gzdh1 in cjdhlist:
