@@ -77,7 +77,7 @@ class ht_status:
 		response = requests.request("POST", url, headers=headers, data=urlencode(payload))
 		# print('response-----------',response)
 		data = response.json()
-		print('已签署合同详细数据：',data)
+		# print('已签署合同详细数据：',data)
 		return data
 
 
@@ -170,7 +170,7 @@ class ht_status:
         'cjrq': cjrq
     })
 				break
-		return json.dumps(cj_error)
+		return cj_error
 
 	def batch_cjlist(self):
 		cjdhlist = self.batch_htlist()
@@ -178,12 +178,16 @@ class ht_status:
 		print("-----------  2天内已签署合同的成交单号共计",len(cjdhlist),"条  -----------")
 		print(cjdhlist)
 		print("-----------  数据比对  -----------")
+
+		all_error = []
 		for gzdh1 in cjdhlist:
 			result = self.cj_index_list(self.build_query(gzdh1))
 			cj_error = self.check_jyzt(gzdh1, result)
+			if cj_error:
+				all_error.extend(cj_error)
 		print("--- 合同已签署但成交交易状态还为待签约的数据 ---")
-		print(cj_error)
-		return cj_error
+		print(all_error)
+		return all_error
 
 	def insertE(self):
 		cj_error = self.batch_cjlist()
@@ -193,6 +197,8 @@ class ht_status:
 		# 提取数据
 		data = []
 		for item in cj_error:
+			if not isinstance(item, dict):  # 防止意外混入非字典
+				continue
 			row = [item.get(field, '') for field in fields]
 			data.append(row)
 
@@ -204,8 +210,18 @@ class ht_status:
 			df.to_excel(writer, sheet_name='已签署待签约数据', index=False)
 
 		print(f"✅ 成功写入 {len(df)} 条数据")
+
+		# 👇 只取 gzdh，列表转字符串发邮件
+		gzdh_list = [item.get('gzdh', '') for item in cj_error if isinstance(item, dict)]
+
+		if not gzdh_list:
+			print("今日无异常数据，不发送邮件")
+			return
+
+		info_str = str(gzdh_list)
+
 		a = Send()
-		a.send_qq_email(title='已签署合同成交单异常状态数据', info=cj_error)
+		a.send_qq_email(title='已签署合同成交单异常状态数据', info=info_str)
 
 	# def sendEmail(self):
 	# 	cj_error = self.batch_cjlist()
